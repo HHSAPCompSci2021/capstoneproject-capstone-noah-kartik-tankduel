@@ -4,8 +4,16 @@ import javax.swing.JFrame;
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
+/**
+ * contains the main method
+ * @author Noah Pien and Kartik Joshi
+ *
+ */
 public class Main {
 
+	/**
+	 * Runs the main method and starts the game
+	 */
 	public static void main(String args[]) {
 
 		DrawingSurface drawing = new DrawingSurface();

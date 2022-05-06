@@ -1,7 +1,9 @@
 package Screens;
-/**Credits to John Shelby for part of code
+/**
+ * This class changes the screens
  * 
- *
+ * @author Noah Pien and Kartik Joshi
+ * Credits to John Shelby for the code
  */
 public interface ScreenSwitcher {
 	public static final int MENU = 0;
@@ -10,6 +12,9 @@ public interface ScreenSwitcher {
 	public static final int SETTING = 3;
 
 
-	
+	/**
+	 * switches the screens
+	 * @param i the screen to switch to
+	 */
 	public void switchScreen(int i);
 }

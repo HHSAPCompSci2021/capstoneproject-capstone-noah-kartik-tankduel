@@ -4,9 +4,11 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import System.DrawingSurface;
-/**Credits to John Shelby for part of code
+/**
+ * This screen is the menu of the game. From this screen a person can navigate to play the game, read the rules, and change the settings
  * 
- *
+ * @author Noah Pien and Kartik Joshi
+ * Credits to John Shelby for part of code
  */
 public class MenuScreen extends Screens{
 
@@ -15,16 +17,21 @@ public class MenuScreen extends Screens{
 	private Rectangle rules;
 	private Rectangle setting;
 	
+	/**
+	 * Gives menu the default values
+	 * @param surface the DrawingSurface on which to draw on
+	 */
 	public MenuScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
 		play = new Rectangle(300,200,480,50);
 		rules = new Rectangle(300,300,480,50);
 		setting = new Rectangle(300,400,480,50);
-
-
 	}
 
+	/**
+	 * Draws the screen on the DrawingSurface
+	 */
 	public void draw() {
 		surface.pushStyle();
 		surface.background(0,0,0);
@@ -52,6 +59,9 @@ public class MenuScreen extends Screens{
 		
 	}
 	
+	/**
+	 * When the mouse is pressed in specific locations, the screen changes
+	 */
 	public void mousePressed() {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		if (rules.contains(p))

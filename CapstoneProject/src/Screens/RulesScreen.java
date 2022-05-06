@@ -4,15 +4,21 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import System.DrawingSurface;
-/**Credits to John Shelby for part of code
+/**
+ * This screen shows the rules of the game
  * 
- *
+ * @author Noah Pien and Kartik Joshi
+ * Credits to John Shelby for part of code
  */
 public class RulesScreen extends Screens{
 
 	private Rectangle back;
-	
 	private DrawingSurface surface;
+	
+	/**
+	 * Gives each RulesScreen the default values
+	 * @param surface the DrawingSurface on which to draw on
+	 */
 	public RulesScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
@@ -20,6 +26,9 @@ public class RulesScreen extends Screens{
 
 	}
 
+	/**
+	 * Draws the screen on the DrawingSurface
+	 */
 	public void draw() {
 		surface.clear();
 		surface.pushStyle();
@@ -66,6 +75,9 @@ public class RulesScreen extends Screens{
 		surface.popStyle();
 	}
 	
+	/**
+	 * When the mouse is pressed in specific locations, the screen changes
+	 */
 	public void mousePressed() {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		if (back.contains(p))

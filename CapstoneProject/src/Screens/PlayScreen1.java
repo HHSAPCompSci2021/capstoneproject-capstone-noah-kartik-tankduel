@@ -4,15 +4,21 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import System.DrawingSurface;
-/**Credits to John Shelby for part of code
+/**
+ * This screen is the first PlayScreen of the game. From this screen a person can choose the game mode and the map
  * 
- *
+ * @author Noah Pien and Kartik Joshi
+ * Credits to John Shelby for part of code
  */
 public class PlayScreen1 extends Screens{
 
 	private Rectangle back;
-	
 	private DrawingSurface surface;
+	
+	/**
+	 * Gives the PlayScreen the default values
+	 * @param surface the DrawingSurface on which to draw on
+	 */
 	public PlayScreen1(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
@@ -20,6 +26,9 @@ public class PlayScreen1 extends Screens{
 
 	}
 
+	/**
+	 * Draws the screen on the DrawingSurface
+	 */
 	public void draw() {
 		surface.clear();
 		surface.pushStyle();
@@ -49,6 +58,9 @@ public class PlayScreen1 extends Screens{
 		surface.popStyle();
 	}
 	
+	/**
+	 * When the mouse is pressed in specific locations, the screen changes
+	 */
 	public void mousePressed() {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		if (back.contains(p))
