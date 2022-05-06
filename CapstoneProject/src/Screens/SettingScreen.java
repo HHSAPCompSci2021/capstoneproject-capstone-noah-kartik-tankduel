@@ -14,6 +14,7 @@ public class SettingScreen extends Screens{
 
 	private Rectangle back;
 	private Rectangle wasd;
+	private Rectangle arrowKey;
 	private DrawingSurface surface;
 	
 	/**
@@ -24,7 +25,9 @@ public class SettingScreen extends Screens{
 		super(1080, 720);
 		this.surface = surface;
 		back = new Rectangle(20,690,70,20);
-		wasd = new Rectangle (500,200,100,40);
+		wasd = new Rectangle (600,120,100,40);
+		arrowKey = new Rectangle (800,120,150,40);
+
 	}
 
 	/**
@@ -33,12 +36,24 @@ public class SettingScreen extends Screens{
 	public void draw() {
 		surface.pushStyle();
 		surface.background(0,0,0);
-
+		
+		surface.textSize(70);
+		surface.text("SETTINGS", 540-surface.textWidth("SETTINGS")/2,70);
+		
+		surface.textSize(40);
+		surface.text("INPUT METHOD:", 200, 153);
+		
 		surface.fill(255,255,255);
 		surface.rect(wasd.x, wasd.y, wasd.width, wasd.height);
 		surface.fill(0,0,0);
 		surface.textSize(20);
 		surface.text("WASD", wasd.x+wasd.width/2-surface.textWidth("WASD")/2, wasd.y + wasd.height/2 + 7);
+		
+		surface.fill(255,255,255);
+		surface.rect(arrowKey.x, arrowKey.y, arrowKey.width, arrowKey.height);
+		surface.fill(0,0,0);
+		surface.textSize(20);
+		surface.text("ARROW KEYS", arrowKey.x+arrowKey.width/2-surface.textWidth("ARROW KEYS")/2, arrowKey.y + arrowKey.height/2 + 7);
 		
 		surface.fill(255,255,255);
 		surface.rect(back.x, back.y, back.width, back.height);
