@@ -12,11 +12,10 @@ import processing.core.PApplet;
 public class DrawingSurface extends PApplet implements ScreenSwitcher {
 
 	public float ratioX, ratioY;
-	
 	private ArrayList<Integer> keys;
-	
 	private Screens activeScreen;
 	private ArrayList<Screens> screens;
+	private boolean inputMethod; // false for WASD and true for arrow keys
 
 	/**
 	 * Sets the DrawingSurface
@@ -155,6 +154,10 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 	@Override
 	public void switchScreen(int i) {
 		activeScreen = screens.get(i);
+	}
+	
+	public void setInputMethod(boolean input) {
+		inputMethod = input;
 	}
 
 }
