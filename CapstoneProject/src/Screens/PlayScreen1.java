@@ -56,7 +56,7 @@ public class PlayScreen1 extends Screens{
 		surface.rect(back.x, back.y, back.width, back.height);
 		surface.fill(0,0,0);
 		surface.textSize(20);
-		surface.fill(255,255,255);
+		surface.fill(0,0,0);
 		surface.rect(map.x, map.y, map.width, map.height);
 		surface.text("BACK", back.x+back.width/2-surface.textWidth("BACK")/2, back.y + back.height/2 + 7);
 		
