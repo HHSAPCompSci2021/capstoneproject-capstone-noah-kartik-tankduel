@@ -39,14 +39,7 @@ public class PlayScreen1 extends Screens{
 		
 		surface.textSize(40);
 		surface.text("CHOOSE A GAMEMODE", 540 + (540 - surface.textWidth("CHOOSE A GAMEMODE"))/2,150);
-		
-		
-		
-		
-		
-		
-		
-		
+	
 		surface.fill(255,255,255);
 		surface.rect(back.x, back.y, back.width, back.height);
 		surface.fill(0,0,0);
