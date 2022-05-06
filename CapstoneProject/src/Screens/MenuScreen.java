@@ -13,12 +13,15 @@ public class MenuScreen extends Screens{
 	private DrawingSurface surface;
 	private Rectangle play;
 	private Rectangle rules;
+	private Rectangle setting;
 	
 	public MenuScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
 		play = new Rectangle(300,200,480,50);
 		rules = new Rectangle(300,300,480,50);
+		setting = new Rectangle(300,400,480,50);
+
 
 	}
 
@@ -39,6 +42,12 @@ public class MenuScreen extends Screens{
 		surface.textSize(50);
 		surface.text("RULES", rules.x+rules.width/2-surface.textWidth("RULES")/2, rules.y + rules.height/2 + 18);
 		
+		surface.fill(255,255,255);
+		surface.rect(setting.x, setting.y, setting.width, setting.height);
+		surface.fill(0,0,0);
+		surface.textSize(50);
+		surface.text("SETTINGS", setting.x+setting.width/2-surface.textWidth("SETTINGS")/2, setting.y + setting.height/2 + 18);
+		
 		surface.popStyle();
 		
 	}
@@ -49,6 +58,8 @@ public class MenuScreen extends Screens{
 			surface.switchScreen(ScreenSwitcher.RULES);
 		if (play.contains(p))
 			surface.switchScreen(ScreenSwitcher.PLAYSCREEN1);
+		if (setting.contains(p))
+			surface.switchScreen(ScreenSwitcher.SETTING);
 	}
 	
 }
