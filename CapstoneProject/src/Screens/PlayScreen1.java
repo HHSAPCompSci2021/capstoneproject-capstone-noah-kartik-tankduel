@@ -13,6 +13,7 @@ import System.DrawingSurface;
 public class PlayScreen1 extends Screens{
 
 	private Rectangle back;
+	private Rectangle map;
 	private DrawingSurface surface;
 	
 	/**
@@ -23,6 +24,7 @@ public class PlayScreen1 extends Screens{
 		super(1080, 720);
 		this.surface = surface;
 		back = new Rectangle(20,690,70,20);
+		map = new Rectangle(50,50,70,70);		
 
 	}
 
@@ -48,11 +50,14 @@ public class PlayScreen1 extends Screens{
 		
 		surface.textSize(40);
 		surface.text("CHOOSE A GAMEMODE", 540 + (540 - surface.textWidth("CHOOSE A GAMEMODE"))/2,150);
+		
 	
 		surface.fill(255,255,255);
 		surface.rect(back.x, back.y, back.width, back.height);
 		surface.fill(0,0,0);
 		surface.textSize(20);
+		surface.fill(255,255,255);
+		surface.rect(map.x, map.y, map.width, map.height);
 		surface.text("BACK", back.x+back.width/2-surface.textWidth("BACK")/2, back.y + back.height/2 + 7);
 		
 		surface.popStyle();
