@@ -13,7 +13,6 @@ public class MenuScreen extends Screens{
 	private DrawingSurface surface;
 	private Rectangle play;
 	private Rectangle rules;
-
 	
 	public MenuScreen(DrawingSurface surface) {
 		super(1080, 720);
@@ -47,7 +46,9 @@ public class MenuScreen extends Screens{
 	public void mousePressed() {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		if (rules.contains(p))
-			surface.switchScreen(ScreenSwitcher.SCREEN2);
+			surface.switchScreen(ScreenSwitcher.RULES);
+		if (play.contains(p))
+			surface.switchScreen(ScreenSwitcher.PLAYSCREEN1);
 	}
 	
 }
