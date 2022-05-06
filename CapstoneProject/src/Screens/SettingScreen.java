@@ -13,6 +13,7 @@ import System.DrawingSurface;
 public class SettingScreen extends Screens{
 
 	private Rectangle back;
+	private Rectangle wasd;
 	private DrawingSurface surface;
 	
 	/**
@@ -23,7 +24,7 @@ public class SettingScreen extends Screens{
 		super(1080, 720);
 		this.surface = surface;
 		back = new Rectangle(20,690,70,20);
-
+		wasd = new Rectangle (500,200,100,40);
 	}
 
 	/**
@@ -33,6 +34,11 @@ public class SettingScreen extends Screens{
 		surface.pushStyle();
 		surface.background(0,0,0);
 
+		surface.fill(255,255,255);
+		surface.rect(wasd.x, wasd.y, wasd.width, wasd.height);
+		surface.fill(0,0,0);
+		surface.textSize(20);
+		surface.text("WASD", wasd.x+wasd.width/2-surface.textWidth("WASD")/2, wasd.y + wasd.height/2 + 7);
 		
 		surface.fill(255,255,255);
 		surface.rect(back.x, back.y, back.width, back.height);
