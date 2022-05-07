@@ -43,12 +43,20 @@ public class SettingScreen extends Screens{
 		surface.textSize(40);
 		surface.text("INPUT METHOD:", 200, 153);
 		
+		if(!surface.getInputMethod()) {
+			surface.fill(25,255,255);
+			surface.rect(wasd.x-5, wasd.y-5, wasd.width+10, wasd.height+10);
+		}
 		surface.fill(255,255,255);
 		surface.rect(wasd.x, wasd.y, wasd.width, wasd.height);
 		surface.fill(0,0,0);
 		surface.textSize(20);
 		surface.text("WASD", wasd.x+wasd.width/2-surface.textWidth("WASD")/2, wasd.y + wasd.height/2 + 7);
 		
+		if(surface.getInputMethod()) {
+			surface.fill(25,255,255);
+			surface.rect(arrowKey.x-5, arrowKey.y-5, arrowKey.width+10, arrowKey.height+10);
+		}
 		surface.fill(255,255,255);
 		surface.rect(arrowKey.x, arrowKey.y, arrowKey.width, arrowKey.height);
 		surface.fill(0,0,0);
@@ -70,6 +78,11 @@ public class SettingScreen extends Screens{
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		if (back.contains(p))
 			surface.switchScreen(ScreenSwitcher.MENU);
+		if (wasd.contains(p)) {
+			surface.setInputMethod(false);
+		}
+		if (arrowKey.contains(p))
+			surface.setInputMethod(true);
 	}
 	
 }

@@ -159,5 +159,9 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 	public void setInputMethod(boolean input) {
 		inputMethod = input;
 	}
+	
+	public boolean getInputMethod() {
+		return inputMethod;
+	}
 
 }
