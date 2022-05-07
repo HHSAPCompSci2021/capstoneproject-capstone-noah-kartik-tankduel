@@ -14,6 +14,10 @@ public class PlayScreen1 extends Screens{
 
 	private Rectangle back;
 	private Rectangle map;
+	private Rectangle normalMap;
+	private Rectangle normalMode;
+	private Rectangle freezeMode;
+	private Rectangle copsNRobbers;
 	private DrawingSurface surface;
 	
 	/**
@@ -24,7 +28,11 @@ public class PlayScreen1 extends Screens{
 		super(1080, 720);
 		this.surface = surface;
 		back = new Rectangle(20,690,70,20);
-		map = new Rectangle(50,50,70,70);		
+		map = new Rectangle(50,50,70,70);
+		normalMap = new Rectangle(150,250,250,100);
+		normalMode = new Rectangle(700,250,250,100);
+		freezeMode = new Rectangle(700,400,250,100);
+		copsNRobbers = new Rectangle(700,550,250,100);
 
 	}
 
@@ -43,15 +51,61 @@ public class PlayScreen1 extends Screens{
 		surface.line(538, 0, 538, 720);
 		surface.popStyle();
 
+		
+		//Maps
 		surface.textSize(40);
 		surface.text("CHOOSE A MAP", (540-surface.textWidth("CHOOSE A MAP"))/2,150);
 		
+		if(surface.getMap() == 0) {
+			surface.fill(25,255,255);
+			surface.rect(normalMap.x-5, normalMap.y-5, normalMap.width+10, normalMap.height+10);
+		}
+		surface.fill(255,255,255);
+		surface.rect(normalMap.x, normalMap.y, normalMap.width, normalMap.height);
+		surface.fill(0,0,0);
+		surface.textSize(30);
+		surface.text("NORMAL MAP", normalMap.x+normalMap.width/2-surface.textWidth("NORMAL MAP")/2, normalMap.y + normalMap.height/2 + 7);
 		
 		
+		
+		//Game Modes
+		surface.fill(255,255,255);
 		surface.textSize(40);
 		surface.text("CHOOSE A GAMEMODE", 540 + (540 - surface.textWidth("CHOOSE A GAMEMODE"))/2,150);
 		
+		if(surface.getGameMode() == 1) {
+			surface.fill(25,255,255);
+			surface.rect(normalMode.x-5, normalMode.y-5, normalMode.width+10, normalMode.height+10);
+		}
+		surface.fill(255,255,255);
+		surface.rect(normalMode.x, normalMode.y, normalMode.width, normalMode.height);
+		surface.fill(0,0,0);
+		surface.textSize(30);
+		surface.text("NORMAL MODE", normalMode.x+normalMode.width/2-surface.textWidth("NORMAL MODE")/2, normalMode.y + normalMode.height/2 + 7);
 	
+		if(surface.getGameMode() == 2) {
+			surface.fill(25,255,255);
+			surface.rect(freezeMode.x-5, freezeMode.y-5, freezeMode.width+10, freezeMode.height+10);
+		}
+		surface.fill(255,255,255);
+		surface.rect(freezeMode.x, freezeMode.y, freezeMode.width, freezeMode.height);
+		surface.fill(0,0,0);
+		surface.textSize(30);
+		surface.text("FREEZE MODE", freezeMode.x+freezeMode.width/2-surface.textWidth("FREEZE MODE")/2, freezeMode.y + freezeMode.height/2 + 7);
+		
+		if(surface.getGameMode() == 3) {
+			surface.fill(25,255,255);
+			surface.rect(copsNRobbers.x-5, copsNRobbers.y-5, copsNRobbers.width+10, copsNRobbers.height+10);
+		}
+		surface.fill(255,255,255);
+		surface.rect(copsNRobbers.x, copsNRobbers.y, copsNRobbers.width, copsNRobbers.height);
+		surface.fill(0,0,0);
+		surface.textSize(30);
+		surface.text("COPS N ROBBERS", copsNRobbers.x+copsNRobbers.width/2-surface.textWidth("COPS N ROBBERS")/2, copsNRobbers.y + copsNRobbers.height/2 + 7);
+		
+		
+		
+		//Back button
 		surface.fill(255,255,255);
 		surface.rect(back.x, back.y, back.width, back.height);
 		surface.fill(0,0,0);
@@ -70,6 +124,14 @@ public class PlayScreen1 extends Screens{
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		if (back.contains(p))
 			surface.switchScreen(ScreenSwitcher.MENU);
+		if (map.contains(p))
+			surface.setMap(0);
+		if (normalMode.contains(p))
+			surface.setGameMode(1);
+		if (freezeMode.contains(p))
+			surface.setGameMode(2);
+		if (copsNRobbers.contains(p))
+			surface.setGameMode(3);
 	}
 	
 }

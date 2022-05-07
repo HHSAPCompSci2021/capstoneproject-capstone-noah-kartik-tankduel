@@ -16,6 +16,8 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 	private Screens activeScreen;
 	private ArrayList<Screens> screens;
 	private boolean inputMethod; // false for WASD and true for arrow keys
+	private int map; // 0 for normal map
+	private int gameMode; // 1 for normal mode, 2 for freeze mode, 3 for cops n robbers, 0 is for when the user hasn't chosen a game mode yet
 
 	/**
 	 * Sets the DrawingSurface
@@ -24,9 +26,10 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		
 		
 		screens = new ArrayList<Screens>();
-		
 		keys = new ArrayList<Integer>();
-		
+		inputMethod = false;
+		map = 0;
+		gameMode = 0;
 		
 		MenuScreen menu = new MenuScreen(this);
 		screens.add(menu);
@@ -162,6 +165,22 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 	
 	public boolean getInputMethod() {
 		return inputMethod;
+	}
+	
+	public void setMap(int i) {
+		map = i;
+	}
+	
+	public int getMap() {
+		return map;
+	}
+	
+	public void setGameMode(int i) {
+		gameMode = i;
+	}
+	
+	public int getGameMode() {
+		return gameMode;
 	}
 
 }
