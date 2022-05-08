@@ -19,6 +19,7 @@ public class PlayScreen1 extends Screens{
 	private Rectangle freezeMode;
 	private Rectangle copsNRobbers;
 	private DrawingSurface surface;
+	private Rectangle startButton;
 	
 	/**
 	 * Gives the PlayScreen the default values
@@ -33,6 +34,7 @@ public class PlayScreen1 extends Screens{
 		normalMode = new Rectangle(700,250,250,100);
 		freezeMode = new Rectangle(700,400,250,100);
 		copsNRobbers = new Rectangle(700,550,250,100);
+		startButton = new Rectangle(430,450,200,100);
 
 	}
 
@@ -41,6 +43,7 @@ public class PlayScreen1 extends Screens{
 	 */
 	public void draw() {
 		surface.clear();
+		
 		surface.pushStyle();
 		surface.background(0,0,0);
 		surface.fill(255,255,255);
@@ -103,15 +106,18 @@ public class PlayScreen1 extends Screens{
 		surface.textSize(30);
 		surface.text("COPS N ROBBERS", copsNRobbers.x+copsNRobbers.width/2-surface.textWidth("COPS N ROBBERS")/2, copsNRobbers.y + copsNRobbers.height/2 + 7);
 		
-		
-		
+		surface.fill(255,255,255);
+		surface.rect(startButton.x, startButton.y, startButton.width, startButton.height);
+		surface.fill(0,0,0);
+		surface.text("Start", startButton.x+startButton.width/2-surface.textWidth("Start")/2, startButton.y + startButton.height/2 + 7);
+
 		//Back button
 		surface.fill(255,255,255);
 		surface.rect(back.x, back.y, back.width, back.height);
 		surface.fill(0,0,0);
 		surface.textSize(20);
 		surface.fill(0,0,0);
-		surface.rect(map.x, map.y, map.width, map.height);
+		//surface.rect(map.x, map.y, map.width, map.height);
 		surface.text("BACK", back.x+back.width/2-surface.textWidth("BACK")/2, back.y + back.height/2 + 7);
 		
 		surface.popStyle();
@@ -132,6 +138,9 @@ public class PlayScreen1 extends Screens{
 			surface.setGameMode(2);
 		if (copsNRobbers.contains(p))
 			surface.setGameMode(3);
+		if(startButton.contains(p)) 
+			surface.switchScreen(ScreenSwitcher.GAME);
+		
 	}
 	
 }
