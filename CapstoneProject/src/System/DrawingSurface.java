@@ -42,10 +42,9 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		
 		SettingScreen setting = new SettingScreen(this);
 		screens.add(setting);
-
-		GameScreen game = new GameScreen(this);
-		screens.add(game);
 		
+		NormalMapScreen normalMap = new NormalMapScreen(this);
+		screens.add(normalMap);
 		
 		activeScreen = screens.get(0);
 		

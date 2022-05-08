@@ -22,7 +22,9 @@ public class Main {
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
 		JFrame window = (JFrame)canvas.getFrame();
 
-		window.setSize(720, 480);
+		window.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		try {window.setUndecorated(true);}
+		catch(Exception IllegalComponentStateException) {}
 		window.setMinimumSize(new Dimension(720, 480));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(true);
