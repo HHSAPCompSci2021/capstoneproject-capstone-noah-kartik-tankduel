@@ -43,9 +43,9 @@ public class NormalMapScreen extends Screens{
 		l17 = new Line2D.Double (650,0,700,50);
 		l18 = new Line2D.Double (320,690,480,640);
 		l19 = new Line2D.Double (600,690,500,590);
-		l20 = new Line2D.Double (100,250,250,150);
+		l20 = new Line2D.Double (100,250,280,140);
 		l21 = new Line2D.Double (150,0,250,100);
-		l22 = new Line2D.Double (350,150,350,250);
+		l22 = new Line2D.Double (300,200,450,175);
 		l23 = new Line2D.Double (670,100,770,150);
 		l24 = new Line2D.Double (720,125,750,105);
 		l25 = new Line2D.Double (0,400,70,450);
@@ -53,13 +53,12 @@ public class NormalMapScreen extends Screens{
 		l27 = new Line2D.Double (850,170,950,270);
 		l28 = new Line2D.Double (1020,240,1080,180);
 		l29 = new Line2D.Double (790,570,880,680);
-		
 		l30 = new Line2D.Double (1000,680,1080,600);
-		l31 = new Line2D.Double (40,600,100,660);
-		l32 = new Line2D.Double (850,170,950,270);
-		l33 = new Line2D.Double (1020,240,1080,180);
-		l34 = new Line2D.Double (790,570,880,680);
-		l35 = new Line2D.Double (790,570,880,680);
+		l31 = new Line2D.Double (980,450,1080,340);
+		l32 = new Line2D.Double (840,425,970,505);
+		l33 = new Line2D.Double (500,150,550,100);
+		l34 = new Line2D.Double (200,680,280,550);
+		l35 = new Line2D.Double (730,400,780,400);
 
 
 		platforms = new Line2D[] {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35};
