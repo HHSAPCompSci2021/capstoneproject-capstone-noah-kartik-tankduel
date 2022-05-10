@@ -12,7 +12,9 @@ import System.DrawingSurface;
 public class NormalMapScreen extends Screens{
 	private DrawingSurface surface;
 	private Line2D l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35;
-	private Player p;
+	private Player p =new Player(DRAWING_WIDTH/2-Player.PLAYER_WIDTH/2,50);;
+	
+
 	
 	/* The area created by spawnX and spawnY will be the spawn area.
 	 * When the count down to START the game reaches 0,
@@ -28,7 +30,7 @@ public class NormalMapScreen extends Screens{
 		super(1080, 720);
 		this.surface = surface;
 		
-		p.draw(surface);
+		p.draw(this.surface);
 		// X:1080 by Y:720 range lines
 		l0 = new Line2D.Double (500,450,450,550);
 		l1 = new Line2D.Double (300,500,400,600);
@@ -73,6 +75,9 @@ public class NormalMapScreen extends Screens{
 		platforms = new Line2D[] {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35,spawnX,spawnY};
 	}
 	
+	public void setup() {
+	}
+	
 	public void draw() {
 		surface.background(255,255,255);
 		surface.fill(0,0,0);
@@ -106,9 +111,7 @@ public class NormalMapScreen extends Screens{
 		p.act(platforms);
 	}
 	
-	public void setup() {
-		p = new Player(DRAWING_WIDTH/2-Player.PLAYER_WIDTH/2,50);
-	}
+	
 	
 	
 }
