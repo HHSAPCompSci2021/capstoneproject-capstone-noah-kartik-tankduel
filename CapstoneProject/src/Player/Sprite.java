@@ -2,7 +2,6 @@ package Player;
 
 import java.awt.geom.Rectangle2D;
 import processing.core.PApplet;
-import processing.core.PImage;
 
 /**
  * Credit to John Shelby for code
