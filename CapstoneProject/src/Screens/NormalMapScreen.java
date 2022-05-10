@@ -64,8 +64,8 @@ public class NormalMapScreen extends Screens{
 //		l34 = new Sprite (200,680,280,5);
 //		l35 = new Sprite (730,400,780,5);
 
-		spawnX = new Sprite (0,150,150,150);
-		spawnY = new Sprite (150,0,150,150);
+		spawnX = new Sprite (0,150,150,5);
+		spawnY = new Sprite (150,0,5,150);
 		
 		platform.add(l0);
 //		platform.add(l1);
