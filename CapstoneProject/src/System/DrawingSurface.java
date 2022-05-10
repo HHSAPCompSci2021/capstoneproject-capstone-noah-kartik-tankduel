@@ -1,6 +1,8 @@
 package System;
 import java.awt.Point;
 import java.util.ArrayList;
+
+import Player.Player;
 import Screens.*;
 import processing.core.PApplet;
 /**
@@ -18,7 +20,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 	private boolean inputMethod; // false for WASD and true for arrow keys
 	private int map; // 0 for normal map
 	private int gameMode; // 1 for normal mode, 2 for freeze mode, 3 for cops n robbers, 0 is for when the user hasn't chosen a game mode yet
-
+	
 	/**
 	 * Sets the DrawingSurface
 	 */
