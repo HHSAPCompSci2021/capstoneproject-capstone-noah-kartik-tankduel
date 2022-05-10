@@ -140,6 +140,7 @@ public class PlayScreen1 extends Screens{
 			surface.setGameMode(3);
 		if(startButton.contains(p) && surface.getGameMode() == 1) 
 			surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
+			
 		
 	}
 	

@@ -1,6 +1,7 @@
 package Screens;
 
 import java.awt.geom.Line2D;
+import java.awt.geom.Line2D.Double;
 
 import System.DrawingSurface;
 
@@ -19,14 +20,14 @@ public class NormalMapScreen extends Screens{
 		l2 = new Line2D.Double (700,300,800,200);
 		l3 = new Line2D.Double (950,30,1050,130);
 		l4 = new Line2D.Double (500,500,600,500);
-		l5 = new Line2D.Double (2,2,2,2);
-		l6 = new Line2D.Double (2,2,2,2);
-		l7 = new Line2D.Double (2,2,2,2);
-		l8 = new Line2D.Double (2,2,2,2);
-		l9 = new Line2D.Double (2,2,2,2);
-		l10 = new Line2D.Double (2,2,2,2);
-		l11 = new Line2D.Double (2,2,2,2);
-		l12 = new Line2D.Double (2,2,2,2);
+		l5 = new Line2D.Double (70, 70, 300, 70);
+		l6 = new Line2D.Double(780, 70, 1010,70);
+		l7 = new Line2D.Double(400,270,650,150);
+		l8 = new Line2D.Double(0,300,250,375);
+		l9 = new Line2D.Double(829,375,1079,300);
+		l10 = new Line2D.Double(0,550,230,550);
+		l11 = new Line2D.Double(849,550,1079,550);
+		l12 = new Line2D.Double(400,500,630,500);
 		l13 = new Line2D.Double (2,2,2,2);
 		l14 = new Line2D.Double (2,2,2,2);
 		l15 = new Line2D.Double (2,2,2,2);
