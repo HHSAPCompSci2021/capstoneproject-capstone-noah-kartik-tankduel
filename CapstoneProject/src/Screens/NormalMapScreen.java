@@ -1,6 +1,5 @@
 package Screens;
 
-import java.awt.geom.Line2D;
 import java.awt.geom.Line2D.Double;
 
 import System.DrawingSurface;
