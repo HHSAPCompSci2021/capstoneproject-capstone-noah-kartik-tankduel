@@ -62,30 +62,47 @@ public class NormalMapScreen extends Screens{
 		l34 = new Line2D.Double (200,680,280,550);
 		l35 = new Line2D.Double (730,400,780,400);
 
+		spawnX = new Line2D.Double (0,150,150,150);
+		spawnY = new Line2D.Double (150,0,150,150);
 		
 		platform.add(l0);
 		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-		platform.add(l1);
-
-		spawnX = new Line2D.Double (0,150,150,150);
-		spawnY = new Line2D.Double (150,0,150,150);
+		platform.add(l2);
+		platform.add(l3);
+		platform.add(l4);
+		platform.add(l5);
+		platform.add(l6);
+		platform.add(l7);
+		platform.add(l8);
+		platform.add(l9);
+		platform.add(l10);
+		platform.add(l11);
+		platform.add(l12);
+		platform.add(l13);
+		platform.add(l14);
+		platform.add(l15);
+		platform.add(l16);
+		platform.add(l17);
+		platform.add(l18);
+		platform.add(l19);
+		platform.add(l20);
+		platform.add(l21);
+		platform.add(l22);
+		platform.add(l23);
+		platform.add(l24);
+		platform.add(l25);
+		platform.add(l26);
+		platform.add(l27);
+		platform.add(l28);
+		platform.add(l29);
+		platform.add(l30);
+		platform.add(l31);
+		platform.add(l32);
+		platform.add(l33);
+		platform.add(l34);
+		platform.add(l35);
+		platform.add(spawnX);
+		platform.add(spawnY);
 	}
 	
 	public void draw() {
@@ -103,7 +120,7 @@ public class NormalMapScreen extends Screens{
 		surface.popStyle();
 		
 		//Platforms
-		surface.strokeWeight(1);
+		surface.strokeWeight(5);
 		for(Line2D l : platform)
 			surface.line((float)l.getX1(), (float)l.getY1(), (float)l.getX2(), (float)l.getY2());
 		
