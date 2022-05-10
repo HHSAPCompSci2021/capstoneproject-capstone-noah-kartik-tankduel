@@ -1,5 +1,6 @@
 package Screens;
 
+import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,8 @@ public class NormalMapScreen extends Screens{
 	public NormalMapScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
+		
+		p.draw(surface);
 		// X:1080 by Y:720 range lines
 		l0 = new Line2D.Double (500,450,450,550);
 		l1 = new Line2D.Double (300,500,400,600);
@@ -67,10 +70,7 @@ public class NormalMapScreen extends Screens{
 		spawnX = new Line2D.Double(0,150,150,150);
 		spawnY = new Line2D.Double(150,0,150,150);
 		
-		platforms = new Line2D[] {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35};
-		
-//		platforms.add(spawnX);
-//		platforms.add(spawnY);
+		platforms = new Line2D[] {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35,spawnX,spawnY};
 	}
 	
 	public void draw() {
@@ -89,14 +89,25 @@ public class NormalMapScreen extends Screens{
 		
 		//Platforms
 		surface.strokeWeight(5);
-		for(Line2D l: platforms) {
+		for(Line2D l: platforms)
 			surface.line((float)l.getX1(), (float)l.getY1(), (float)l.getX2(), (float)l.getY2());
+
+		if (surface.isPressed(KeyEvent.VK_ESCAPE)) {
+			surface.switchScreen(ScreenSwitcher.MENU);
+			return;
 		}
+		if (surface.isPressed(KeyEvent.VK_LEFT))
+			p.walk(-1);
+		if (surface.isPressed(KeyEvent.VK_RIGHT))
+			p.walk(1);
+		if (surface.isPressed(KeyEvent.VK_UP))
+			p.jump();
 
-		
-		surface.line((float) spawnX.getX1(), (float) spawnX.getY1(), (float) spawnX.getX2(), (float) spawnX.getY2());
-		surface.line((float) spawnY.getX1(), (float) spawnY.getY1(), (float) spawnY.getX2(), (float) spawnY.getY2());
-
+		p.act(platforms);
+	}
+	
+	public void setup() {
+		p = new Player(DRAWING_WIDTH/2-Player.PLAYER_WIDTH/2,50);
 	}
 	
 	

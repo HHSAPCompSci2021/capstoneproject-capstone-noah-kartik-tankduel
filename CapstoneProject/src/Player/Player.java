@@ -1,4 +1,5 @@
 package Player;
+import java.awt.geom.Line2D;
 import java.util.List;
 
 /**
@@ -35,17 +36,17 @@ public class Player extends Sprite {
 		}
 	}
 
-	public void act(List<Sprite> obstacles) {
+	public void act(Line2D[] obstacles) {
 		onASurface = false;
 		yVel += 0.2;
 		
 		x += xVel;
 		y += yVel;
 		
-		for(Sprite s: obstacles) {
-			if(super.intersects(s)) {
+		for(Line2D s: obstacles) {
+			if(super.intersectsLine(s)) {
 				yVel = 0;
-				super.y = s.y - super.height;
+				super.y = s.getY1() - super.height;
 				onASurface = true;
 			}
 		}
