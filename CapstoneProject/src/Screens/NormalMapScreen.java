@@ -1,6 +1,7 @@
 package Screens;
 
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
 import java.util.List;
 
 import Player.Player;
@@ -20,7 +21,7 @@ public class NormalMapScreen extends Screens{
 	 */
 	private Sprite spawnX, spawnY;
 
-	private List<Sprite> platform;
+	private ArrayList<Sprite> platform = new ArrayList<Sprite>();
 	
 	public NormalMapScreen(DrawingSurface surface) {
 		super(1080, 720);
