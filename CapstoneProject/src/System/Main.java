@@ -23,8 +23,6 @@ public class Main {
 		JFrame window = (JFrame)canvas.getFrame();
 
 		window.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-		try {window.setUndecorated(true);}
-		catch(Exception IllegalComponentStateException) {}
 		window.setMinimumSize(new Dimension(720, 480));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(true);
