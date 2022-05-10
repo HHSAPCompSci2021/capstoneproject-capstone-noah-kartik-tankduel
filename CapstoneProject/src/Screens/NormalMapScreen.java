@@ -1,6 +1,7 @@
 package Screens;
 
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
 
 import Player.Player;
 import System.DrawingSurface;
@@ -18,7 +19,7 @@ public class NormalMapScreen extends Screens{
 	 */
 	private Line2D spawnX, spawnY;
 
-	private Line2D[] platforms;// will contain all the platforms.
+	private ArrayList<Line2D> platform;
 	
 	public NormalMapScreen(DrawingSurface surface) {
 		super(1080, 720);
@@ -61,9 +62,28 @@ public class NormalMapScreen extends Screens{
 		l34 = new Line2D.Double (200,680,280,550);
 		l35 = new Line2D.Double (730,400,780,400);
 
-
-		platforms = new Line2D[] {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35};
 		
+		platform.add(l0);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+		platform.add(l1);
+
 		spawnX = new Line2D.Double (0,150,150,150);
 		spawnY = new Line2D.Double (150,0,150,150);
 	}
@@ -84,7 +104,7 @@ public class NormalMapScreen extends Screens{
 		
 		//Platforms
 		surface.strokeWeight(1);
-		for(Line2D l : platforms)
+		for(Line2D l : platform)
 			surface.line((float)l.getX1(), (float)l.getY1(), (float)l.getX2(), (float)l.getY2());
 		
 		surface.line((float)spawnX.getX1(), (float)spawnX.getY1(), (float)spawnX.getX2(), (float)spawnX.getY2());
