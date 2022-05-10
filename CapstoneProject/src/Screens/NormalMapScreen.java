@@ -30,7 +30,6 @@ public class NormalMapScreen extends Screens{
 		super(1080, 720);
 		this.surface = surface;
 		
-		p.draw(this.surface);
 		// X:1080 by Y:720 range lines
 		l0 = new Line2D.Double (500,450,450,550);
 		l1 = new Line2D.Double (300,500,400,600);
@@ -91,7 +90,8 @@ public class NormalMapScreen extends Screens{
 		surface.line(0, 720, 1080, 720);
 		surface.line(1080, 720, 1080, 0);
 		surface.popStyle();
-		
+		p.draw(this.surface);
+
 		//Platforms
 		surface.strokeWeight(5);
 		for(Line2D l: platforms)
