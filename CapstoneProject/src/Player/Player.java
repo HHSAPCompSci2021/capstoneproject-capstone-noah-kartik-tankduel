@@ -67,10 +67,12 @@ public class Player extends Sprite {
 					}
 				}
 				else {
-					if(this.getY()>s.getY1() + Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1())) {
+					if(this.getY()>s.getY1() - Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1())) {
+						System.out.println("hi");
 						super.y = Math.abs(Math.max(s.getX1(), s.getX2())-this.getX()-super.width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2());
 					}
 					else {
+						System.out.println("hello");
 						super.y = Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()-super.width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())- super.height;
 					}
 				}
