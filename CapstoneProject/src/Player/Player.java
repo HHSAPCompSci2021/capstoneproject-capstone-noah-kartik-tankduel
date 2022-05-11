@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Player extends Sprite {
 
-	public static final int PLAYER_WIDTH = 20;
+	public static final int PLAYER_WIDTH = 17;
 	public static final int PLAYER_HEIGHT = 20;
 	private boolean onASurface;
 
@@ -47,8 +47,10 @@ public class Player extends Sprite {
 			if(super.intersectsLine(s)) {
 				yVel = 0;
 				xVel = 0;
-//				super.y = s.getY1() - super.height;
-				super.y = Math.abs(s.getX2()-this.getX())/Math.abs(s.getX2()-s.getX1()) *Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())- super.height;
+				if(s.getY2()>s.getY1())
+					super.y = Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())- super.height;
+				else
+					super.y = Math.abs(Math.max(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())- super.height;
 
 				onASurface = true;
 			}
