@@ -42,11 +42,23 @@ public class Player extends Sprite {
 		
 		x += xVel;
 		y += yVel;
-		
+
+			
 		for(Line2D s: obstacles) {
 			if(super.intersectsLine(s)) {
+				double temp = yVel;
 				yVel = 0;
 				xVel = 0;
+				if(s.getX1() == s.getX2()) {
+					if(x+3>s.getX1())
+						x = s.getX1()+3;
+					else
+						x = s.getX1()-PLAYER_HEIGHT;
+					xVel = 0;
+					yVel = temp;
+					continue;
+				}
+				
 				if(s.getY2()>s.getY1())
 					super.y = Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())- super.height;
 				else
@@ -54,7 +66,19 @@ public class Player extends Sprite {
 
 				onASurface = true;
 			}
+			if(x<2)
+				x = 2;
+			if(x + PLAYER_WIDTH> 1078) {
+				x = 1061;
+			}
+			if(y<2) {
+				y = 2;
+				yVel = 0;
+			}
+			if(y>718)
+				y = 718;
 		}
+		
 		
 	}
 

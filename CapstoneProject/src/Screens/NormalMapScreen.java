@@ -30,7 +30,7 @@ public class NormalMapScreen extends Screens{
 	public NormalMapScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
-		p =new Player(DRAWING_WIDTH/2-p.PLAYER_WIDTH/2,DRAWING_HEIGHT/2 - p.PLAYER_HEIGHT/2);
+		p =new Player(DRAWING_WIDTH/2-Player.PLAYER_WIDTH/2,DRAWING_HEIGHT/2 - Player.PLAYER_HEIGHT/2);
 		
 		// X:1080 by Y:720 range lines, make sure that x1 < x2
 		l0 = new Line2D.Double (450,550,500,450);
@@ -46,15 +46,15 @@ public class NormalMapScreen extends Screens{
 		l10 = new Line2D.Double (50,550,230,550);
 		l11 = new Line2D.Double (849,550,1050,550);
 		l12 = new Line2D.Double (400,500,630,500);
-		l13 = new Line2D.Double (480, 360,700,360);
+		l13 = new Line2D.Double (480,360,700,360);
 		l14 = new Line2D.Double (600,620,800,450);
 		l15 = new Line2D.Double (250,250,350,350);
 		l16 = new Line2D.Double (200,500,500,300);
-		l17 = new Line2D.Double (650,0,700,50);
+		l17 = new Line2D.Double (650,2,700,50);
 		l18 = new Line2D.Double (320,690,480,640);
 		l19 = new Line2D.Double (500,590,600,690);
 		l20 = new Line2D.Double (100,250,280,140);
-		l21 = new Line2D.Double (150,0,250,100);
+		l21 = new Line2D.Double (150,2,250,100);
 		l22 = new Line2D.Double (300,200,450,175);
 		l23 = new Line2D.Double (670,100,770,150);
 		l24 = new Line2D.Double (720,125,750,105);
