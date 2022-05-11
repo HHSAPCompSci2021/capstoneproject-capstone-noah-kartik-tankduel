@@ -12,8 +12,8 @@ import java.util.List;
 
 public class Player extends Sprite {
 
-	public static final int PLAYER_WIDTH = 40;
-	public static final int PLAYER_HEIGHT = 60;
+	public static final int PLAYER_WIDTH = 20;
+	public static final int PLAYER_HEIGHT = 20;
 	private boolean onASurface;
 
 	private double xVel, yVel;
@@ -32,7 +32,7 @@ public class Player extends Sprite {
 
 	public void jump() {
 		if(onASurface) {
-		yVel -= 9;
+		yVel -= 6.5;
 		}
 	}
 
@@ -46,7 +46,10 @@ public class Player extends Sprite {
 		for(Line2D s: obstacles) {
 			if(super.intersectsLine(s)) {
 				yVel = 0;
-				super.y = s.getY1() - super.height;
+				xVel = 0;
+//				super.y = s.getY1() - super.height;
+				super.y = Math.abs(s.getX2()-this.getX())/Math.abs(s.getX2()-s.getX1()) *Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())- super.height;
+
 				onASurface = true;
 			}
 		}

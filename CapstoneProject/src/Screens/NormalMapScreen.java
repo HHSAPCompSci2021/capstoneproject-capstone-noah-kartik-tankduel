@@ -24,6 +24,7 @@ public class NormalMapScreen extends Screens{
 	 */
 	private Line2D spawnX, spawnY;
 
+	private Line2D border1,border2,border3,border4;
 	private Line2D[] platforms;
 		
 	public NormalMapScreen(DrawingSurface surface) {
@@ -71,7 +72,12 @@ public class NormalMapScreen extends Screens{
 		spawnX = new Line2D.Double(0,150,150,150);
 		spawnY = new Line2D.Double(150,0,150,150);
 		
-		platforms = new Line2D[] {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35,spawnX,spawnY};
+		border1 = new Line2D.Double (0, 0, 1080, 0);
+		border2 = new Line2D.Double (0, 0, 0, 720);
+		border3 = new Line2D.Double (0, 720, 1080, 720);
+		border4 = new Line2D.Double (1080, 720, 1080, 0);
+		
+		platforms = new Line2D[] {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35,spawnX,spawnY,border1,border2,border3,border4};
 	}
 	
 	public void setup() {
@@ -96,17 +102,14 @@ public class NormalMapScreen extends Screens{
 		surface.strokeWeight(5);
 		for(Line2D l: platforms)
 			surface.line((float)l.getX1(), (float)l.getY1(), (float)l.getX2(), (float)l.getY2());
-
-		if (surface.isPressed(KeyEvent.VK_ESCAPE)) {
-			surface.switchScreen(ScreenSwitcher.MENU);
-			return;
-		}
+		p.walk(0);
 		if (surface.isPressed(KeyEvent.VK_LEFT))
 			p.walk(-1);
 		if (surface.isPressed(KeyEvent.VK_RIGHT))
 			p.walk(1);
 		if (surface.isPressed(KeyEvent.VK_UP))
 			p.jump();
+		
 
 		p.act(platforms);
 	}
