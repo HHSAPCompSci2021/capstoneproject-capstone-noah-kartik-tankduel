@@ -47,6 +47,7 @@ public class Player extends Sprite {
 		for(Line2D s: obstacles) {
 			if(super.intersectsLine(s)) {
 				double temp = yVel;
+				double degree = Math.atan((s.getY2()-s.getY1()/(s.getX2()-s.getX1())));
 				yVel = 0;
 				xVel = 0;
 				if(s.getX1() == s.getX2()) {
@@ -58,12 +59,22 @@ public class Player extends Sprite {
 					yVel = temp;
 					continue;
 				}
+				if(s.getY2()>s.getY1()) {
+					if(this.getY()<s.getY1() + Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()))
+						super.y = Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())- super.height;
+					else {
+						super.y = Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()-super.width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2());
+					}
+				}
+				else {
+					if(this.getY()>s.getY1() + Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1())) {
+						super.y = Math.abs(Math.max(s.getX1(), s.getX2())-this.getX()-super.width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2());
+					}
+					else {
+						super.y = Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()-super.width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())- super.height;
+					}
+				}
 				
-				if(s.getY2()>s.getY1())
-					super.y = Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())- super.height;
-				else
-					super.y = Math.abs(Math.max(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())- super.height;
-
 				onASurface = true;
 			}
 			if(x<2)
