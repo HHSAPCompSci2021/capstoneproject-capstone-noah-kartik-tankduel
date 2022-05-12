@@ -12,6 +12,7 @@ import java.util.List;
 
 public class Player extends Sprite {
 
+	private static final long serialVersionUID = -7613280413136318879L;
 	public static final int PLAYER_WIDTH = 17;
 	public static final int PLAYER_HEIGHT = 20;
 	private boolean onASurface;

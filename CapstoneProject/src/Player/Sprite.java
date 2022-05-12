@@ -11,7 +11,10 @@ import processing.core.PApplet;
  
 public class Sprite extends Rectangle2D.Double {
 	// CONSTRUCTORS
-	
+
+	private static final long serialVersionUID = 1005976734654758648L;
+
+
 	public Sprite(int x, int y, int w, int h) {
 		super(x, y, w, h);
 	}
