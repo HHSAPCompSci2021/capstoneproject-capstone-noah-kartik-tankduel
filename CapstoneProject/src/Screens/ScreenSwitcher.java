@@ -11,6 +11,8 @@ public interface ScreenSwitcher {
 	public static final int PLAYSCREEN1 = 2;
 	public static final int SETTING = 3;
 	public static final int NORMALMAPSCREEN = 4;
+	public static final int ROUND_OVER = 5;
+	public static final int GAME_OVER = 6;
 
 
 	/**

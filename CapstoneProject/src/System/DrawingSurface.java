@@ -46,6 +46,12 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		NormalMapScreen normalMap = new NormalMapScreen(this);
 		screens.add(normalMap);
 		
+		RoundOverScreen roundOver = new RoundOverScreen(this);
+		screens.add(roundOver);
+		
+		GameOverScreen gameOver = new GameOverScreen(this);
+		screens.add(gameOver);
+		
 		activeScreen = screens.get(0);
 		
 	}
@@ -184,6 +190,10 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 	
 	public int getGameMode() {
 		return gameMode;
+	}
+	
+	public boolean getRoundWinner() {
+		return ((NormalMapScreen)screens.get(NORMALMAPSCREEN)).getRoundWinner();
 	}
 
 }

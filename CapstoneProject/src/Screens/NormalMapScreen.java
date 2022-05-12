@@ -13,11 +13,14 @@ public class NormalMapScreen extends Screens{
 	private DrawingSurface surface;
 	private Line2D l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35;
 	private Player p;
+	private boolean roundWinner;
+	private boolean gameWinner;
+
 	
 
 	
 	/* The area created by spawnX and spawnY will be the spawn area.
-	 * When the count down to START the game reaches 0,
+	 * When the 10 second count down to START the game reaches 0,
 	 * the spawnY line will disappear and only the 
 	 * runners will be able to move. After 15 seconds,
 	 *  taggers will be able to move.
@@ -26,20 +29,24 @@ public class NormalMapScreen extends Screens{
 
 	private Line2D border1,border2,border3,border4;
 	private Line2D[] platforms;
-		
+	int timer;
+	double curTime;
+	boolean first;
+	boolean second;
+	boolean third;
+	
 	public NormalMapScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
-		p =new Player(DRAWING_WIDTH/2-Player.PLAYER_WIDTH/2,DRAWING_HEIGHT/2 - Player.PLAYER_HEIGHT/2);
-		
+		p =new Player(50,50);
 		// X:1080 by Y:720 range lines, make sure that x1 < x2
 		l0 = new Line2D.Double (450,450,500,400);
 		l1 = new Line2D.Double (300,500,400,600);
 		l2 = new Line2D.Double (700,300,800,200);
 		l3 = new Line2D.Double (668,2,668,2.5);
 		l4 = new Line2D.Double (500,500,600,500);
-		l5 = new Line2D.Double (300, 70, 500, 70);
-		l6 = new Line2D.Double (780, 70, 1010,70);
+		l5 = new Line2D.Double (300,70,500,70);
+		l6 = new Line2D.Double (780,70,1010,70);
 		l7 = new Line2D.Double (400,270,650,150);
 		l8 = new Line2D.Double (50,300,250,375);
 		l9 = new Line2D.Double (829,375,1050,300);
@@ -79,6 +86,13 @@ public class NormalMapScreen extends Screens{
 		border4 = new Line2D.Double (1080, 720, 1080, 0);
 		
 		platforms = new Line2D[] {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35,spawnX,spawnY,border1,border2,border3,border4};
+		
+		timer = 6;
+		
+		curTime = System.currentTimeMillis();
+		first = true;
+		second = false;
+		third = false;
 	}
 	
 	public void draw() {
@@ -120,11 +134,59 @@ public class NormalMapScreen extends Screens{
 		if (surface.isPressed(KeyEvent.VK_UP))
 			p.jump();
 		
-
 		p.act(platforms);
+		
+		
+		
+		surface.pushStyle();
+		surface.fill(255,0,0);
+		if(first) {
+			if(System.currentTimeMillis()-curTime >1000) {
+				timer -= 1;
+				curTime = System.currentTimeMillis();
+				if(timer == 0) {
+					first = false;
+					second = true;
+					timer = 3;
+					platforms[37] = new Line2D.Double(0,0,0,0);
+				}
+			}
+			surface.textSize(30);
+			surface.text("GET READY! " + timer, 450, 50);
+			surface.popStyle();
+		}
+		else if(second) {
+			if(System.currentTimeMillis()-curTime >1000) {
+				timer -= 1;
+				curTime = System.currentTimeMillis();
+				if(timer == 0) {
+					second = false;
+					third = true;
+					timer = 3;
+				}
+			}
+			surface.textSize(25);
+			surface.text("RUNNERS RUN! " + timer, 450, 50);
+			surface.popStyle();
+		}
+		else if(third) {
+			if(System.currentTimeMillis()-curTime >1000) {
+				timer -= 1;
+				curTime = System.currentTimeMillis();
+				if(timer == 0) {
+					third = false;
+					roundWinner = true;//need to change in the future when possible
+					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
+					
+				}
+			}
+			surface.textSize(50);
+			surface.text(timer, 500, 50);
+			surface.popStyle();
+		}
 	}
 	
-	
-	
-	
+	public boolean getRoundWinner() {
+		return roundWinner;
+	}
 }
