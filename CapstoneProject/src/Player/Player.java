@@ -47,7 +47,6 @@ public class Player extends Sprite {
 		for(Line2D s: obstacles) {
 			if(super.intersectsLine(s)) {
 				double temp = yVel;
-//				double degree = Math.atan((s.getY2()-s.getY1()/(s.getX2()-s.getX1())));
 				yVel = 0;
 				xVel = 0;
 				if(s.getX1() == s.getX2()) {
@@ -67,11 +66,11 @@ public class Player extends Sprite {
 					}
 				}
 				else if(s.getY2() == s.getY1()) {
-					if(this.getY()<s.getY1()) {
+					if(this.getY()+5<s.getY1()) {
 						this.y = s.getY1()-this.height;
 					}
 					else {
-						this.y = s.getY1()+1;
+						this.y = s.getY1()+3;
 					}
 				}
 				else {
