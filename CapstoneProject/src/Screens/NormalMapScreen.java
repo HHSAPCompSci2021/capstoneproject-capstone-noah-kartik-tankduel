@@ -33,10 +33,10 @@ public class NormalMapScreen extends Screens{
 		p =new Player(DRAWING_WIDTH/2-Player.PLAYER_WIDTH/2,DRAWING_HEIGHT/2 - Player.PLAYER_HEIGHT/2);
 		
 		// X:1080 by Y:720 range lines, make sure that x1 < x2
-		l0 = new Line2D.Double (450,550,500,450);
+		l0 = new Line2D.Double (450,450,500,400);
 		l1 = new Line2D.Double (300,500,400,600);
 		l2 = new Line2D.Double (700,300,800,200);
-		l3 = new Line2D.Double (950,30,1050,130);
+		l3 = new Line2D.Double (668,2,668,2.5);
 		l4 = new Line2D.Double (500,500,600,500);
 		l5 = new Line2D.Double (300, 70, 500, 70);
 		l6 = new Line2D.Double (780, 70, 1010,70);
@@ -54,10 +54,10 @@ public class NormalMapScreen extends Screens{
 		l18 = new Line2D.Double (320,690,480,640);
 		l19 = new Line2D.Double (500,590,600,690);
 		l20 = new Line2D.Double (100,250,280,140);
-		l21 = new Line2D.Double (150,2,250,100);
+		l21 = new Line2D.Double (200,50,250,100);
 		l22 = new Line2D.Double (300,200,450,175);
 		l23 = new Line2D.Double (670,100,770,150);
-		l24 = new Line2D.Double (720,125,750,105);
+		l24 = new Line2D.Double (595,275,625,255);
 		l25 = new Line2D.Double (0,400,70,450);
 		l26 = new Line2D.Double (40,600,100,660);
 		l27 = new Line2D.Double (850,170,950,270);
@@ -101,8 +101,17 @@ public class NormalMapScreen extends Screens{
 
 		//Platforms
 		surface.strokeWeight(5);
-		for(Line2D l: platforms)
+		for(Line2D l: platforms) {
+			if(l.getY1() == 2 && l.getY2() == 2.5) {
+				surface.pushStyle();
+				surface.strokeWeight(0.1f);
+				surface.line((float)l.getX1(), (float)l.getY1(), (float)l.getX2(), (float)l.getY2());
+				surface.strokeWeight(5);
+				surface.popStyle();
+				continue;
+			}
 			surface.line((float)l.getX1(), (float)l.getY1(), (float)l.getX2(), (float)l.getY2());
+		}
 		p.walk(0);
 		if (surface.isPressed(KeyEvent.VK_LEFT))
 			p.walk(-1);

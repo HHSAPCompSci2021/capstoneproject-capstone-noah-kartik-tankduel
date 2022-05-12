@@ -36,7 +36,7 @@ public class Sprite extends Rectangle2D.Double {
 	
 	
 	public void draw(PApplet g) {
-		g.fill(100);
+		g.fill(25,255,255);
 		g.rect((float)x,(float)y,(float)width,(float)height);
 	}
 	
