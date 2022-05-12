@@ -47,7 +47,7 @@ public class Player extends Sprite {
 		for(Line2D s: obstacles) {
 			if(super.intersectsLine(s)) {
 				double temp = yVel;
-				double degree = Math.atan((s.getY2()-s.getY1()/(s.getX2()-s.getX1())));
+//				double degree = Math.atan((s.getY2()-s.getY1()/(s.getX2()-s.getX1())));
 				yVel = 0;
 				xVel = 0;
 				if(s.getX1() == s.getX2()) {
@@ -61,19 +61,25 @@ public class Player extends Sprite {
 				}
 				if(s.getY2()>s.getY1()) {
 					if(this.getY()<s.getY1() + Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()))
-						super.y = Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())- super.height;
+						this.y = Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())- this.height;
 					else {
-						super.y = Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()-super.width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2());
+						this.y = Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()-this.width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2());
+					}
+				}
+				else if(s.getY2() == s.getY1()) {
+					if(this.getY()<s.getY1()) {
+						this.y = s.getY1()-this.height;
+					}
+					else {
+						this.y = s.getY1()+1;
 					}
 				}
 				else {
-					if(this.getY()>s.getY1() - Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1())) {
-						System.out.println("hi");
-						super.y = Math.abs(Math.max(s.getX1(), s.getX2())-this.getX()-super.width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2());
+					if(getY() + height-1< s.getY1() - Math.abs(Math.min(s.getX1(), s.getX2())-(getX()+width)) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1())) {
+						y = Math.abs(Math.max(s.getX1(), s.getX2())-getX()-width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())-height;
 					}
 					else {
-						System.out.println("hello");
-						super.y = Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()-super.width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())- super.height;
+						y = Math.abs(Math.max(s.getX1(), s.getX2())-getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2());
 					}
 				}
 				
