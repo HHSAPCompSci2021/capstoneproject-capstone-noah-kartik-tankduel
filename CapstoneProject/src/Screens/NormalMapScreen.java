@@ -147,7 +147,7 @@ public class NormalMapScreen extends Screens{
 				if(timer == 0) {
 					first = false;
 					second = true;
-					timer = 3;
+					timer = 11;
 					platforms[37] = new Line2D.Double(0,0,0,0);
 				}
 			}
@@ -162,7 +162,7 @@ public class NormalMapScreen extends Screens{
 				if(timer == 0) {
 					second = false;
 					third = true;
-					timer = 3;
+					timer = 181;
 				}
 			}
 			surface.textSize(25);
