@@ -47,7 +47,7 @@ public class MenuScreen extends Screens{
 		surface.rect(rules.x, rules.y, rules.width, rules.height);
 		surface.fill(0,0,0);
 		surface.textSize(50);
-		surface.text("RULES", rules.x+rules.width/2-surface.textWidth("RULES")/2, rules.y + rules.height/2 + 18);
+		surface.text("HOW TO PLAY", rules.x+rules.width/2-surface.textWidth("HOW TO PLAY")/2, rules.y + rules.height/2 + 18);
 		
 		surface.fill(255,255,255);
 		surface.rect(setting.x, setting.y, setting.width, setting.height);

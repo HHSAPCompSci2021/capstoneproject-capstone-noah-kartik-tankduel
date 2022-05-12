@@ -13,6 +13,7 @@ import System.DrawingSurface;
 public class RulesScreen extends Screens{
 
 	private Rectangle back;
+	private Rectangle next;
 	private DrawingSurface surface;
 	
 	/**
@@ -23,7 +24,7 @@ public class RulesScreen extends Screens{
 		super(1080, 720);
 		this.surface = surface;
 		back = new Rectangle(20,690,70,20);
-
+		next = new Rectangle(990,690,70,20);
 	}
 
 	/**
@@ -72,6 +73,11 @@ public class RulesScreen extends Screens{
 		surface.textSize(20);
 		surface.text("BACK", back.x+back.width/2-surface.textWidth("BACK")/2, back.y + back.height/2 + 7);
 		
+		surface.fill(255,255,255);
+		surface.rect(next.x, next.y, next.width, next.height);
+		surface.fill(0,0,0);
+		surface.textSize(20);
+		surface.text("NEXT", next.x+next.width/2-surface.textWidth("NEXT")/2, next.y + next.height/2 + 7);
 		surface.popStyle();
 	}
 	
@@ -82,6 +88,8 @@ public class RulesScreen extends Screens{
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		if (back.contains(p))
 			surface.switchScreen(ScreenSwitcher.MENU);
+		if (next.contains(p))
+			surface.switchScreen(ScreenSwitcher.ABILITIES);
 	}
 	
 }

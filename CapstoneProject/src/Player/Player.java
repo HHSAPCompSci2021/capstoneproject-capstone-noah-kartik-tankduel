@@ -1,6 +1,7 @@
 package Player;
 import java.awt.geom.Line2D;
-import java.util.List;
+import Screens.NormalMapScreen;
+import SpecialAbilities.*;
 
 /**
  * the player in the game
@@ -16,6 +17,12 @@ public class Player extends Sprite {
 	public static final int PLAYER_WIDTH = 17;
 	public static final int PLAYER_HEIGHT = 20;
 	private boolean onASurface;
+	private boolean speed;
+	private boolean jump;
+	private long diveTime;
+	private long speedTime;
+	private long cloakTime;
+	private long jumpTime;
 
 	private double xVel, yVel;
 
@@ -24,20 +31,38 @@ public class Player extends Sprite {
 		xVel = 0;
 		yVel = 0;
 		onASurface = false;
+		speed = false;
+		jump = false;
 	}
 
 	// METHODS
 	public void walk(int dir) {
 		xVel = dir * 3;
+		if(speed)
+			xVel*=1.25;
 	}
 
 	public void jump() {
 		if(onASurface) {
 		yVel -= 6.5;
+		if(jump)
+			yVel*=1.2;
 		}
 	}
 
-	public void act(Line2D[] obstacles) {
+	public void act(Line2D[] obstacles,SpecialAbilities[] abilities) {
+		if(System.currentTimeMillis()-speedTime>7000) {
+			speed = false;
+		}
+		if(System.currentTimeMillis()-jumpTime>7000) {
+			jump = false;
+		}
+		if(System.currentTimeMillis()-cloakTime>7000) {
+			//turn invisible off
+		}
+		if(System.currentTimeMillis()-diveTime>7000) {
+			//decrease tag range to normal
+		}
 		onASurface = false;
 		yVel += 0.2;
 		
@@ -96,6 +121,32 @@ public class Player extends Sprite {
 			}
 			if(y>718)
 				y = 718;
+		}
+		
+		for(SpecialAbilities a: abilities) {
+			if(a.intersects(this)) {
+				if(a instanceof SpeedBoost) {
+					speed = true;
+					speedTime = System.currentTimeMillis();
+					NormalMapScreen.deleteSpeed();
+				}
+				if(a instanceof HighJump) {
+					jump = true;
+					jumpTime = System.currentTimeMillis();
+					NormalMapScreen.deleteJump();
+				}
+				if(a instanceof SneakyCloak) {
+					//make invisible here
+					cloakTime = System.currentTimeMillis();
+					NormalMapScreen.deleteCloak();
+				}
+				if(a instanceof DiveTag) {
+					//increase tag range here
+					diveTime = System.currentTimeMillis();
+					NormalMapScreen.deleteDive();
+				}
+				
+			}
 		}
 		
 		

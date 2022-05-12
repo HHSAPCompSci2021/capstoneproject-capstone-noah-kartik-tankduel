@@ -2,17 +2,20 @@ package Screens;
 
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
-import java.util.ArrayList;
-import java.util.List;
-
 import Player.Player;
-import Player.Sprite;
+import SpecialAbilities.*;
 import System.DrawingSurface;
 
 public class NormalMapScreen extends Screens{
 	private DrawingSurface surface;
 	private Line2D l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35;
 	private Player p;
+	private static DiveTag diveTag;
+	private static HighJump highJump;
+	private static SneakyCloak sneakyCloak;
+	private static SpeedBoost speedBoost;
+	private static SpecialAbilities[] abilities;
+	
 	private boolean roundWinner;
 	private boolean gameWinner;
 
@@ -87,6 +90,13 @@ public class NormalMapScreen extends Screens{
 		
 		platforms = new Line2D[] {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35,spawnX,spawnY,border1,border2,border3,border4};
 		
+		diveTag = new DiveTag((int)(Math.random()*1060)+10,(int)(Math.random()*700)+10);
+		speedBoost = new SpeedBoost((int)(Math.random()*1060)+10,(int)(Math.random()*700)+10);
+		highJump = new HighJump((int)(Math.random()*1060)+10,(int)(Math.random()*700)+10);
+		sneakyCloak = new SneakyCloak((int)(Math.random()*1060)+10,(int)(Math.random()*700)+10);
+		
+		abilities = new SpecialAbilities[] {diveTag,speedBoost,highJump,sneakyCloak};
+
 		timer = 6;
 		
 		curTime = System.currentTimeMillis();
@@ -134,7 +144,7 @@ public class NormalMapScreen extends Screens{
 		if (surface.isPressed(KeyEvent.VK_UP))
 			p.jump();
 		
-		p.act(platforms);
+		p.act(platforms,abilities);
 		
 		
 		
@@ -184,9 +194,32 @@ public class NormalMapScreen extends Screens{
 			surface.text(timer, 500, 50);
 			surface.popStyle();
 		}
+		if(third) {
+			surface.pushStyle();
+			surface.strokeWeight(1);
+			diveTag.draw(surface);
+			speedBoost.draw(surface);
+			highJump.draw(surface);
+			sneakyCloak.draw(surface);
+			surface.popStyle();
+		}
+
 	}
 	
 	public boolean getRoundWinner() {
 		return roundWinner;
+	}
+	
+	public static void deleteSpeed() {
+		speedBoost = new SpeedBoost(-100,-100);
+	}
+	public static void deleteCloak() {
+		sneakyCloak = new SneakyCloak(-100,-100);
+	}
+	public static void deleteJump() {
+		highJump = new HighJump(-100,-100);
+	}
+	public static void deleteDive() {
+		diveTag = new DiveTag(-100,-100);
 	}
 }
