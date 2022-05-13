@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import System.DrawingSurface;
+import networking.frontend.NetworkManagementPanel;
 
 /**
  * Lets you choose if you want to play 1v1 on your computer or if you want to play network
@@ -93,6 +94,9 @@ public class TwoPlayerOrNetwork extends Screens{
 			surface.switchScreen(ScreenSwitcher.PLAYSCREEN1);
 		if (next.contains(p) && method == 1)
 			surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
+		if (next.contains(p) && method == 2)
+			NetworkManagementPanel nmp = new NetworkManagementPanel("ProcessingDrawing", 10, new NormalMapScreen(surface));
+		
 	}
 
 }

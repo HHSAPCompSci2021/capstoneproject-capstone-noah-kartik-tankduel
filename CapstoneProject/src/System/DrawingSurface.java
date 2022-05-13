@@ -230,5 +230,9 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 	public boolean getRoundWinner() {
 		return ((NormalMapScreen)screens.get(NORMALMAPSCREEN)).getRoundWinner();
 	}
+	
+	public Screens getScreen(int i) {
+		return screens.get(i);
+	}
 
 }

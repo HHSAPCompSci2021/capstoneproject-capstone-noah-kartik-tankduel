@@ -1,6 +1,4 @@
 package Screens;
-
-import java.awt.Cursor;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
@@ -119,7 +117,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		third = false;
 	}
 	/**
-	 * Standard drawing in procesing
+	 * Standard drawing in processing
 	 */
 	public void draw() {
 		surface.background(255,255,255);
