@@ -151,6 +151,9 @@ public class Player extends Sprite {
 		
 		
 	}
+//	public boolean tagged() {
+//		 
+//	}
 
 
 }

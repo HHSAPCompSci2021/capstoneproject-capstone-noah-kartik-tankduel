@@ -137,13 +137,22 @@ public class NormalMapScreen extends Screens{
 			surface.line((float)l.getX1(), (float)l.getY1(), (float)l.getX2(), (float)l.getY2());
 		}
 		p.walk(0);
+		
+		if(surface.getInputMethod()) {
 		if (surface.isPressed(KeyEvent.VK_LEFT))
 			p.walk(-1);
 		if (surface.isPressed(KeyEvent.VK_RIGHT))
 			p.walk(1);
 		if (surface.isPressed(KeyEvent.VK_UP))
 			p.jump();
-		
+		}else {
+			if (surface.isPressed(KeyEvent.VK_A))
+				p.walk(-1);
+			if (surface.isPressed(KeyEvent.VK_D))
+				p.walk(1);
+			if (surface.isPressed(KeyEvent.VK_W))
+				p.jump();
+		}
 		p.act(platforms,abilities);
 		
 		

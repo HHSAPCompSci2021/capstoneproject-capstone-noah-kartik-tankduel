@@ -88,8 +88,8 @@ public class RulesScreen extends Screens{
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		if (back.contains(p))
 			surface.switchScreen(ScreenSwitcher.MENU);
-		if (next.contains(p))
-			surface.switchScreen(ScreenSwitcher.ABILITIES);
+//		if (next.contains(p))
+//			surface.switchScreen(ScreenSwitcher.ABILITIES);
 	}
 	
 }
