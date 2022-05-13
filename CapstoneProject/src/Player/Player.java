@@ -26,6 +26,11 @@ public class Player extends Sprite {
 
 	private double xVel, yVel;
 
+	/**
+	 * Creates a player at position x and y and calls the super constructor 
+	 * @param x - x coordinate of the spawn point 
+	 * @param y - y coordinate of the spawn point
+	 */
 	public Player(int x, int y) {
 		super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
 		xVel = 0;
@@ -35,13 +40,19 @@ public class Player extends Sprite {
 		jump = false;
 	}
 
-	// METHODS
+	/**
+	 * Makes the character move left and right
+	 * @param dir - direction you want the character to go 
+	 */
 	public void walk(int dir) {
 		xVel = dir * 3;
 		if(speed)
 			xVel*=1.25;
 	}
 
+	/**
+	 * Makes the player jump up 
+	 */
 	public void jump() {
 		if(onASurface) {
 		yVel -= 6.5;
@@ -50,6 +61,13 @@ public class Player extends Sprite {
 		}
 	}
 
+	/**
+	 * Checks the player collision between the boundaries of the map and makes sure it does not go outside the boundary. 
+	 * Checks to see if a player has collided and if it does then it acts in that way
+	 * Checks to see if a player has picked up any of the special abilities which is basically also a collision.
+	 * @param obstacles - the array of platforms on which the player can jump on
+	 * @param abilities - the array of ablities from which you can pick up 
+	 */
 	public void act(Line2D[] obstacles,SpecialAbilities[] abilities) {
 		if(System.currentTimeMillis()-speedTime>7000) {
 			speed = false;
@@ -151,9 +169,7 @@ public class Player extends Sprite {
 		
 		
 	}
-//	public boolean tagged() {
-//		 
-//	}
+
 
 
 }

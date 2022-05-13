@@ -104,7 +104,9 @@ public class NormalMapScreen extends Screens{
 		second = false;
 		third = false;
 	}
-	
+	/**
+	 * Standard drawing in procesing
+	 */
 	public void draw() {
 		surface.background(255,255,255);
 		surface.fill(0,0,0);
@@ -215,19 +217,35 @@ public class NormalMapScreen extends Screens{
 
 	}
 	
+	/**
+	 * Gets the winner of the round of tag currently working on it
+	 * @return roundwinner
+	 */
 	public boolean getRoundWinner() {
 		return roundWinner;
 	}
 	
+	/**
+	 * Makes it so that once you pick up the speedboost it disappears so you cannot pick it up again
+	 */
 	public static void deleteSpeed() {
 		speedBoost = new SpeedBoost(-100,-100);
 	}
+	/**
+	 * Makes it so that once you pick up the invisibility it disappears so you cannot pick it up again
+	 */
 	public static void deleteCloak() {
 		sneakyCloak = new SneakyCloak(-100,-100);
 	}
+	/**
+	 * Makes it so that once you pick up the delete jump it disappears so you cannot pick it up again
+	 */
 	public static void deleteJump() {
 		highJump = new HighJump(-100,-100);
 	}
+	/**
+	 * Makes it so that once you pick up the deleteDive it disappears so you cannot pick it up again
+	 */
 	public static void deleteDive() {
 		diveTag = new DiveTag(-100,-100);
 	}
