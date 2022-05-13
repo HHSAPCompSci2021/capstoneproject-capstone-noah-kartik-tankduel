@@ -5,6 +5,11 @@ import java.awt.Rectangle;
 
 import System.DrawingSurface;
 
+/**
+ * Lets you choose if you want to play 1v1 on your computer or if you want to play network
+ * @author npien
+ *
+ */
 public class TwoPlayerOrNetwork extends Screens{
 	
 	private Rectangle twoPlayer;
@@ -23,6 +28,10 @@ public class TwoPlayerOrNetwork extends Screens{
 		next = new Rectangle(990,690,70,20);
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**
+	 * draws the screen
+	 */
 	public void draw() {
 		surface.clear();
 		surface.background(0,0,0);
@@ -68,6 +77,9 @@ public class TwoPlayerOrNetwork extends Screens{
 	}
 	
 
+	/**
+	 * Actions for when mouse is pressed
+	 */
 	public void mousePressed() {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		if(twoPlayer.contains(p)) {

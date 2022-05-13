@@ -175,30 +175,58 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		activeScreen = screens.get(i);
 	}
 	
+	/**
+	 * sets the input method to input
+	 * @param input the input method
+	 */
 	public void setInputMethod(boolean input) {
 		inputMethod = input;
 	}
 	
+	/**
+	 * returns the current input method
+	 * @return the current input method
+	 */
 	public boolean getInputMethod() {
 		return inputMethod;
 	}
 	
+	/**
+	 * sets the map
+	 * @param i the map
+	 */
 	public void setMap(int i) {
 		map = i;
 	}
 	
+	/**
+	 * returns the current map
+	 * @return the map
+	 */
 	public int getMap() {
 		return map;
 	}
 	
+	/**
+	 * sets the game mode
+	 * @param i the game mode
+	 */
 	public void setGameMode(int i) {
 		gameMode = i;
 	}
 	
+	/**
+	 * gets the game mode
+	 * @return the current game mode
+	 */
 	public int getGameMode() {
 		return gameMode;
 	}
 	
+	/**
+	 * gets the round winner
+	 * @return the round winner
+	 */
 	public boolean getRoundWinner() {
 		return ((NormalMapScreen)screens.get(NORMALMAPSCREEN)).getRoundWinner();
 	}

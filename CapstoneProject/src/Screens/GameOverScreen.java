@@ -7,14 +7,14 @@ public class GameOverScreen extends Screens{
 
 	/**
 	 * Constructor for GameOverScreen where you call the super constructor to make a full sized window
-	 * @param surface
+	 * @param surface the surface to draw on
 	 */
 	public GameOverScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
 	}
 	/**
-	 *
+	 * draw the screen when the game is over
 	 */
 	public void draw() {
 		surface.background(255,255,255);
