@@ -3,19 +3,23 @@ package Screens;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
 import Player.Player;
+import Player.Runner;
+import Player.Tagger;
 import SpecialAbilities.*;
 import System.DrawingSurface;
 
 public class NormalMapScreen extends Screens{
 	private DrawingSurface surface;
 	private Line2D l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35;
-	private Player p;
+	//private Player p;
 	private static DiveTag diveTag;
 	private static HighJump highJump;
 	private static SneakyCloak sneakyCloak;
 	private static SpeedBoost speedBoost;
 	private static SpecialAbilities[] abilities;
-	
+	private Player r;
+	private Player t;
+	private long taggedTime;
 	private boolean roundWinner;
 	private boolean gameWinner;
 
@@ -41,7 +45,7 @@ public class NormalMapScreen extends Screens{
 	public NormalMapScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
-		p =new Player(50,50);
+	//	p =new Player(50,50);
 		// X:1080 by Y:720 range lines, make sure that x1 < x2
 		l0 = new Line2D.Double (450,450,500,400);
 		l1 = new Line2D.Double (300,500,400,600);
@@ -82,6 +86,8 @@ public class NormalMapScreen extends Screens{
 
 		spawnX = new Line2D.Double(0,150,150,150);
 		spawnY = new Line2D.Double(150,0,150,150);
+		t = new Tagger(0,0);
+		r = new Runner(50,50);
 		
 		border1 = new Line2D.Double (0, 0, 1080, 0);
 		border2 = new Line2D.Double (0, 0, 0, 720);
@@ -123,7 +129,9 @@ public class NormalMapScreen extends Screens{
 		
 		surface.strokeWeight(2);
 
-		p.draw(this.surface);
+		//p.draw(this.surface);
+		t.draw(this.surface);
+		r.draw(this.surface);
 
 		//Platforms
 		surface.strokeWeight(5);
@@ -138,26 +146,48 @@ public class NormalMapScreen extends Screens{
 			}
 			surface.line((float)l.getX1(), (float)l.getY1(), (float)l.getX2(), (float)l.getY2());
 		}
-		p.walk(0);
+		//p.walk(0);
 		
 		if(surface.getInputMethod()) {
 		if (surface.isPressed(KeyEvent.VK_LEFT))
-			p.walk(-1);
+			t.walk(-1);
+			//p.walk(-1);
 		if (surface.isPressed(KeyEvent.VK_RIGHT))
-			p.walk(1);
+			//p.walk(1);
+			t.walk(1);
 		if (surface.isPressed(KeyEvent.VK_UP))
-			p.jump();
-		}else {
-			if (surface.isPressed(KeyEvent.VK_A))
-				p.walk(-1);
-			if (surface.isPressed(KeyEvent.VK_D))
-				p.walk(1);
-			if (surface.isPressed(KeyEvent.VK_W))
-				p.jump();
+			//p.jump();
+			t.jump();
+		if (surface.isPressed(KeyEvent.VK_A)) 
+			r.walk(-1);
+		if (surface.isPressed(KeyEvent.VK_D)) 
+			r.walk(1);
+		if (surface.isPressed(KeyEvent.VK_W)) 
+			r.jump();
 		}
-		p.act(platforms,abilities);
-		
-		
+		else {
+			if (surface.isPressed(KeyEvent.VK_A))
+				//p.walk(-1);
+				t.walk(-1);
+			if (surface.isPressed(KeyEvent.VK_D))
+				//p.walk(1);
+				t.walk(1);
+			if (surface.isPressed(KeyEvent.VK_W))
+				//p.jump();
+				t.jump();
+			if (surface.isPressed(KeyEvent.VK_LEFT))
+				r.walk(-1);
+				//p.walk(-1);
+			if (surface.isPressed(KeyEvent.VK_RIGHT))
+				//p.walk(1);
+				r.walk(1);
+			if (surface.isPressed(KeyEvent.VK_UP))
+				//p.jump();
+				r.jump();
+		}
+		//p.act(platforms,abilities);
+		t.act(platforms, abilities);
+		r.act(platforms, abilities);
 		
 		surface.pushStyle();
 		surface.fill(255,0,0);
@@ -214,6 +244,19 @@ public class NormalMapScreen extends Screens{
 			sneakyCloak.draw(surface);
 			surface.popStyle();
 		}
+		if(t.intersects(r)) {
+			r = new Tagger((int) r.x, (int) r.y);
+			t = new Runner((int) t.x, (int) t.y);
+			System.out.println("Runner is tagger");
+			if(System.currentTimeMillis()-taggedTime<3000) {
+				System.out.println("cant tag them");
+			}
+		}
+//		if(r.intersects(t)) {
+//			r = new Runner((int) r.x, (int) r.y);
+//			t = new Tagger((int) t.x, (int) t.y);
+//			System.out.println("Tagger is runner");
+//		}
 
 	}
 	
