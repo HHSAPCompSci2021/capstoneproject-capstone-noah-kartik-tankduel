@@ -43,6 +43,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		SettingScreen setting = new SettingScreen(this);
 		screens.add(setting);
 		
+		
 		NormalMapScreen normalMap = new NormalMapScreen(this);
 		screens.add(normalMap);
 		
@@ -54,6 +55,9 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		
 		AbilitiesInstructScreen abilities = new AbilitiesInstructScreen(this);
 		screens.add(abilities);
+		
+		TwoPlayerOrNetwork network = new TwoPlayerOrNetwork(this);
+		screens.add(network);
 		
 		activeScreen = screens.get(0);
 		
