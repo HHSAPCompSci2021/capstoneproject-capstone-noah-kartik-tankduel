@@ -13,7 +13,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 
 	public float ratioX, ratioY;
 	private ArrayList<Integer> keys;
-	private Screens activeScreen; fewewknhfewlkfnweo
+	private Screens activeScreen;
 	private ArrayList<Screens> screens;
 	private boolean inputMethod; // false for WASD and true for arrow keys
 	private int map; // 0 for normal map
