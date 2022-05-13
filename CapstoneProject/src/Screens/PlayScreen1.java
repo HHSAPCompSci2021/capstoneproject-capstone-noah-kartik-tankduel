@@ -34,7 +34,7 @@ public class PlayScreen1 extends Screens{
 		normalMode = new Rectangle(700,250,250,100);
 		freezeMode = new Rectangle(700,400,250,100);
 		copsNRobbers = new Rectangle(700,550,250,100);
-		startButton = new Rectangle(430,450,200,100);
+		startButton = new Rectangle(440,450,200,100);
 
 	}
 
@@ -96,6 +96,10 @@ public class PlayScreen1 extends Screens{
 		surface.textSize(30);
 		surface.text("FREEZE MODE", freezeMode.x+freezeMode.width/2-surface.textWidth("FREEZE MODE")/2, freezeMode.y + freezeMode.height/2 + 7);
 		
+		surface.fill(255,255,255);
+		surface.textSize(15);
+		surface.text("Not yet coded", freezeMode.x+freezeMode.width, freezeMode.y + freezeMode.height/2 + 7);
+		
 		if(surface.getGameMode() == 3) {
 			surface.fill(25,255,255);
 			surface.rect(copsNRobbers.x-5, copsNRobbers.y-5, copsNRobbers.width+10, copsNRobbers.height+10);
@@ -107,9 +111,15 @@ public class PlayScreen1 extends Screens{
 		surface.text("COPS N ROBBERS", copsNRobbers.x+copsNRobbers.width/2-surface.textWidth("COPS N ROBBERS")/2, copsNRobbers.y + copsNRobbers.height/2 + 7);
 		
 		surface.fill(255,255,255);
+		surface.textSize(15);
+		surface.text("Not yet coded", copsNRobbers.x+copsNRobbers.width, copsNRobbers.y + copsNRobbers.height/2 + 7);
+
+
+		surface.fill(255,255,255);
 		surface.rect(startButton.x, startButton.y, startButton.width, startButton.height);
 		surface.fill(0,0,0);
-		surface.text("Start", startButton.x+startButton.width/2-surface.textWidth("Start")/2, startButton.y + startButton.height/2 + 7);
+		surface.textSize(50);
+		surface.text("START", startButton.x+startButton.width/2-surface.textWidth("START")/2, startButton.y + startButton.height/2 + 15);
 
 		//Back button
 		surface.fill(255,255,255);
