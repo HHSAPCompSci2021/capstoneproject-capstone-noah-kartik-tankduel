@@ -2,6 +2,7 @@ package Player;
 import java.awt.geom.Line2D;
 import Screens.NormalMapScreen;
 import SpecialAbilities.*;
+import networking.frontend.NetworkDataObject;
 
 /**
  * the player in the game
@@ -16,6 +17,7 @@ public class Player extends Sprite {
 	private static final long serialVersionUID = -7613280413136318879L;
 	public static final int PLAYER_WIDTH = 17;
 	public static final int PLAYER_HEIGHT = 20;
+	public String host;
 	private boolean onASurface;
 	private boolean speed;
 	private boolean jump;
@@ -38,6 +40,9 @@ public class Player extends Sprite {
 		onASurface = false;
 		speed = false;
 		jump = false;
+		NetworkDataObject a = new NetworkDataObject();
+		host = a.getSourceIP();
+		
 	}
 
 	/**

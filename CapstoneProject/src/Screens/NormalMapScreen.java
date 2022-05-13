@@ -1,15 +1,23 @@
 package Screens;
 
+import java.awt.Cursor;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
+import java.util.Queue;
+
 import Player.Player;
 import SpecialAbilities.*;
 import System.DrawingSurface;
+import networking.frontend.NetworkDataObject;
+import networking.frontend.NetworkListener;
+import networking.frontend.NetworkMessenger;
 
-public class NormalMapScreen extends Screens{
+public class NormalMapScreen extends Screens implements NetworkListener{
 	private DrawingSurface surface;
 	private Line2D l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35;
 	private Player p;
+	private ArrayList<Player> players;
 	private static DiveTag diveTag;
 	private static HighJump highJump;
 	private static SneakyCloak sneakyCloak;
@@ -18,6 +26,10 @@ public class NormalMapScreen extends Screens{
 	
 	private boolean roundWinner;
 	private boolean gameWinner;
+	
+	private NetworkMessenger nm;
+	
+	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
 
 	
 
@@ -42,6 +54,8 @@ public class NormalMapScreen extends Screens{
 		super(1080, 720);
 		this.surface = surface;
 		p =new Player(50,50);
+		p.host = "me!";
+		players.add(p);
 		// X:1080 by Y:720 range lines, make sure that x1 < x2
 		l0 = new Line2D.Double (450,450,500,400);
 		l1 = new Line2D.Double (300,500,400,600);
@@ -155,6 +169,7 @@ public class NormalMapScreen extends Screens{
 			if (surface.isPressed(KeyEvent.VK_W))
 				p.jump();
 		}
+		nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
 		p.act(platforms,abilities);
 		
 		
@@ -214,8 +229,40 @@ public class NormalMapScreen extends Screens{
 			sneakyCloak.draw(surface);
 			surface.popStyle();
 		}
+		
+		
+		processNetworkMessages();
+	}
+	
+	
+public void processNetworkMessages() {
+		
+		if (nm == null)
+			return;
+		
+		Queue<NetworkDataObject> queue = nm.getQueuedMessages();
+		
+		while (!queue.isEmpty()) {
+			NetworkDataObject ndo = queue.poll();
+
+			String host = ndo.getSourceIP();
+
+			if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
+				if (ndo.message[0].equals(messageTypeCurrentLocation)) {
+					
+						for (Player c : players) {
+							if (c.host.equals(host)) {
+								c.x = (double)ndo.message[1];
+								c.y = (double)ndo.message[2];
+							}
+						}
+				}
+			}
+
+		}
 
 	}
+	
 	
 	/**
 	 * Gets the winner of the round of tag currently working on it
@@ -248,5 +295,13 @@ public class NormalMapScreen extends Screens{
 	 */
 	public static void deleteDive() {
 		diveTag = new DiveTag(-100,-100);
+	}
+	@Override
+	public void connectedToServer(NetworkMessenger nm) {
+		this.nm = nm;
+	}
+	@Override
+	public void networkMessageReceived(NetworkDataObject ndo) {
+		
 	}
 }
