@@ -52,6 +52,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		super(1080, 720);
 		this.surface = surface;
 		p =new Player(50,50);
+		players = new ArrayList<Player>();
 		p.host = "me!";
 		players.add(p);
 		// X:1080 by Y:720 range lines, make sure that x1 < x2
