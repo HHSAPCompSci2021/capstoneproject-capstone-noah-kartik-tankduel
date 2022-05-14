@@ -19,7 +19,8 @@ public class TwoPlayerOrNetwork extends Screens{
 	private Rectangle back;
 	private Rectangle next;
 	private int method = 0;
-
+	private NetworkManagementPanel nmp;
+	
 	public TwoPlayerOrNetwork(DrawingSurface surface) {
 		super(1080,720);
 		this.surface = surface;
@@ -95,7 +96,7 @@ public class TwoPlayerOrNetwork extends Screens{
 		if (next.contains(p) && method == 1)
 			surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
 		if (next.contains(p) && method == 2)
-			NetworkManagementPanel nmp = new NetworkManagementPanel("ProcessingDrawing", 10, new NormalMapScreen(surface));
+			nmp = new NetworkManagementPanel("ProcessingDrawing", 10, new NormalMapScreen(surface));
 		
 	}
 
