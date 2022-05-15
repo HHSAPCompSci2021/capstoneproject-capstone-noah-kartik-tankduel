@@ -145,9 +145,10 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		surface.popStyle();
 		
 		surface.strokeWeight(2);
-
-		p.draw(this.surface);
-
+		
+		for(Player c:players) {
+			c.draw(this.surface);
+		}
 		//Platforms
 		surface.strokeWeight(5);
 		for(Line2D l: platforms) {
@@ -273,8 +274,8 @@ public void processNetworkMessages() {
 							return;
 					}
 					Player c = new Player(50,50);
-					c.x = (Integer)ndo.message[1];
-					c.y = (Integer)ndo.message[2];
+					c.x = (double) ndo.message[1];
+					c.y = (double) ndo.message[2];
 					c.host = host;
 					players.add(c);
 				
