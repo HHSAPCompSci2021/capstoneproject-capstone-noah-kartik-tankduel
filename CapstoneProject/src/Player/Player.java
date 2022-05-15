@@ -5,7 +5,6 @@ import java.net.UnknownHostException;
 
 import Screens.NormalMapScreen;
 import SpecialAbilities.*;
-import networking.frontend.NetworkDataObject;
 
 /**
  * the player in the game

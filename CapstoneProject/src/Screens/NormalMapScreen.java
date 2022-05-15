@@ -242,7 +242,7 @@ public void processNetworkMessages() {
 			return;
 		
 		Queue<NetworkDataObject> queue = nm.getQueuedMessages();
-		
+		System.out.println(players);
 		while (!queue.isEmpty()) {
 			NetworkDataObject ndo = queue.poll();
 
