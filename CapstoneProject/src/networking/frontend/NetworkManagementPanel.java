@@ -56,6 +56,7 @@ public class NetworkManagementPanel extends JPanel
 
 	private Timer refreshTimer;
 	private int timeOut;
+	public static boolean connectedSuccess;
 	
 	private int maxPerServer;
 
@@ -161,7 +162,7 @@ public class NetworkManagementPanel extends JPanel
 
 		JFrame window = new JFrame("Network Management");
 		window.setBounds(300, 300, 700, 480);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		window.add(this);
 		window.setVisible(true);
 	}
@@ -211,6 +212,7 @@ public class NetworkManagementPanel extends JPanel
 				sc.disconnect();
 				sc = null;
 			} else {
+				connectedSuccess = true;
 				statusText.append("\nConnected to "+host+" on " + TCP_PORT);
 				sc.addNetworkListener(clientProgram);
 				sc.addNetworkListener(new NetworkMessageHandler());

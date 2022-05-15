@@ -168,7 +168,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			if (surface.isPressed(KeyEvent.VK_W))
 				p.jump();
 		}
-		nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
+
 		p.act(platforms,abilities);
 		
 		
@@ -229,8 +229,10 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			surface.popStyle();
 		}
 		
-		
-		processNetworkMessages();
+		if(TwoPlayerOrNetwork.network) {
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
+			processNetworkMessages();
+		}
 	}
 	
 	
