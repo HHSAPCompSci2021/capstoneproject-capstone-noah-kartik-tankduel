@@ -1,4 +1,5 @@
 package Screens;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	private NetworkMessenger nm;
 	
 	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
+	private static final String messageTypeInit = "CREATE_PLAYER";
 
 	
 
@@ -258,8 +260,32 @@ public void processNetworkMessages() {
 							}
 						}
 				}
+				else if (ndo.message[0].equals(messageTypeInit)) {
+					
+					for (Player c : players) {
+						if (c.host.equals(host))
+							return;
+					}
+					Player c = new Player(50,50);
+					c.x = (Integer)ndo.message[1];
+					c.y = (Integer)ndo.message[2];
+					c.host = host;
+					players.add(c);
+				
+				}
 			}
-
+			else if (ndo.messageType.equals(NetworkDataObject.CLIENT_LIST)) {
+				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y);	
+			}
+			else if (ndo.dataSource.equals(ndo.serverHost)) {
+				players.clear();
+				players.add(p);
+			} else {
+					for (int i = players.size()-1; i >= 0; i--)
+					if (players.get(i).host.equals(host))
+						players.remove(i);
+			}
+			
 		}
 
 	}
