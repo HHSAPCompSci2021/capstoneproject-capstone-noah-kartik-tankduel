@@ -128,7 +128,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	 */
 	public void draw() {
 		if(TwoPlayerOrNetwork.network)
-			if(!NetworkManagementPanel.isHost && firstRun == 0)
+			if(firstRun == 0)
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y);	
 		firstRun++;
 		surface.background(255,255,255);
