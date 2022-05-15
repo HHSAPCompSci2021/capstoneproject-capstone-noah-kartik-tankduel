@@ -10,6 +10,7 @@ import SpecialAbilities.*;
 import System.DrawingSurface;
 import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
+import networking.frontend.NetworkManagementPanel;
 import networking.frontend.NetworkMessenger;
 
 public class NormalMapScreen extends Screens implements NetworkListener{
@@ -48,6 +49,8 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	boolean first;
 	boolean second;
 	boolean third;
+	
+	int firstRun;
 	
 	public NormalMapScreen(DrawingSurface surface) {
 		super(1080, 720);
@@ -117,11 +120,16 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		first = true;
 		second = false;
 		third = false;
+		
+		firstRun = 0;
 	}
 	/**
 	 * Standard drawing in processing
 	 */
 	public void draw() {
+		if(!NetworkManagementPanel.isHost && firstRun == 0)
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y);	
+		firstRun++;
 		surface.background(255,255,255);
 		surface.fill(0,0,0);
 		
@@ -270,9 +278,6 @@ public void processNetworkMessages() {
 					players.add(c);
 				
 				}
-			}
-			else if (ndo.messageType.equals(NetworkDataObject.CLIENT_LIST)) {
-				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y);	
 			}
 			else if (ndo.dataSource.equals(ndo.serverHost)) {
 				players.clear();
