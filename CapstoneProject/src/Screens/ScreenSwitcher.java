@@ -15,6 +15,7 @@ public interface ScreenSwitcher {
 	public static final int GAME_OVER = 6;
 	public static final int ABILITIES = 7;
 	public static final int TWOPLAYERORNETWORK = 8;
+	public static final int STARTNETWORKGAME = 9;
 
 
 

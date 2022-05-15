@@ -59,6 +59,9 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		TwoPlayerOrNetwork network = new TwoPlayerOrNetwork(this);
 		screens.add(network);
 		
+		StartNetworkGame networkGame = new StartNetworkGame(this);
+		screens.add(networkGame);
+		
 		activeScreen = screens.get(0);
 		
 	}
@@ -229,6 +232,10 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 	 */
 	public boolean getRoundWinner() {
 		return ((NormalMapScreen)screens.get(NORMALMAPSCREEN)).getRoundWinner();
+	}
+	
+	public Screens getScreen(int i) {
+		return screens.get(i);
 	}
 
 }

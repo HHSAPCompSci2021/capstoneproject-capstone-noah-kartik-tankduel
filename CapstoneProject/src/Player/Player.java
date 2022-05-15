@@ -1,5 +1,8 @@
 package Player;
 import java.awt.geom.Line2D;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import Screens.NormalMapScreen;
 import SpecialAbilities.*;
 
@@ -16,6 +19,7 @@ public class Player extends Sprite {
 	private static final long serialVersionUID = -7613280413136318879L;
 	public static final int PLAYER_WIDTH = 17;
 	public static final int PLAYER_HEIGHT = 20;
+	public String host;
 	private boolean onASurface;
 	private boolean speed;
 	private boolean jump;
@@ -39,6 +43,13 @@ public class Player extends Sprite {
 		onASurface = false;
 		speed = false;
 		jump = false;
+		try {
+			host = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**

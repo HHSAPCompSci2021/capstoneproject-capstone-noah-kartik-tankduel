@@ -1,17 +1,23 @@
 package Screens;
-
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
+import java.util.Queue;
+
 import Player.Player;
 import Player.Runner;
 import Player.Tagger;
 import SpecialAbilities.*;
 import System.DrawingSurface;
+import networking.frontend.NetworkDataObject;
+import networking.frontend.NetworkListener;
+import networking.frontend.NetworkMessenger;
 
-public class NormalMapScreen extends Screens{
+public class NormalMapScreen extends Screens implements NetworkListener{
 	private DrawingSurface surface;
 	private Line2D l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35;
-	//private Player p;
+	private Player p;
+	private ArrayList<Player> players;
 	private static DiveTag diveTag;
 	private static HighJump highJump;
 	private static SneakyCloak sneakyCloak;
@@ -21,8 +27,12 @@ public class NormalMapScreen extends Screens{
 	private Player t;
 	private long taggedTime;
 	private boolean roundWinner;
-	private boolean gameWinner;
-
+//	private boolean gameWinner;
+	
+	private NetworkMessenger nm;
+	
+	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
+	private static final String messageTypeInit = "CREATE_PLAYER";
 	
 
 	
@@ -42,10 +52,16 @@ public class NormalMapScreen extends Screens{
 	boolean second;
 	boolean third;
 	
+	int firstRun;
+	
 	public NormalMapScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
-	//	p =new Player(50,50);
+		p =new Player(50,50);
+		players = new ArrayList<Player>();
+		p.host = "me!";
+		players.add(p);
+
 		// X:1080 by Y:720 range lines, make sure that x1 < x2
 		l0 = new Line2D.Double (450,450,500,400);
 		l1 = new Line2D.Double (300,500,400,600);
@@ -109,11 +125,17 @@ public class NormalMapScreen extends Screens{
 		first = true;
 		second = false;
 		third = false;
+		
+		firstRun = 0;
 	}
 	/**
-	 * Standard drawing in procesing
+	 * Standard drawing in processing
 	 */
 	public void draw() {
+		if(TwoPlayerOrNetwork.network)
+			if(firstRun == 0)
+				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y);	
+		firstRun++;
 		surface.background(255,255,255);
 		surface.fill(0,0,0);
 		
@@ -128,11 +150,15 @@ public class NormalMapScreen extends Screens{
 		surface.popStyle();
 		
 		surface.strokeWeight(2);
-
-		//p.draw(this.surface);
-		t.draw(this.surface);
-		r.draw(this.surface);
-
+		if(TwoPlayerOrNetwork.network) {
+			for(Player c:players) {
+				c.draw(this.surface);
+			}
+		}
+		if(!TwoPlayerOrNetwork.network) {
+			t.draw(this.surface);
+			r.draw(this.surface);
+		}
 		//Platforms
 		surface.strokeWeight(5);
 		for(Line2D l: platforms) {
@@ -146,48 +172,67 @@ public class NormalMapScreen extends Screens{
 			}
 			surface.line((float)l.getX1(), (float)l.getY1(), (float)l.getX2(), (float)l.getY2());
 		}
-		//p.walk(0);
-		
-		if(surface.getInputMethod()) {
-		if (surface.isPressed(KeyEvent.VK_LEFT))
-			t.walk(-1);
-			//p.walk(-1);
-		if (surface.isPressed(KeyEvent.VK_RIGHT))
-			//p.walk(1);
-			t.walk(1);
-		if (surface.isPressed(KeyEvent.VK_UP))
-			//p.jump();
-			t.jump();
-		if (surface.isPressed(KeyEvent.VK_A)) 
-			r.walk(-1);
-		if (surface.isPressed(KeyEvent.VK_D)) 
-			r.walk(1);
-		if (surface.isPressed(KeyEvent.VK_W)) 
-			r.jump();
+		if(TwoPlayerOrNetwork.network) {
+			p.walk(0);
+			if(surface.getInputMethod()) {
+				if (surface.isPressed(KeyEvent.VK_LEFT))
+					p.walk(-1);
+				if (surface.isPressed(KeyEvent.VK_RIGHT))
+					p.walk(1);
+				if (surface.isPressed(KeyEvent.VK_UP))
+					p.jump();
+				else {
+					if (surface.isPressed(KeyEvent.VK_A))
+						p.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_D))
+						p.walk(1);
+					if (surface.isPressed(KeyEvent.VK_W))
+						p.jump();
+				}
+			}
 		}
-		else {
-			if (surface.isPressed(KeyEvent.VK_A))
-				//p.walk(-1);
-				t.walk(-1);
-			if (surface.isPressed(KeyEvent.VK_D))
-				//p.walk(1);
-				t.walk(1);
-			if (surface.isPressed(KeyEvent.VK_W))
-				//p.jump();
-				t.jump();
+		if(!TwoPlayerOrNetwork.network) {
+			t.walk(0);
+			r.walk(0);
+
+			if(surface.getInputMethod()) {
 			if (surface.isPressed(KeyEvent.VK_LEFT))
-				r.walk(-1);
-				//p.walk(-1);
+				t.walk(-1);
 			if (surface.isPressed(KeyEvent.VK_RIGHT))
-				//p.walk(1);
-				r.walk(1);
+				t.walk(1);
 			if (surface.isPressed(KeyEvent.VK_UP))
-				//p.jump();
+				t.jump();
+			if (surface.isPressed(KeyEvent.VK_A)) 
+				r.walk(-1);
+			if (surface.isPressed(KeyEvent.VK_D)) 
+				r.walk(1);
+			if (surface.isPressed(KeyEvent.VK_W)) 
 				r.jump();
+			}
+			else {
+				if (surface.isPressed(KeyEvent.VK_A))
+					t.walk(-1);
+				if (surface.isPressed(KeyEvent.VK_D))
+					t.walk(1);
+				if (surface.isPressed(KeyEvent.VK_W))
+					t.jump();
+				if (surface.isPressed(KeyEvent.VK_LEFT))
+					r.walk(-1);
+				if (surface.isPressed(KeyEvent.VK_RIGHT))
+					r.walk(1);
+				if (surface.isPressed(KeyEvent.VK_UP))
+					r.jump();
+			}
 		}
-		//p.act(platforms,abilities);
-		t.act(platforms, abilities);
-		r.act(platforms, abilities);
+		
+		if(TwoPlayerOrNetwork.network) {
+			p.act(platforms,abilities);
+		}
+		
+		if(!TwoPlayerOrNetwork.network) {
+			t.act(platforms, abilities);
+			r.act(platforms, abilities);
+		}		
 		
 		surface.pushStyle();
 		surface.fill(255,0,0);
@@ -244,21 +289,78 @@ public class NormalMapScreen extends Screens{
 			sneakyCloak.draw(surface);
 			surface.popStyle();
 		}
-		if(t.intersects(r)) {
-			r = new Tagger((int) r.x, (int) r.y);
-			t = new Runner((int) t.x, (int) t.y);
-			System.out.println("Runner is tagger");
-			if(System.currentTimeMillis()-taggedTime<3000) {
-				System.out.println("cant tag them");
-			}
+		
+		if(TwoPlayerOrNetwork.network) {
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
+			processNetworkMessages();
 		}
-//		if(r.intersects(t)) {
-//			r = new Runner((int) r.x, (int) r.y);
-//			t = new Tagger((int) t.x, (int) t.y);
-//			System.out.println("Tagger is runner");
-//		}
+		if(!TwoPlayerOrNetwork.network) {
+			if(t.intersects(r)) {
+				r = new Tagger((int) r.x, (int) r.y);
+				t = new Runner((int) t.x, (int) t.y);
+				System.out.println("Runner is tagger");
+				if(System.currentTimeMillis()-taggedTime<3000) {
+					System.out.println("cant tag them");
+				}
+			}
+	//		if(r.intersects(t)) {
+	//			r = new Runner((int) r.x, (int) r.y);
+	//			t = new Tagger((int) t.x, (int) t.y);
+	//			System.out.println("Tagger is runner");
+	//		}
+		}
+	}
+	
+	
+public void processNetworkMessages() {
+		
+		if (nm == null)
+			return;
+		
+		Queue<NetworkDataObject> queue = nm.getQueuedMessages();
+		while (!queue.isEmpty()) {
+			NetworkDataObject ndo = queue.poll();
+
+			String host = ndo.getSourceIP();
+
+			if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
+				if (ndo.message[0].equals(messageTypeCurrentLocation)) {
+					
+						for (Player c : players) {
+							if (c.host.equals(host)) {
+								c.x = (double)ndo.message[1];
+								c.y = (double)ndo.message[2];
+							}
+						}
+				}
+				else if (ndo.message[0].equals(messageTypeInit)) {
+					
+					for (Player c : players) {
+						if (c.host.equals(host))
+							return;
+					}
+					Player c = new Player(50,50);
+					c.x = (double) ndo.message[1];
+					c.y = (double) ndo.message[2];
+					c.host = host;
+					players.add(c);
+				
+				}
+			}
+			else if (ndo.dataSource.equals(ndo.serverHost)) {
+				players.clear();
+				players.add(p);
+			} else {
+					for (int i = players.size()-1; i >= 0; i--)
+					if (players.get(i).host.equals(host))
+						players.remove(i);
+			}
+			
+		}
+
 
 	}
+	
 	
 	/**
 	 * Gets the winner of the round of tag currently working on it
@@ -291,5 +393,16 @@ public class NormalMapScreen extends Screens{
 	 */
 	public static void deleteDive() {
 		diveTag = new DiveTag(-100,-100);
+	}
+	@Override
+	public void connectedToServer(NetworkMessenger nm) {
+		this.nm = nm;
+	}
+	public NetworkMessenger getNetworkMessenger() {
+		return nm;
+	}
+	@Override
+	public void networkMessageReceived(NetworkDataObject ndo) {
+		
 	}
 }
