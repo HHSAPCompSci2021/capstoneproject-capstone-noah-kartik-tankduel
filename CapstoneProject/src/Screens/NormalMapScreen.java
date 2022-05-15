@@ -1,5 +1,4 @@
 package Screens;
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import SpecialAbilities.*;
 import System.DrawingSurface;
 import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
-import networking.frontend.NetworkManagementPanel;
 import networking.frontend.NetworkMessenger;
 
 public class NormalMapScreen extends Screens implements NetworkListener{
