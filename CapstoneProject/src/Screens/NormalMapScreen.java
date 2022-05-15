@@ -181,16 +181,17 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 					p.walk(1);
 				if (surface.isPressed(KeyEvent.VK_UP))
 					p.jump();
-				else {
-					if (surface.isPressed(KeyEvent.VK_A))
-						p.walk(-1);
-					if (surface.isPressed(KeyEvent.VK_D))
-						p.walk(1);
-					if (surface.isPressed(KeyEvent.VK_W))
-						p.jump();
-				}
 			}
+			else {
+				if (surface.isPressed(KeyEvent.VK_A))
+					p.walk(-1);
+				if (surface.isPressed(KeyEvent.VK_D))
+					p.walk(1);
+				if (surface.isPressed(KeyEvent.VK_W))
+					p.jump();
+				}
 		}
+		
 		if(!TwoPlayerOrNetwork.network) {
 			t.walk(0);
 			r.walk(0);
