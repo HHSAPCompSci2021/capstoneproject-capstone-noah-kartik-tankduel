@@ -26,6 +26,7 @@ public class Player extends Sprite {
 	private long diveTime;
 	private long speedTime;
 	private long cloakTime;
+	private boolean invisible;
 	private long jumpTime;
 
 	private double xVel, yVel;
@@ -69,6 +70,11 @@ public class Player extends Sprite {
 		yVel -= 6.5;
 		if(jump)
 			yVel*=1.2;
+		}
+	}
+	public void isInvisible() {
+		if(invisible) {
+			System.out.println("You are invisible");
 		}
 	}
 
@@ -166,6 +172,7 @@ public class Player extends Sprite {
 				}
 				if(a instanceof SneakyCloak) {
 					//make invisible here
+					invisible = true;
 					cloakTime = System.currentTimeMillis();
 					NormalMapScreen.deleteCloak();
 				}
