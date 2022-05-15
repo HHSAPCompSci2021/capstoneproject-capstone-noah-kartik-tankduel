@@ -30,7 +30,6 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	
 	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
 	private static final String messageTypeInit = "CREATE_PLAYER";
-
 	
 
 	
@@ -174,7 +173,6 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		p.act(platforms,abilities);
 		
 		
-		
 		surface.pushStyle();
 		surface.fill(255,0,0);
 		if(first) {
@@ -232,6 +230,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		}
 		
 		if(TwoPlayerOrNetwork.network) {
+			((StartNetworkGame) surface.getScreen(ScreenSwitcher.STARTNETWORKGAME)).startGame();
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
 			processNetworkMessages();
 		}
@@ -244,7 +243,6 @@ public void processNetworkMessages() {
 			return;
 		
 		Queue<NetworkDataObject> queue = nm.getQueuedMessages();
-		System.out.println(players);
 		while (!queue.isEmpty()) {
 			NetworkDataObject ndo = queue.poll();
 

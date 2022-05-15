@@ -57,6 +57,7 @@ public class NetworkManagementPanel extends JPanel
 	private Timer refreshTimer;
 	private int timeOut;
 	public static boolean connectedSuccess;
+	public static boolean isHost;
 	
 	private int maxPerServer;
 
@@ -265,6 +266,7 @@ public class NetworkManagementPanel extends JPanel
 				String host = JOptionPane.showInputDialog("What IP?");
 				connect(host);
 			} else if (source == disconnectButton) {
+				isHost = false;
 				disconnect();
 				if (ss != null) {
 					ss.disconnectFromAllClients();
@@ -273,6 +275,7 @@ public class NetworkManagementPanel extends JPanel
 
 				}
 			} else if (source == serverButton) {
+				isHost = true;
 				ss = new SchoolServer(programID, myIP);
 				ss.setMaxConnections(maxPerServer);
 				ss.waitForConnections(TCP_PORT);

@@ -15,7 +15,7 @@ public class StartNetworkGame extends Screens{
 	private DrawingSurface surface;
 	private Rectangle start;
 	private NetworkManagementPanel nmp;
-	
+		
 	public StartNetworkGame(DrawingSurface surface) {
 		super(1080,720);
 		this.surface = surface;
@@ -44,8 +44,13 @@ public class StartNetworkGame extends Screens{
 	 */
 	public void mousePressed() {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
-		if(start.contains(p) && NetworkManagementPanel.connectedSuccess) 
+		if(start.contains(p) && NetworkManagementPanel.connectedSuccess && NetworkManagementPanel.isHost) {
 			surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
+		}
+	}
+	
+	public void startGame() {
+		surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
 	}
 
 }
