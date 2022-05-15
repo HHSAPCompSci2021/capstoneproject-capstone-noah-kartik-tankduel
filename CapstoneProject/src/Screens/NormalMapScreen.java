@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Queue;
 
 import Player.Player;
+import Player.Runner;
+import Player.Tagger;
 import SpecialAbilities.*;
 import System.DrawingSurface;
 import networking.frontend.NetworkDataObject;
@@ -21,9 +23,11 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	private static SneakyCloak sneakyCloak;
 	private static SpeedBoost speedBoost;
 	private static SpecialAbilities[] abilities;
-	
+	private Player r;
+	private Player t;
+	private long taggedTime;
 	private boolean roundWinner;
-	private boolean gameWinner;
+//	private boolean gameWinner;
 	
 	private NetworkMessenger nm;
 	
@@ -57,6 +61,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		players = new ArrayList<Player>();
 		p.host = "me!";
 		players.add(p);
+
 		// X:1080 by Y:720 range lines, make sure that x1 < x2
 		l0 = new Line2D.Double (450,450,500,400);
 		l1 = new Line2D.Double (300,500,400,600);
@@ -97,6 +102,8 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 
 		spawnX = new Line2D.Double(0,150,150,150);
 		spawnY = new Line2D.Double(150,0,150,150);
+		t = new Tagger(0,0);
+		r = new Runner(50,50);
 		
 		border1 = new Line2D.Double (0, 0, 1080, 0);
 		border2 = new Line2D.Double (0, 0, 0, 720);
@@ -143,9 +150,14 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		surface.popStyle();
 		
 		surface.strokeWeight(2);
-		
-		for(Player c:players) {
-			c.draw(this.surface);
+		if(TwoPlayerOrNetwork.network) {
+			for(Player c:players) {
+				c.draw(this.surface);
+			}
+		}
+		if(!TwoPlayerOrNetwork.network) {
+			t.draw(this.surface);
+			r.draw(this.surface);
 		}
 		//Platforms
 		surface.strokeWeight(5);
@@ -160,26 +172,67 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			}
 			surface.line((float)l.getX1(), (float)l.getY1(), (float)l.getX2(), (float)l.getY2());
 		}
-		p.walk(0);
-		
-		if(surface.getInputMethod()) {
-		if (surface.isPressed(KeyEvent.VK_LEFT))
-			p.walk(-1);
-		if (surface.isPressed(KeyEvent.VK_RIGHT))
-			p.walk(1);
-		if (surface.isPressed(KeyEvent.VK_UP))
-			p.jump();
-		}else {
-			if (surface.isPressed(KeyEvent.VK_A))
-				p.walk(-1);
-			if (surface.isPressed(KeyEvent.VK_D))
-				p.walk(1);
-			if (surface.isPressed(KeyEvent.VK_W))
-				p.jump();
+		if(TwoPlayerOrNetwork.network) {
+			p.walk(0);
+			if(surface.getInputMethod()) {
+				if (surface.isPressed(KeyEvent.VK_LEFT))
+					p.walk(-1);
+				if (surface.isPressed(KeyEvent.VK_RIGHT))
+					p.walk(1);
+				if (surface.isPressed(KeyEvent.VK_UP))
+					p.jump();
+				else {
+					if (surface.isPressed(KeyEvent.VK_A))
+						p.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_D))
+						p.walk(1);
+					if (surface.isPressed(KeyEvent.VK_W))
+						p.jump();
+				}
+			}
 		}
+		if(!TwoPlayerOrNetwork.network) {
+			t.walk(0);
+			r.walk(0);
 
-		p.act(platforms,abilities);
+			if(surface.getInputMethod()) {
+			if (surface.isPressed(KeyEvent.VK_LEFT))
+				t.walk(-1);
+			if (surface.isPressed(KeyEvent.VK_RIGHT))
+				t.walk(1);
+			if (surface.isPressed(KeyEvent.VK_UP))
+				t.jump();
+			if (surface.isPressed(KeyEvent.VK_A)) 
+				r.walk(-1);
+			if (surface.isPressed(KeyEvent.VK_D)) 
+				r.walk(1);
+			if (surface.isPressed(KeyEvent.VK_W)) 
+				r.jump();
+			}
+			else {
+				if (surface.isPressed(KeyEvent.VK_A))
+					t.walk(-1);
+				if (surface.isPressed(KeyEvent.VK_D))
+					t.walk(1);
+				if (surface.isPressed(KeyEvent.VK_W))
+					t.jump();
+				if (surface.isPressed(KeyEvent.VK_LEFT))
+					r.walk(-1);
+				if (surface.isPressed(KeyEvent.VK_RIGHT))
+					r.walk(1);
+				if (surface.isPressed(KeyEvent.VK_UP))
+					r.jump();
+			}
+		}
 		
+		if(TwoPlayerOrNetwork.network) {
+			p.act(platforms,abilities);
+		}
+		
+		if(!TwoPlayerOrNetwork.network) {
+			t.act(platforms, abilities);
+			r.act(platforms, abilities);
+		}		
 		
 		surface.pushStyle();
 		surface.fill(255,0,0);
@@ -241,6 +294,21 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
 			processNetworkMessages();
 		}
+		if(!TwoPlayerOrNetwork.network) {
+			if(t.intersects(r)) {
+				r = new Tagger((int) r.x, (int) r.y);
+				t = new Runner((int) t.x, (int) t.y);
+				System.out.println("Runner is tagger");
+				if(System.currentTimeMillis()-taggedTime<3000) {
+					System.out.println("cant tag them");
+				}
+			}
+	//		if(r.intersects(t)) {
+	//			r = new Runner((int) r.x, (int) r.y);
+	//			t = new Tagger((int) t.x, (int) t.y);
+	//			System.out.println("Tagger is runner");
+	//		}
+		}
 	}
 	
 	
@@ -289,6 +357,7 @@ public void processNetworkMessages() {
 			}
 			
 		}
+
 
 	}
 	
