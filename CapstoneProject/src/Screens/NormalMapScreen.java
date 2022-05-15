@@ -230,7 +230,6 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		}
 		
 		if(TwoPlayerOrNetwork.network) {
-			((StartNetworkGame) surface.getScreen(ScreenSwitcher.STARTNETWORKGAME)).startGame();
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
 			processNetworkMessages();
 		}
@@ -324,6 +323,9 @@ public void processNetworkMessages() {
 	@Override
 	public void connectedToServer(NetworkMessenger nm) {
 		this.nm = nm;
+	}
+	public NetworkMessenger getNetworkMessenger() {
+		return nm;
 	}
 	@Override
 	public void networkMessageReceived(NetworkDataObject ndo) {
