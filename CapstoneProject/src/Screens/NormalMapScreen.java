@@ -305,16 +305,9 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			if(t.intersects(r)) {
 				if(System.currentTimeMillis()-taggedTime>3000) {
 					taggedTime = System.currentTimeMillis();
-					r.setPlayerType(true);
-					t.setPlayerType(false);
-					System.out.println("Runner is tagger");
-				}
-			}
-			if(r.intersects(t)) {
-				if(System.currentTimeMillis()-taggedTime>3000) {
-				r.setPlayerType(false);
-				t.setPlayerType(false);
-				System.out.println("Tagger is runner");
+					r.setPlayerType(!r.getPlayerType());
+					t.setPlayerType(!t.getPlayerType());
+					System.out.println("Switch");
 				}
 			}
 		}

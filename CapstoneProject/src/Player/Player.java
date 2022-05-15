@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 
 import Screens.NormalMapScreen;
 import SpecialAbilities.*;
+import processing.core.PApplet;
 
 /**
  * the player in the game
@@ -196,6 +197,13 @@ public class Player extends Sprite {
 		}
 		
 		
+	}
+	public void draw(PApplet g) {
+		if(playerType)
+			g.fill(238,232,170);
+		else
+			g.fill(25,255,255);
+		g.rect((float)x,(float)y,(float)width,(float)height);
 	}
 	
 
