@@ -16,6 +16,7 @@ import SpecialAbilities.*;
 
 public class Player extends Sprite {
 
+	
 	private static final long serialVersionUID = -7613280413136318879L;
 	public static final int PLAYER_WIDTH = 17;
 	public static final int PLAYER_HEIGHT = 20;
@@ -28,7 +29,7 @@ public class Player extends Sprite {
 	private long cloakTime;
 	private boolean invisible;
 	private long jumpTime;
-
+	private boolean playerType; // false for runner true for tagger
 	private double xVel, yVel;
 
 	/**
@@ -51,7 +52,16 @@ public class Player extends Sprite {
 		}
 		
 	}
+	public boolean getPlayerType() {
+		return playerType;
+	}
+	public void setPlayerType(boolean x) {
+		playerType = x;
+	}
 
+	public void draw() {
+		
+	}
 	/**
 	 * Makes the character move left and right
 	 * @param dir - direction you want the character to go 
@@ -187,7 +197,7 @@ public class Player extends Sprite {
 		
 		
 	}
-
+	
 
 
 }

@@ -102,8 +102,13 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 
 		spawnX = new Line2D.Double(0,150,150,150);
 		spawnY = new Line2D.Double(150,0,150,150);
-		t = new Tagger(0,0);
-		r = new Runner(50,50);
+		t = new Player(0,0);
+		r = new Player(50,50);
+		if(Math.random() < 0.5) {
+			t.setPlayerType(true);
+		}else {
+			r.setPlayerType(true);
+		}
 		
 		border1 = new Line2D.Double (0, 0, 1080, 0);
 		border2 = new Line2D.Double (0, 0, 0, 720);
@@ -295,20 +300,23 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
 			processNetworkMessages();
 		}
+		
 		if(!TwoPlayerOrNetwork.network) {
 			if(t.intersects(r)) {
-				r = new Tagger((int) r.x, (int) r.y);
-				t = new Runner((int) t.x, (int) t.y);
-				System.out.println("Runner is tagger");
-				if(System.currentTimeMillis()-taggedTime<3000) {
-					System.out.println("cant tag them");
+				if(System.currentTimeMillis()-taggedTime>3000) {
+					taggedTime = System.currentTimeMillis();
+					r.setPlayerType(true);
+					t.setPlayerType(false);
+					System.out.println("Runner is tagger");
 				}
 			}
-	//		if(r.intersects(t)) {
-	//			r = new Runner((int) r.x, (int) r.y);
-	//			t = new Tagger((int) t.x, (int) t.y);
-	//			System.out.println("Tagger is runner");
-	//		}
+			if(r.intersects(t)) {
+				if(System.currentTimeMillis()-taggedTime>3000) {
+				r.setPlayerType(false);
+				t.setPlayerType(false);
+				System.out.println("Tagger is runner");
+				}
+			}
 		}
 	}
 	
