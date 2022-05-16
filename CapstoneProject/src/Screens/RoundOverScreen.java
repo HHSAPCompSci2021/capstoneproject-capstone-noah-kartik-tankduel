@@ -19,7 +19,10 @@ public class RoundOverScreen extends Screens{
 	public void draw() {
 		surface.background(255,255,255);
 		surface.fill(0,0,0);
-		String s = NormalMapScreen.currentRunner;
-		surface.text(s + " WON THE ROUND!", 200, DRAWING_HEIGHT/2);
+		
+		if(!TwoPlayerOrNetwork.network) {
+			String s = NormalMapScreen.currentRunner;
+			surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+		}
 	}
 }
