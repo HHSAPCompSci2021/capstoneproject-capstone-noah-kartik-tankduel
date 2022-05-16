@@ -417,26 +417,26 @@ public void processNetworkMessages() {
 	 * Makes it so that once you pick up the speedboost it disappears so you cannot pick it up again
 	 */
 	public static void deleteSpeed() {
-		speedBoost = new SpeedBoost(-100,-100);
+		speedBoost.x = -100;
 	}
 	/**
 	 * Makes it so that once you pick up the invisibility it disappears so you cannot pick it up again
 	 */
 	public static void deleteCloak() {
-		sneakyCloak = new SneakyCloak(-100,-100);
+		sneakyCloak.x = -100;
 	}
 	/**
 	 * Makes it so that once you pick up the delete jump it disappears so you cannot pick it up again
 	 */
 	public static void deleteJump() {
-		highJump = new HighJump(-100,-100);
+		highJump.x = -100;
 	}
 
 	/**
 	 * Makes it so that once you pick up the deleteDive it disappears so you cannot pick it up again
 	 */
 	public static void deleteDive() {
-		diveTag = new DiveTag(-100,-100);
+		diveTag.x = -100;
 	}
 	@Override
 	public void connectedToServer(NetworkMessenger nm) {
