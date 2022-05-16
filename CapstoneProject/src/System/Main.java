@@ -1,6 +1,8 @@
 package System;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
@@ -14,7 +16,7 @@ public class Main {
 	/**
 	 * Runs the main method and starts the game
 	 */
-	public static void main(String args[]) {
+		public static void main(String args[]) {
 
 		DrawingSurface drawing = new DrawingSurface();
 		PApplet.runSketch(new String[]{""}, drawing);
