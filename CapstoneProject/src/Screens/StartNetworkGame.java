@@ -17,8 +17,8 @@ import networking.frontend.NetworkManagementPanel;
 public class StartNetworkGame extends Screens{
 	private DrawingSurface surface;
 	private Rectangle start;
-	private NetworkManagementPanel nmp;
 	private static final String messageTypeStartGame = "START_GAME";
+	public static int numberOfPlayers;
 		
 	public StartNetworkGame(DrawingSurface surface) {
 		super(1080,720);
@@ -72,8 +72,7 @@ public class StartNetworkGame extends Screens{
 		if(start.contains(p) && NetworkManagementPanel.connectedSuccess && NetworkManagementPanel.isHost) {
 			surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
 			((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true);
-			int x = ((TwoPlayerOrNetwork)surface.getScreen(ScreenSwitcher.TWOPLAYERORNETWORK)).nmp.numberOfPeople();
-			System.out.println(x);
+			numberOfPlayers = ((TwoPlayerOrNetwork)surface.getScreen(ScreenSwitcher.TWOPLAYERORNETWORK)).nmp.numberOfPeople();
 		}
 	}
 }

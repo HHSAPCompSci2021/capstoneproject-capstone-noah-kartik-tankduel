@@ -8,6 +8,7 @@ import SpecialAbilities.*;
 import System.DrawingSurface;
 import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
+import networking.frontend.NetworkManagementPanel;
 import networking.frontend.NetworkMessenger;
 
 public class NormalMapScreen extends Screens implements NetworkListener{
@@ -50,6 +51,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	boolean third;
 		
 	int firstRun;
+	int check;
 	
 	public NormalMapScreen(DrawingSurface surface) {
 		super(1080, 720);
@@ -129,6 +131,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		third = false;
 		
 		firstRun = 0;
+		check = 0;
 	}
 	/**
 	 * Standard drawing in processing
@@ -143,12 +146,34 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		surface.background(255,255,255);
 		surface.fill(0,0,0);
 		surface.stroke(2);
-		if(TwoPlayerOrNetwork.network)
+		if(TwoPlayerOrNetwork.network) {
 			if(firstRun == 0)
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y);	
-		firstRun++;
 
-		
+				
+		}
+		firstRun=1;
+		if(TwoPlayerOrNetwork.network) {//sets up who is tagger for networking
+			if(NetworkManagementPanel.isHost && check == 0) {
+				if(players.size()== StartNetworkGame.numberOfPlayers) {
+					check =1;
+					if(players.size() == 1)
+						;
+					else if(players.size()<=4) {
+						int a = (int)(Math.random()*players.size());
+						players.get(a).setPlayerType(true);
+					}
+					else {
+						int a = (int)(Math.random()*players.size());
+						players.get(a).setPlayerType(true);
+						int b = (int)(Math.random()*players.size());
+						while (a== b)
+							b = (int)(Math.random()*players.size());
+						players.get(b).setPlayerType(true);
+					}
+				}
+			}
+		}
 		if(!TwoPlayerOrNetwork.network) {
 			surface.textSize(15);
 			if(t.getInvisible())
@@ -350,6 +375,24 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 				}
 			}
 		}
+		else {
+			if(NetworkManagementPanel.isHost) {
+				for(int i = 0; i<players.size();i++) {
+					for(int j = 1; j<players.size();i++) {
+						if(players.get(i).intersects(players.get(j))&& players.get(i).getPlayerType()!=players.get(j).getPlayerType()) {
+							if(!players.get(i).getPlayerType()) {
+								players.remove(i);
+								//send message to all clients of removal 
+							}
+							else {
+								players.remove(j);
+								//send message to all clients of removal 
+							}
+						}
+					}
+				}
+			}
+		}
 		surface.popStyle();
 	}
 	
@@ -375,7 +418,7 @@ public void processNetworkMessages() {
 							}
 						}
 				}
-				else if (ndo.message[0].equals(messageTypeInit)) {
+				else if (ndo.message[0].equals(messageTypeInit)) {//also send name
 					
 					for (Player c : players) {
 						if (c.host.equals(host))
