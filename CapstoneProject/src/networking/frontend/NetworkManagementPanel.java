@@ -60,7 +60,6 @@ public class NetworkManagementPanel extends JPanel
 	public static boolean isHost;
 	
 	private int maxPerServer;
-
 	
 	/**
 	 * Constructs and makes visible a window containing network management tools.
@@ -222,6 +221,10 @@ public class NetworkManagementPanel extends JPanel
 			}
 		}
 	}
+	
+	public int numberOfPeople() {
+		return connectedList.getModel().getSize();
+	}
 
 
 	private class NetworkMessageHandler implements NetworkListener {
@@ -295,5 +298,6 @@ public class NetworkManagementPanel extends JPanel
 
 		}
 	}
+	
 
 }

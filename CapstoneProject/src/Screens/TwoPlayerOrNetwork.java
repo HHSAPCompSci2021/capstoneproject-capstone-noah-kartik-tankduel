@@ -21,7 +21,7 @@ public class TwoPlayerOrNetwork extends Screens{
 	private Rectangle back;
 	private Rectangle next;
 	private int method = 0;
-	private NetworkManagementPanel nmp;
+	public NetworkManagementPanel nmp;
 	
 	public TwoPlayerOrNetwork(DrawingSurface surface) {
 		super(1080,720);

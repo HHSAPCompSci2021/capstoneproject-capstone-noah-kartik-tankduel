@@ -54,8 +54,9 @@ public class StartNetworkGame extends Screens{
 
 			if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
 				if (ndo.message[0].equals(messageTypeStartGame)) {
-					if((boolean) ndo.message[1])
+					if((boolean) ndo.message[1]) {
 						surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
+					}
 				}
 			}
 		}
@@ -71,6 +72,8 @@ public class StartNetworkGame extends Screens{
 		if(start.contains(p) && NetworkManagementPanel.connectedSuccess && NetworkManagementPanel.isHost) {
 			surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
 			((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true);
+			int x = ((TwoPlayerOrNetwork)surface.getScreen(ScreenSwitcher.TWOPLAYERORNETWORK)).nmp.numberOfPeople();
+			System.out.println(x);
 		}
 	}
 }
