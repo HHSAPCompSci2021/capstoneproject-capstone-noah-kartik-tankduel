@@ -39,10 +39,14 @@ public class TwoPlayerOrNetwork extends Screens{
 	public void draw() {
 		surface.clear();
 		surface.background(0,0,0);
-	
 		surface.fill(255,255,255);
+		surface.textSize(10);
+		
+		surface.pushStyle();
+		surface.textSize(30);
 		surface.text("Choose type of method to play",540-surface.textWidth("Choose type of method to play")/2,70);
 		
+		surface.textSize(15);
 		if(method == 1) {
 			surface.fill(25,255,255);
 			surface.rect(twoPlayer.x-5, twoPlayer.y-5, twoPlayer.width+10, twoPlayer.height+10);
@@ -77,7 +81,7 @@ public class TwoPlayerOrNetwork extends Screens{
 		surface.fill(0,0,0);
 		surface.textSize(20);
 		surface.text("NEXT", next.x+next.width/2-surface.textWidth("NEXT")/2, next.y + next.height/2 + 7);
-
+		surface.popStyle();
 	}
 	
 

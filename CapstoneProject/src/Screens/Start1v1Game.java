@@ -31,20 +31,23 @@ public class Start1v1Game extends Screens{
 	public void draw() {
 		surface.clear();
 		surface.background(0,0,0);
-		if(player1 == null) {
-			player1 = JOptionPane.showInputDialog("Enter player one's name!");
-		}
-		if(player2 == null) {
-			player2 = JOptionPane.showInputDialog("Enter player two's name!");
-
-		}
-		
-
+		surface.fill(255,255,255);
+		surface.textSize(10);
 		surface.fill(255,255,255);
 		surface.rect(start.x, start.y, start.width, start.height);
 		surface.fill(0,0,0);
 		surface.textSize(50);
 		surface.text("START", start.x+start.width/2-surface.textWidth("START")/2, start.y +70);
+		surface.pushStyle();
+		if(player1 == null || player1.equals("")) {
+			player1 = JOptionPane.showInputDialog("Enter player one's name!");
+		}
+		if(player2 == null || player2.equals("")) {
+			player2 = JOptionPane.showInputDialog("Enter player two's name!");
+
+		}
+		surface.popStyle();
+		
 	}
 	
 

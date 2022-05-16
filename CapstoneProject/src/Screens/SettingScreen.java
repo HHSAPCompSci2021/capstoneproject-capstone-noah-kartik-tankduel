@@ -34,9 +34,12 @@ public class SettingScreen extends Screens{
 	 * Draws the screen on the DrawingSurface
 	 */
 	public void draw() {
-		surface.pushStyle();
+		surface.clear();
 		surface.background(0,0,0);
+		surface.fill(255,255,255);
+		surface.textSize(10);
 		
+		surface.pushStyle();		
 		surface.textSize(70);
 		surface.text("SETTINGS", 540-surface.textWidth("SETTINGS")/2,70);
 		

@@ -33,8 +33,10 @@ public class StartNetworkGame extends Screens{
 	public void draw() {
 		surface.clear();
 		surface.background(0,0,0);
-	
 		surface.fill(255,255,255);
+		surface.textSize(10);
+		
+		surface.pushStyle();
 		surface.rect(start.x, start.y, start.width, start.height);
 		surface.fill(0,0,0);
 		surface.textSize(50);
@@ -55,11 +57,9 @@ public class StartNetworkGame extends Screens{
 					if((boolean) ndo.message[1])
 						surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
 				}
-
 			}
-			
 		}
-
+		surface.popStyle();
 	}
 	
 

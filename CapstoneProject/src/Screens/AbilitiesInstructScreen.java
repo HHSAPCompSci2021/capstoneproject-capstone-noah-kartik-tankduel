@@ -30,9 +30,11 @@ public class AbilitiesInstructScreen extends Screens{
 	 */
 	public void draw() {
 		surface.clear();
-		surface.pushStyle();
 		surface.background(0,0,0);
 		surface.fill(255,255,255);
+		surface.textSize(10);
+
+		surface.pushStyle();
 		surface.textSize(70);
 		surface.text("ABILITIES", 540-surface.textWidth("ABILITIES")/2,70);
 		

@@ -101,11 +101,11 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		spawnY = new Line2D.Double(150,0,150,150);
 		t = new Player(0,0);
 		r = new Player(50,50);
-		if(Math.random() < 0.5) {
+		if(Math.random() < 0.5) 
 			t.setPlayerType(true);
-		}else {
+		else 
 			r.setPlayerType(true);
-		}
+		
 		
 		border1 = new Line2D.Double (0, 0, 1080, 0);
 		border2 = new Line2D.Double (0, 0, 0, 720);
@@ -134,13 +134,20 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	 * Standard drawing in processing
 	 */
 	public void draw() {
+		surface.clear();
+		surface.background(0,0,0);
+		surface.fill(255,255,255);
+		surface.textSize(10);
+		
+		surface.pushStyle();
+		surface.background(255,255,255);
+		surface.fill(0,0,0);
 
 		if(TwoPlayerOrNetwork.network)
 			if(firstRun == 0)
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y);	
 		firstRun++;
-		surface.background(255,255,255);
-		surface.fill(0,0,0);
+
 		
 		if(!TwoPlayerOrNetwork.network) {
 			surface.textSize(15);
@@ -167,6 +174,16 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		if(!TwoPlayerOrNetwork.network) {
 			t.draw(this.surface);
 			r.draw(this.surface);
+//			surface.textSize(5);
+//			surface.fill(0,0,0);
+//			if(t.getPlayerType())
+//				surface.text("Tagger", (float)t.x - surface.textWidth("Tagger")/2 + (float)t.getWidth()/2, (float)t.y +5);
+//			else
+//				surface.text("Runner", (float)t.x - surface.textWidth("Runner")/2 + (float)t.getWidth()/2, (float)t.y +5);
+//			if(r.getPlayerType())
+//				surface.text("Tagger", (float)r.x - surface.textWidth("Tagger")/2 + (float)r.getWidth()/2, (float)r.y +5);
+//			else
+//				surface.text("Runner", (float)r.x - surface.textWidth("Runner")/2 + (float)r.getWidth()/2, (float)r.y +5);
 		}
 		//Platforms
 		surface.strokeWeight(5);
@@ -204,34 +221,42 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		if(!TwoPlayerOrNetwork.network) {
 			t.walk(0);
 			r.walk(0);
-
+			
 			if(surface.getInputMethod()) {
-			if (surface.isPressed(KeyEvent.VK_LEFT))
-				t.walk(-1);
-			if (surface.isPressed(KeyEvent.VK_RIGHT))
-				t.walk(1);
-			if (surface.isPressed(KeyEvent.VK_UP))
-				t.jump();
-			if (surface.isPressed(KeyEvent.VK_A)) 
-				r.walk(-1);
-			if (surface.isPressed(KeyEvent.VK_D)) 
-				r.walk(1);
-			if (surface.isPressed(KeyEvent.VK_W)) 
-				r.jump();
+				if(!((first || second) && t.getPlayerType())) {
+					if (surface.isPressed(KeyEvent.VK_LEFT))
+						t.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_RIGHT))
+						t.walk(1);
+					if (surface.isPressed(KeyEvent.VK_UP))
+						t.jump();
+				}
+				if(!((first || second) && r.getPlayerType())) {
+					if (surface.isPressed(KeyEvent.VK_A)) 
+						r.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_D)) 
+						r.walk(1);
+					if (surface.isPressed(KeyEvent.VK_W)) 
+						r.jump();
+				}
 			}
 			else {
-				if (surface.isPressed(KeyEvent.VK_A))
-					t.walk(-1);
-				if (surface.isPressed(KeyEvent.VK_D))
-					t.walk(1);
-				if (surface.isPressed(KeyEvent.VK_W))
-					t.jump();
-				if (surface.isPressed(KeyEvent.VK_LEFT))
-					r.walk(-1);
-				if (surface.isPressed(KeyEvent.VK_RIGHT))
-					r.walk(1);
-				if (surface.isPressed(KeyEvent.VK_UP))
-					r.jump();
+				if(!((first || second) && t.getPlayerType())) {
+					if (surface.isPressed(KeyEvent.VK_A))
+						t.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_D))
+						t.walk(1);
+					if (surface.isPressed(KeyEvent.VK_W))
+						t.jump();
+				}
+				if(!((first || second) && r.getPlayerType())) {
+					if (surface.isPressed(KeyEvent.VK_LEFT))
+						r.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_RIGHT))
+						r.walk(1);
+					if (surface.isPressed(KeyEvent.VK_UP))
+						r.jump();
+				}
 			}
 		}
 		
@@ -253,7 +278,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 				if(timer == 0) {
 					first = false;
 					second = true;
-					timer = 11;
+					timer = 10;
 					platforms[37] = new Line2D.Double(0,0,0,0);
 				}
 			}
@@ -268,7 +293,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 				if(timer == 0) {
 					second = false;
 					third = true;
-					timer = 5;
+					timer = 180;
 				}
 			}
 			surface.textSize(25);
@@ -309,7 +334,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		}
 		
 		if(!TwoPlayerOrNetwork.network) {
-			if(t.intersects(r)) {
+			if(t.intersects(r) && !(first || second)) {
 				if(System.currentTimeMillis()-taggedTime>3000) {
 					taggedTime = System.currentTimeMillis();
 					r.setPlayerType(!r.getPlayerType());
@@ -317,6 +342,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 				}
 			}
 		}
+		surface.popStyle();
 	}
 	
 	

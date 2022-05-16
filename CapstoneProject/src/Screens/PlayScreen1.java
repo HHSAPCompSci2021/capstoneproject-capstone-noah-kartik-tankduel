@@ -43,11 +43,11 @@ public class PlayScreen1 extends Screens{
 	 */
 	public void draw() {
 		surface.clear();
-		
-		surface.pushStyle();
 		surface.background(0,0,0);
 		surface.fill(255,255,255);
+		surface.textSize(10);
 		
+		surface.pushStyle();
 		surface.pushStyle();
 		surface.stroke(25,255,255);
 		surface.strokeWeight(4);

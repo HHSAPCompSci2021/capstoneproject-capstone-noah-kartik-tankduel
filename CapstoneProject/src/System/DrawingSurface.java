@@ -239,5 +239,15 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 	public Screens getScreen(int i) {
 		return screens.get(i);
 	}
+	
+	public void refresh1v1() {		
+		
+		NormalMapScreen normalMap = new NormalMapScreen(this);
+		
+		RoundOverScreen roundOver = new RoundOverScreen(this);
+								
+		screens.set(4, normalMap);
+		screens.set(5, roundOver);
+	}
 
 }
