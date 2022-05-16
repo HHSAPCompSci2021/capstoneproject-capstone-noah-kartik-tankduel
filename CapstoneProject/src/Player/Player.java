@@ -159,8 +159,8 @@ public class Player extends Sprite {
 			}
 			if(x<2)
 				x = 2;
-			if(x + PLAYER_WIDTH> 1078) {
-				x = 1061;
+			if(x + PLAYER_WIDTH + Math.abs(PLAYER_WIDTH-width)> 1078) {
+				x = 1061 - Math.abs(PLAYER_WIDTH-width);
 			}
 			if(y<2) {
 				y = 2;
@@ -182,13 +182,13 @@ public class Player extends Sprite {
 					jumpTime = System.currentTimeMillis();
 					NormalMapScreen.deleteJump();
 				}
-				if(a instanceof SneakyCloak) {
+				if(a instanceof SneakyCloak && !playerType) {
 					//make invisible here
 					invisible = true;
 					cloakTime = System.currentTimeMillis();
 					NormalMapScreen.deleteCloak();
 				}
-				if(a instanceof DiveTag) {
+				if(a instanceof DiveTag && playerType) {
 					//increase tag range here
 					diveTime = System.currentTimeMillis();
 					NormalMapScreen.deleteDive();
