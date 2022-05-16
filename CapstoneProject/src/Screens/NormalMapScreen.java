@@ -141,17 +141,21 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		surface.background(0,0,0);
 		surface.fill(255,255,255);
 		surface.textSize(10);
-		
+
 		surface.pushStyle();
 		surface.background(255,255,255);
 		surface.fill(0,0,0);
 		surface.stroke(2);
 		if(TwoPlayerOrNetwork.network) {
-			if(firstRun == 0)
-				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y);	
-
-				
+			if(firstRun == 0) {
+				p.name = TwoPlayerOrNetwork.playerName;
+				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,TwoPlayerOrNetwork.playerName);
+				processNetworkMessages();
+			}
 		}
+
+		if(p.name == null)
+			System.out.println(players.size());
 		firstRun=1;
 		if(TwoPlayerOrNetwork.network) {//sets up who is tagger for networking
 			if(NetworkManagementPanel.isHost && check == 0) {
@@ -186,6 +190,12 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			else
 				surface.fill(0,0,0);
 			surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
+		}
+		if(TwoPlayerOrNetwork.network){
+			surface.textSize(15);
+			surface.fill(0,0,0);
+			for(Player a: players)
+				surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
 		}
 
 		//window border lines
@@ -360,11 +370,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			sneakyCloak.draw(surface);
 			surface.popStyle();
 		}
-		
-		if(TwoPlayerOrNetwork.network) {
-			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
-			processNetworkMessages();
-		}
+	
 		
 		if(!TwoPlayerOrNetwork.network) {
 			if(t.intersects(r) && !(first || second)) {
@@ -394,6 +400,11 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			}
 		}
 		surface.popStyle();
+		
+		if(TwoPlayerOrNetwork.network) {
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
+			processNetworkMessages();
+		}
 	}
 	
 	
@@ -427,6 +438,7 @@ public void processNetworkMessages() {
 					Player c = new Player(50,50);
 					c.x = (double) ndo.message[1];
 					c.y = (double) ndo.message[2];
+					c.name = (String)ndo.message[3];
 					c.host = host;
 					players.add(c);
 				

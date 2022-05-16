@@ -3,6 +3,8 @@ package Screens;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import javax.swing.JOptionPane;
+
 import System.DrawingSurface;
 import networking.frontend.NetworkListener;
 import networking.frontend.NetworkManagementPanel;
@@ -15,6 +17,7 @@ import networking.frontend.NetworkManagementPanel;
 public class TwoPlayerOrNetwork extends Screens{
 	
 	public static boolean network;
+	public static String playerName;
 	private Rectangle twoPlayer;
 	private Rectangle server;
 	private DrawingSurface surface;
@@ -102,6 +105,9 @@ public class TwoPlayerOrNetwork extends Screens{
 		if (next.contains(p) && method == 1)
 			surface.switchScreen(ScreenSwitcher.START1V1GAME);
 		if (next.contains(p) && method == 2) {
+			while(playerName == null || playerName.equals("")) {
+				playerName = JOptionPane.showInputDialog("Enter a name!");
+			}
 			nmp = new NetworkManagementPanel("ProcessingDrawing", 10, (NetworkListener) surface.getScreen(4));
 			surface.switchScreen(ScreenSwitcher.STARTNETWORKGAME);
 			network = true;

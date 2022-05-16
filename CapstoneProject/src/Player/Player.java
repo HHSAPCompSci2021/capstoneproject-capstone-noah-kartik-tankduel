@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 
 import Screens.NormalMapScreen;
 import Screens.ScreenSwitcher;
+import Screens.TwoPlayerOrNetwork;
 import SpecialAbilities.*;
 import processing.core.PApplet;
 
@@ -24,7 +25,7 @@ public class Player extends Sprite {
 	public static final int PLAYER_HEIGHT = 20;
 	public String host;
 	private boolean onASurface;
-
+	public String name;
 	private long diveTime;
 	private long speedTime;
 	private long cloakTime;
