@@ -3,10 +3,7 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.Queue;
-
 import Player.Player;
-import Player.Runner;
-import Player.Tagger;
 import SpecialAbilities.*;
 import System.DrawingSurface;
 import networking.frontend.NetworkDataObject;
@@ -27,7 +24,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	private Player t;
 	private long taggedTime;
 	private boolean roundWinner;
-//	private boolean gameWinner;
+	public static String currentRunner;
 	
 	private NetworkMessenger nm;
 	
@@ -269,7 +266,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 				if(timer == 0) {
 					second = false;
 					third = true;
-					timer = 181;
+					timer = 5;
 				}
 			}
 			surface.textSize(25);
@@ -282,7 +279,10 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 				curTime = System.currentTimeMillis();
 				if(timer == 0) {
 					third = false;
-					roundWinner = true;//need to change in the future when possible
+					if(!t.getPlayerType())
+						currentRunner = Start1v1Game.player1;
+					else
+						currentRunner = Start1v1Game.player2;
 					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 					
 				}
@@ -312,7 +312,6 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 					taggedTime = System.currentTimeMillis();
 					r.setPlayerType(!r.getPlayerType());
 					t.setPlayerType(!t.getPlayerType());
-					System.out.println("Switch");
 				}
 			}
 		}

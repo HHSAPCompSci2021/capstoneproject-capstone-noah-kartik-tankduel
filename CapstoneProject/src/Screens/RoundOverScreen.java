@@ -19,11 +19,7 @@ public class RoundOverScreen extends Screens{
 	public void draw() {
 		surface.background(255,255,255);
 		surface.fill(0,0,0);
-		String s = "";
-		if(surface.getRoundWinner())
-			s = "RUNNERS";
-		else
-			s = "TAGGERS";
+		String s = NormalMapScreen.currentRunner;
 		surface.text(s + " WON THE ROUND!", 200, DRAWING_HEIGHT/2);
 	}
 }
