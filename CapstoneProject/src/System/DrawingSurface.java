@@ -62,6 +62,8 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		StartNetworkGame networkGame = new StartNetworkGame(this);
 		screens.add(networkGame);
 		
+		Start1v1Game oneVOneGame = new Start1v1Game(this);
+		screens.add(oneVOneGame);
 		activeScreen = screens.get(0);
 		
 	}

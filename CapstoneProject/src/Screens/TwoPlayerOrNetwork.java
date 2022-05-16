@@ -96,7 +96,7 @@ public class TwoPlayerOrNetwork extends Screens{
 		if (back.contains(p) )
 			surface.switchScreen(ScreenSwitcher.PLAYSCREEN1);
 		if (next.contains(p) && method == 1)
-			surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
+			surface.switchScreen(ScreenSwitcher.START1V1GAME);
 		if (next.contains(p) && method == 2) {
 			nmp = new NetworkManagementPanel("ProcessingDrawing", 10, (NetworkListener) surface.getScreen(4));
 			surface.switchScreen(ScreenSwitcher.STARTNETWORKGAME);

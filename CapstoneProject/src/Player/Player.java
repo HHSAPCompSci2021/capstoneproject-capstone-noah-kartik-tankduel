@@ -60,9 +60,7 @@ public class Player extends Sprite {
 		playerType = x;
 	}
 
-	public void draw() {
-		
-	}
+	
 	/**
 	 * Makes the character move left and right
 	 * @param dir - direction you want the character to go 

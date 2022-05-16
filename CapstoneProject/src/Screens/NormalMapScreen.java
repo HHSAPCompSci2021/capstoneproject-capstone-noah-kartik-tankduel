@@ -137,13 +137,18 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	 * Standard drawing in processing
 	 */
 	public void draw() {
+
 		if(TwoPlayerOrNetwork.network)
 			if(firstRun == 0)
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y);	
 		firstRun++;
 		surface.background(255,255,255);
 		surface.fill(0,0,0);
-		
+		surface.textSize(15);
+		surface.text(Start1v1Game.player1, (float)t.x - surface.textWidth(Start1v1Game.player1)/2 + (float)t.getWidth()/2, (float)(t.y -3.0));
+		surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
+
+
 		//window border lines
 		surface.pushStyle();
 		surface.strokeWeight(8);
@@ -369,6 +374,7 @@ public void processNetworkMessages() {
 	 * @return roundwinner
 	 */
 	public boolean getRoundWinner() {
+	
 		return roundWinner;
 	}
 	
