@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import Screens.NormalMapScreen;
+import Screens.ScreenSwitcher;
 import SpecialAbilities.*;
 import processing.core.PApplet;
 
@@ -23,13 +24,16 @@ public class Player extends Sprite {
 	public static final int PLAYER_HEIGHT = 20;
 	public String host;
 	private boolean onASurface;
-	private boolean speed;
-	private boolean jump;
+
 	private long diveTime;
 	private long speedTime;
 	private long cloakTime;
-	private boolean invisible;
 	private long jumpTime;
+
+	private boolean speed;
+	private boolean jump;
+	public boolean invisible;
+	
 	private boolean playerType; // false for runner true for tagger
 	private double xVel, yVel;
 
@@ -81,10 +85,8 @@ public class Player extends Sprite {
 			yVel*=1.2;
 		}
 	}
-	public void isInvisible() {
-		if(invisible) {
-			System.out.println("You are invisible");
-		}
+	public boolean getInvisible() {
+		return invisible;
 	}
 
 	/**
@@ -102,10 +104,11 @@ public class Player extends Sprite {
 			jump = false;
 		}
 		if(System.currentTimeMillis()-cloakTime>7000) {
-			//turn invisible off
+			invisible = false;
 		}
 		if(System.currentTimeMillis()-diveTime>7000) {
-			//decrease tag range to normal
+			this.width = 17;
+			this.height = 20;
 		}
 		onASurface = false;
 		yVel += 0.2;
@@ -189,6 +192,8 @@ public class Player extends Sprite {
 					//increase tag range here
 					diveTime = System.currentTimeMillis();
 					NormalMapScreen.deleteDive();
+					this.width = 26;
+					this.height = 30;
 				}
 				
 			}
@@ -197,11 +202,18 @@ public class Player extends Sprite {
 		
 	}
 	public void draw(PApplet g) {
+		g.pushStyle();
+		g.strokeWeight(3);
 		if(playerType)
 			g.fill(238,232,170);
 		else
 			g.fill(25,255,255);
+		if(invisible) {
+			g.fill(255,255,255);
+			g.stroke(255,255,255);
+		}
 		g.rect((float)x,(float)y,(float)width,(float)height);
+		g.popStyle();
 	}
 	
 

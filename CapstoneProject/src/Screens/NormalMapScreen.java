@@ -48,7 +48,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	boolean first;
 	boolean second;
 	boolean third;
-	
+		
 	int firstRun;
 	
 	public NormalMapScreen(DrawingSurface surface) {
@@ -142,7 +142,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		surface.pushStyle();
 		surface.background(255,255,255);
 		surface.fill(0,0,0);
-
+		surface.stroke(2);
 		if(TwoPlayerOrNetwork.network)
 			if(firstRun == 0)
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y);	
@@ -151,7 +151,15 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		
 		if(!TwoPlayerOrNetwork.network) {
 			surface.textSize(15);
+			if(t.getInvisible())
+				surface.fill(255,255,255);
+			else
+				surface.fill(0,0,0);
 			surface.text(Start1v1Game.player1, (float)t.x - surface.textWidth(Start1v1Game.player1)/2 + (float)t.getWidth()/2, (float)(t.y -3.0));
+			if(r.getInvisible())
+				surface.fill(255,255,255);
+			else
+				surface.fill(0,0,0);
 			surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
 		}
 
@@ -423,6 +431,7 @@ public void processNetworkMessages() {
 	public static void deleteJump() {
 		highJump = new HighJump(-100,-100);
 	}
+
 	/**
 	 * Makes it so that once you pick up the deleteDive it disappears so you cannot pick it up again
 	 */
