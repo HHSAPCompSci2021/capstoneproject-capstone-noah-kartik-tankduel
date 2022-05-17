@@ -16,6 +16,7 @@ public class MenuScreen extends Screens{
 	private Rectangle play;
 	private Rectangle rules;
 	private Rectangle setting;
+	private Rectangle credits;
 	
 	/**
 	 * Gives menu the default values
@@ -27,6 +28,7 @@ public class MenuScreen extends Screens{
 		play = new Rectangle(300,200,480,50);
 		rules = new Rectangle(300,300,480,50);
 		setting = new Rectangle(300,400,480,50);
+		credits = new Rectangle(300,500,480,50);
 	}
 
 	/**
@@ -59,6 +61,11 @@ public class MenuScreen extends Screens{
 		surface.textSize(50);
 		surface.text("SETTINGS", setting.x+setting.width/2-surface.textWidth("SETTINGS")/2, setting.y + setting.height/2 + 18);
 		
+		surface.fill(255,255,255);
+		surface.rect(credits.x, credits.y, credits.width, credits.height);
+		surface.fill(0,0,0);
+		surface.textSize(50);
+		surface.text("CREDITS", credits.x + credits.width/2 - surface.textWidth("CREDITS")/2, credits.y + credits.height/2 + 18);
 		surface.popStyle();
 		
 	}
@@ -74,6 +81,8 @@ public class MenuScreen extends Screens{
 			surface.switchScreen(ScreenSwitcher.PLAYSCREEN1);
 		if (setting.contains(p))
 			surface.switchScreen(ScreenSwitcher.SETTING);
+		if(credits.contains(p)) 
+			surface.switchScreen(ScreenSwitcher.CREDITS);
 	}
 	
 }
