@@ -21,6 +21,7 @@ public class PlayScreen1 extends Screens{
 	private DrawingSurface surface;
 	private Rectangle startButton;
 	private Rectangle waterMap;
+	private Rectangle forestMap;
 	
 	/**
 	 * Gives the PlayScreen the default values
@@ -37,6 +38,7 @@ public class PlayScreen1 extends Screens{
 		freezeMode = new Rectangle(700,400,250,100);
 		copsNRobbers = new Rectangle(700,550,250,100);
 		startButton = new Rectangle(430,450,200,100);
+		forestMap = new Rectangle(150,550,250,100);
 
 	}
 
@@ -69,6 +71,10 @@ public class PlayScreen1 extends Screens{
 			surface.fill(25,255,255);
 			surface.rect(waterMap.x-5, waterMap.y-5, waterMap.width+10, waterMap.height+10);
 		}
+		if(surface.getMap() == 2) {
+			surface.fill(25,255,255);
+			surface.rect(forestMap.x-5, forestMap.y-5, forestMap.width+10, forestMap.height+10);
+		}
 		surface.fill(255,255,255);
 		surface.rect(normalMap.x, normalMap.y, normalMap.width, normalMap.height);
 		surface.fill(0,0,0);
@@ -80,6 +86,12 @@ public class PlayScreen1 extends Screens{
 		surface.fill(0,0,0);
 		surface.textSize(30);
 		surface.text("WATER MAP", waterMap.x+waterMap.width/2-surface.textWidth("WATER MAP")/2, waterMap.y + waterMap.height/2 + 7);
+		
+		surface.fill(255,255,255);
+		surface.rect(forestMap.x, forestMap.y, forestMap.width, forestMap.height);
+		surface.fill(0,0,0);
+		surface.textSize(30);
+		surface.text("FOREST MAP", forestMap.x+forestMap.width/2-surface.textWidth("FOREST MAP")/2, forestMap.y + forestMap.height/2 + 7);
 		
 		//Game Modes
 		surface.fill(255,255,255);
@@ -151,13 +163,18 @@ public class PlayScreen1 extends Screens{
 		if(waterMap.contains(p)) {
 			surface.setMap(1);
 		}
+		if(forestMap.contains(p))
+			surface.setMap(2);
 		if(startButton.contains(p) && surface.getGameMode() == 1 && surface.getMap() == 0) 
 			surface.switchScreen(ScreenSwitcher.TWOPLAYERORNETWORK);
 		
 			
 		if(startButton.contains(p) && surface.getGameMode() == 1 && surface.getMap() == 1) 
 			surface.switchScreen(ScreenSwitcher.TWOPLAYERORNETWORK);
+		if(startButton.contains(p) && surface.getGameMode() == 1 && surface.getMap() == 2) 
+			surface.switchScreen(ScreenSwitcher.TWOPLAYERORNETWORK);
 	}
+	
 	
 }
 

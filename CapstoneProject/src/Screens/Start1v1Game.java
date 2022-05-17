@@ -61,6 +61,9 @@ public class Start1v1Game extends Screens{
 				surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
 			if(surface.getMap() == 1)
 				surface.switchScreen(ScreenSwitcher.WATERMAP);
+			if(surface.getMap() == 2)
+				surface.switchScreen(ScreenSwitcher.FORESTMAP);
+				
 		}
 	}
 }

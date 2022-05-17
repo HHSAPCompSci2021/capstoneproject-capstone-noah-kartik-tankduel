@@ -18,6 +18,7 @@ public interface ScreenSwitcher {
 	public static final int STARTNETWORKGAME = 9;
 	public static final int START1V1GAME = 10;
 	public static final int WATERMAP = 11;
+	public static final int FORESTMAP = 12;
 
 
 

@@ -67,6 +67,9 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		
 		WaterMapScreen waterMap = new WaterMapScreen(this);
 		screens.add(waterMap);
+		
+		ForestMapScreen forestMap = new ForestMapScreen(this);
+		screens.add(forestMap);
 		activeScreen = screens.get(0);
 		
 	}
