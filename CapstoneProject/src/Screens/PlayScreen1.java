@@ -20,6 +20,7 @@ public class PlayScreen1 extends Screens{
 	private Rectangle copsNRobbers;
 	private DrawingSurface surface;
 	private Rectangle startButton;
+	private Rectangle waterMap;
 	
 	/**
 	 * Gives the PlayScreen the default values
@@ -30,11 +31,12 @@ public class PlayScreen1 extends Screens{
 		this.surface = surface;
 		back = new Rectangle(20,690,70,20);
 		map = new Rectangle(50,50,70,70);
+		waterMap = new Rectangle(150,400,250,100);
 		normalMap = new Rectangle(150,250,250,100);
 		normalMode = new Rectangle(700,250,250,100);
 		freezeMode = new Rectangle(700,400,250,100);
 		copsNRobbers = new Rectangle(700,550,250,100);
-		startButton = new Rectangle(440,450,200,100);
+		startButton = new Rectangle(430,450,200,100);
 
 	}
 
@@ -43,11 +45,11 @@ public class PlayScreen1 extends Screens{
 	 */
 	public void draw() {
 		surface.clear();
-		surface.background(0,0,0);
-		surface.fill(255,255,255);
-		surface.textSize(10);
 		
 		surface.pushStyle();
+		surface.background(0,0,0);
+		surface.fill(255,255,255);
+		
 		surface.pushStyle();
 		surface.stroke(25,255,255);
 		surface.strokeWeight(4);
@@ -63,13 +65,21 @@ public class PlayScreen1 extends Screens{
 			surface.fill(25,255,255);
 			surface.rect(normalMap.x-5, normalMap.y-5, normalMap.width+10, normalMap.height+10);
 		}
+		if(surface.getMap() == 1) {
+			surface.fill(25,255,255);
+			surface.rect(waterMap.x-5, waterMap.y-5, waterMap.width+10, waterMap.height+10);
+		}
 		surface.fill(255,255,255);
 		surface.rect(normalMap.x, normalMap.y, normalMap.width, normalMap.height);
 		surface.fill(0,0,0);
 		surface.textSize(30);
 		surface.text("NORMAL MAP", normalMap.x+normalMap.width/2-surface.textWidth("NORMAL MAP")/2, normalMap.y + normalMap.height/2 + 7);
 		
-		
+		surface.fill(255,255,255);
+		surface.rect(waterMap.x, waterMap.y, waterMap.width, waterMap.height);
+		surface.fill(0,0,0);
+		surface.textSize(30);
+		surface.text("WATER MAP", waterMap.x+waterMap.width/2-surface.textWidth("WATER MAP")/2, waterMap.y + waterMap.height/2 + 7);
 		
 		//Game Modes
 		surface.fill(255,255,255);
@@ -96,10 +106,6 @@ public class PlayScreen1 extends Screens{
 		surface.textSize(30);
 		surface.text("FREEZE MODE", freezeMode.x+freezeMode.width/2-surface.textWidth("FREEZE MODE")/2, freezeMode.y + freezeMode.height/2 + 7);
 		
-		surface.fill(255,255,255);
-		surface.textSize(15);
-		surface.text("Not yet coded", freezeMode.x+freezeMode.width, freezeMode.y + freezeMode.height/2 + 7);
-		
 		if(surface.getGameMode() == 3) {
 			surface.fill(25,255,255);
 			surface.rect(copsNRobbers.x-5, copsNRobbers.y-5, copsNRobbers.width+10, copsNRobbers.height+10);
@@ -111,15 +117,9 @@ public class PlayScreen1 extends Screens{
 		surface.text("COPS N ROBBERS", copsNRobbers.x+copsNRobbers.width/2-surface.textWidth("COPS N ROBBERS")/2, copsNRobbers.y + copsNRobbers.height/2 + 7);
 		
 		surface.fill(255,255,255);
-		surface.textSize(15);
-		surface.text("Not yet coded", copsNRobbers.x+copsNRobbers.width, copsNRobbers.y + copsNRobbers.height/2 + 7);
-
-
-		surface.fill(255,255,255);
 		surface.rect(startButton.x, startButton.y, startButton.width, startButton.height);
 		surface.fill(0,0,0);
-		surface.textSize(50);
-		surface.text("START", startButton.x+startButton.width/2-surface.textWidth("START")/2, startButton.y + startButton.height/2 + 15);
+		surface.text("Start", startButton.x+startButton.width/2-surface.textWidth("Start")/2, startButton.y + startButton.height/2 + 7);
 
 		//Back button
 		surface.fill(255,255,255);
@@ -148,10 +148,16 @@ public class PlayScreen1 extends Screens{
 			surface.setGameMode(2);
 		if (copsNRobbers.contains(p))
 			surface.setGameMode(3);
-		if(startButton.contains(p) && surface.getGameMode() == 1) 
+		if(waterMap.contains(p)) {
+			surface.setMap(1);
+		}
+		if(startButton.contains(p) && surface.getGameMode() == 1 && surface.getMap() == 0) 
 			surface.switchScreen(ScreenSwitcher.TWOPLAYERORNETWORK);
-			
 		
+			
+		if(startButton.contains(p) && surface.getGameMode() == 1 && surface.getMap() == 1) 
+			surface.switchScreen(ScreenSwitcher.WATERMAP);
 	}
 	
 }
+

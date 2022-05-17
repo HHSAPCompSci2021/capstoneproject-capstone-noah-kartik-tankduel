@@ -64,6 +64,9 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		
 		Start1v1Game oneVOneGame = new Start1v1Game(this);
 		screens.add(oneVOneGame);
+		
+		WaterMapScreen waterMap = new WaterMapScreen(this);
+		screens.add(waterMap);
 		activeScreen = screens.get(0);
 		
 	}
