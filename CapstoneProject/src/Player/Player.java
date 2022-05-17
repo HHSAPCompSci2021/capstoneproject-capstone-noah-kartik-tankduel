@@ -40,9 +40,8 @@ public class Player extends Sprite {
 	
 	private boolean playerType; // false for runner true for tagger
 	private double xVel, yVel;
-	
-	private static final String messageTypeInvisible = "INVISIBLE";
-	private static final String messageTypeDiveTag = "DIVETAG";
+	private int count = 0;
+
 	
 	/**
 	 * Creates a player at position x and y and calls the super constructor 
@@ -123,10 +122,10 @@ public class Player extends Sprite {
 		x += xVel;
 		y += yVel;
 
-		int c = 0;
-		if(invisible && c == 0) {
-			c = 1;
+		if(invisible && count == 0) {
+			count = 1;
 			cloakTime = System.currentTimeMillis();
+			NormalMapScreen.deleteCloak();
 		}
 			
 		for(Line2D s: obstacles) {
@@ -198,8 +197,6 @@ public class Player extends Sprite {
 					//make invisible here
 					invisible = true;
 					cloakTime = System.currentTimeMillis();
-//					if(TwoPlayerOrNetwork.network)
-//						((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisible, true);
 					NormalMapScreen.deleteCloak();
 				}
 				if(a instanceof DiveTag && playerType) {
@@ -227,27 +224,6 @@ public class Player extends Sprite {
 			g.stroke(255,255,255);
 		}
 		g.rect((float)x,(float)y,(float)width,(float)height);
-//		if(TwoPlayerOrNetwork.network) {
-//			if (((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger() == null)
-//				return;
-//			
-//			Queue<NetworkDataObject> queue = ((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
-//			while (!queue.isEmpty()) {
-//				NetworkDataObject ndo = queue.poll();
-//	
-//				String host = ndo.getSourceIP();
-//	
-//				if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
-//					if (ndo.message[0].equals(messageTypeInvisible)) {
-//						String s = (String)ndo.message[1];
-//						if(s.equals(host)) {
-//							g.fill(255,255,255);
-//							g.stroke(255,255,255);
-//						}
-//					}
-//				}
-//			}
-//		}
 		g.popStyle();
 	}
 	
