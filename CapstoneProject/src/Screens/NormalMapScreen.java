@@ -35,7 +35,8 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	private static final String messageTypeRemovePlayer = "REMOVE_PLAYER";
 	private static final String messageTypeSetTagger = "SET_TAGGER";
 	private static final String messageTypeGameOver = "GAME_OVER";
-
+	private static final String messageTypeInvisible = "INVISIBLE";
+	private static final String messageTypeDiveTag = "DIVETAG";
 
 
 
@@ -212,6 +213,8 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		for(Player p: players) {
 			if(p.getPlayerType() == false)
 				k = false;
+			if(p.invisible)
+				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisible, p.name);
 		}
 		if(k) {
 			third = false;
@@ -511,6 +514,14 @@ public void processNetworkMessages() {
 					third = false;
 					roundWinner = (boolean)ndo.message[1];
 					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
+				}
+				
+				else if (ndo.message[0].equals(messageTypeInvisible)) {
+					for(int i = 0; i<players.size();i++) {
+						if(players.get(i).name.equals((String)ndo.message[1])) {
+							players.get(i).invisible = true;
+						}
+					}				
 				}
 			}
 			else if (ndo.dataSource.equals(ndo.serverHost)) {

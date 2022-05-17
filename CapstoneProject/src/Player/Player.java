@@ -125,6 +125,11 @@ public class Player extends Sprite {
 		x += xVel;
 		y += yVel;
 
+		int c = 0;
+		if(invisible && c == 0) {
+			c = 1;
+			cloakTime = System.currentTimeMillis();
+		}
 			
 		for(Line2D s: obstacles) {
 			if(super.intersectsLine(s)) {
@@ -195,8 +200,8 @@ public class Player extends Sprite {
 					//make invisible here
 					invisible = true;
 					cloakTime = System.currentTimeMillis();
-					if(TwoPlayerOrNetwork.network)
-						((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisible, true);
+//					if(TwoPlayerOrNetwork.network)
+//						((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisible, true);
 					NormalMapScreen.deleteCloak();
 				}
 				if(a instanceof DiveTag && playerType) {
@@ -224,27 +229,27 @@ public class Player extends Sprite {
 			g.stroke(255,255,255);
 		}
 		g.rect((float)x,(float)y,(float)width,(float)height);
-		if(TwoPlayerOrNetwork.network) {
-			if (((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger() == null)
-				return;
-			
-			Queue<NetworkDataObject> queue = ((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
-			while (!queue.isEmpty()) {
-				NetworkDataObject ndo = queue.poll();
-	
-				String host = ndo.getSourceIP();
-	
-				if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
-					if (ndo.message[0].equals(messageTypeInvisible)) {
-						String s = (String)ndo.message[1];
-						if(s.equals(host)) {
-							g.fill(255,255,255);
-							g.stroke(255,255,255);
-						}
-					}
-				}
-			}
-		}
+//		if(TwoPlayerOrNetwork.network) {
+//			if (((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger() == null)
+//				return;
+//			
+//			Queue<NetworkDataObject> queue = ((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
+//			while (!queue.isEmpty()) {
+//				NetworkDataObject ndo = queue.poll();
+//	
+//				String host = ndo.getSourceIP();
+//	
+//				if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
+//					if (ndo.message[0].equals(messageTypeInvisible)) {
+//						String s = (String)ndo.message[1];
+//						if(s.equals(host)) {
+//							g.fill(255,255,255);
+//							g.stroke(255,255,255);
+//						}
+//					}
+//				}
+//			}
+//		}
 		g.popStyle();
 	}
 	
