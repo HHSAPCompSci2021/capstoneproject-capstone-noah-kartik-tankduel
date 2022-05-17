@@ -32,6 +32,7 @@ package Screens;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
+import java.awt.geom.Line2D.Double;
 import java.util.ArrayList;
 import java.util.Queue;
 import Player.Player;
@@ -118,24 +119,26 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		l14 = new Line2D.Double (400,135,550,200);
 		l15 = new Line2D.Double (600,250,700,175);
 		l16 = new Line2D.Double (350,125,330,150);
-//		l18 = new Line2D.Double (320,690,480,640);
-//		l19 = new Line2D.Double (500,590,600,690);
-//		l20 = new Line2D.Double (100,250,280,140);
-//		l21 = new Line2D.Double (200,50,250,100);
-//		l22 = new Line2D.Double (300,200,450,175);
-//		l23 = new Line2D.Double (670,100,770,150);
-//		l24 = new Line2D.Double (595,275,625,255);
-//		l25 = new Line2D.Double (0,400,70,450);
-//		l26 = new Line2D.Double (40,600,100,660);
-//		l27 = new Line2D.Double (850,170,950,270);
-//		l28 = new Line2D.Double (1020,240,1080,180);
-//		l29 = new Line2D.Double (790,570,880,680);
-//		l30 = new Line2D.Double (1000,680,1080,600);
-//		l31 = new Line2D.Double (980,450,1080,340);
-//		l32 = new Line2D.Double (840,425,970,505);
-//		l33 = new Line2D.Double (500,150,550,100);
-//		l34 = new Line2D.Double (200,680,280,550);
-//		l35 = new Line2D.Double (730,400,780,400);
+		l17 = new Line2D.Double (320,690,480,640);
+		l18 = new Line2D.Double (500,590,600,690);
+		l19 = new Line2D.Double (100,250,280,140);
+		l20 = new Line2D.Double (200,50,250,100);
+		l21 = new Line2D.Double (300,200,450,175);
+		l22 = new Line2D.Double (670,100,770,150);
+		l23 = new Line2D.Double (595,275,625,255);
+		l24 = new Line2D.Double (0,400,70,450);
+		l25 = new Line2D.Double (40,600,100,660);
+		l26 = new Line2D.Double (850,170,950,270);
+		l27 = new Line2D.Double (1020,240,1080,180);
+		l28 = new Line2D.Double (790,570,880,680);
+		l29 = new Line2D.Double (1000,680,1080,600);
+		l30 = new Line2D.Double (980,450,1080,340);
+		l31 = new Line2D.Double (840,425,970,505);
+		l32 = new Line2D.Double (500,150,550,100);
+		l32 = new Line2D.Double (200,680,280,550);
+		l33 = new Line2D.Double (730,400,780,400);
+		l34 = new Line2D.Double(450,70,550,100);
+		l35 = new Line2D.Double(650,60,50,60);
 
 		spawnX = new Line2D.Double(0,150,150,150);
 		spawnY = new Line2D.Double(150,0,150,150);
@@ -152,7 +155,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		border3 = new Line2D.Double (0, 720, 1080, 720);
 		border4 = new Line2D.Double (1080, 720, 1080, 0);
 		
-		platforms = new Line2D[] {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,spawnX,spawnY,border1,border2,border3,border4};
+		platforms = new Line2D[] {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l25,l27,l28,l29,l30,l31,l32,l33,l34,l35,spawnX,spawnY,border1,border2,border3,border4};
 		
 		diveTag = new DiveTag((int)(Math.random()*1060)+10,(int)(Math.random()*700)+10);
 		speedBoost = new SpeedBoost((int)(Math.random()*1060)+10,(int)(Math.random()*700)+10);
@@ -171,16 +174,14 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		firstRun = 0;
 		check = 0;
 		repeatName = 1;
-	}
 	/**
 	 * Standard drawing in processing
 	 */
-	
+	}
 	public void draw() {
 		surface.clear();
 		surface.fill(255,255,255);
 		surface.textSize(10);
-
 		surface.pushStyle();
 		surface.background(0,119,190);
 		surface.fill(249,215,28);
@@ -234,13 +235,13 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 				surface.fill(255,255,255);
 			else
 				surface.fill(0,0,0);
-		//	surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
+			//surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
 		}
 		if(TwoPlayerOrNetwork.network){
 			surface.textSize(15);
 			surface.fill(0,0,0);
-			//for(Player a: players)
-				//surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
+			for(Player a: players)
+				surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
 		}
 
 		//window border lines
@@ -262,16 +263,6 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		if(!TwoPlayerOrNetwork.network) {
 			t.draw(this.surface);
 			r.draw(this.surface);
-//			surface.textSize(5);
-//			surface.fill(0,0,0);
-//			if(t.getPlayerType())
-//				surface.text("Tagger", (float)t.x - surface.textWidth("Tagger")/2 + (float)t.getWidth()/2, (float)t.y +5);
-//			else
-//				surface.text("Runner", (float)t.x - surface.textWidth("Runner")/2 + (float)t.getWidth()/2, (float)t.y +5);
-//			if(r.getPlayerType())
-//				surface.text("Tagger", (float)r.x - surface.textWidth("Tagger")/2 + (float)r.getWidth()/2, (float)r.y +5);
-//			else
-//				surface.text("Runner", (float)r.x - surface.textWidth("Runner")/2 + (float)r.getWidth()/2, (float)r.y +5);
 		}
 		//Platforms
 		surface.strokeWeight(5);
@@ -545,7 +536,6 @@ public void processNetworkMessages() {
 	 * @return roundwinner
 	 */
 	public boolean getRoundWinner() {
-	
 		return roundWinner;
 	}
 	

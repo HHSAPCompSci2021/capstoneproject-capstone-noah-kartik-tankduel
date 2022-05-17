@@ -31,6 +31,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		map = 0;
 		gameMode = 0;
 	
+		
 		MenuScreen menu = new MenuScreen(this);
 		screens.add(menu);
 		
