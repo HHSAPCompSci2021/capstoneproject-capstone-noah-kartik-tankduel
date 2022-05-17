@@ -68,7 +68,7 @@ public class AbilitiesInstructScreen extends Screens{
 		surface.textSize(25);
 		surface.text("This ability will make you invisible for 7 seconds.",  540-surface.textWidth("This ability will make you invisible for 7 seconds.")/2, 480);
 		surface.text("This color of this boost is gray.",  540-surface.textWidth("This color of this boost is gray.")/2, 510);
-		surface.text("*This boost is limited to runners/robbers only!*",  540-surface.textWidth("*This boost is limited to runners/robbers only!*")/2, 540);
+		surface.text("*This boost is limited to runners/robbers only! Note: You won't see your own character too!*",  540-surface.textWidth("*This boost is limited to runners/robbers only! Note: You won't see your own character too!*")/2, 540);
 
 		surface.fill(255,0,0);
 		surface.textSize(40);

@@ -39,6 +39,8 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 
 
 
+
+
 	
 	/* The area created by spawnX and spawnY will be the spawn area.
 	 * When the 10 second count down to START the game reaches 0,
@@ -62,7 +64,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	public NormalMapScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
-		p =new Player(50,50);
+		p =new Player(50,50,surface);
 		players = new ArrayList<Player>();
 		p.host = "me!";
 		players.add(p);
@@ -107,8 +109,8 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 
 		spawnX = new Line2D.Double(0,150,150,150);
 		spawnY = new Line2D.Double(150,0,150,150);
-		t = new Player(0,0);
-		r = new Player(50,50);
+		t = new Player(0,0,surface);
+		r = new Player(50,50,surface);
 		if(Math.random() < 0.5) 
 			t.setPlayerType(true);
 		else 
@@ -232,12 +234,12 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		surface.strokeWeight(2);
 		if(TwoPlayerOrNetwork.network) {
 			for(Player c:players) {
-				c.draw(this.surface);
+				c.draw(surface);
 			}
 		}
 		if(!TwoPlayerOrNetwork.network) {
-			t.draw(this.surface);
-			r.draw(this.surface);
+			t.draw(surface);
+			r.draw(surface);
 //			surface.textSize(5);
 //			surface.fill(0,0,0);
 //			if(t.getPlayerType())
@@ -469,7 +471,7 @@ public void processNetworkMessages() {
 						if (c.host.equals(host))
 							return;
 					}
-					Player c = new Player(50,50);
+					Player c = new Player(50,50,surface);
 					c.x = (double) ndo.message[1];
 					c.y = (double) ndo.message[2];
 					String s = "";

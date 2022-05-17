@@ -2,11 +2,14 @@ package Player;
 import java.awt.geom.Line2D;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Queue;
 
 import Screens.NormalMapScreen;
 import Screens.ScreenSwitcher;
 import Screens.TwoPlayerOrNetwork;
 import SpecialAbilities.*;
+import System.DrawingSurface;
+import networking.frontend.NetworkDataObject;
 import processing.core.PApplet;
 
 /**
@@ -37,19 +40,24 @@ public class Player extends Sprite {
 	
 	private boolean playerType; // false for runner true for tagger
 	private double xVel, yVel;
-
+	
+	private static final String messageTypeInvisible = "INVISIBLE";
+	private static final String messageTypeDiveTag = "DIVETAG";
+	private DrawingSurface surface;
+	
 	/**
 	 * Creates a player at position x and y and calls the super constructor 
 	 * @param x - x coordinate of the spawn point 
 	 * @param y - y coordinate of the spawn point
 	 */
-	public Player(int x, int y) {
+	public Player(int x, int y, DrawingSurface surface) {
 		super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
 		xVel = 0;
 		yVel = 0;
 		onASurface = false;
 		speed = false;
 		jump = false;
+		this.surface = surface;
 		try {
 			host = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
@@ -187,6 +195,8 @@ public class Player extends Sprite {
 					//make invisible here
 					invisible = true;
 					cloakTime = System.currentTimeMillis();
+					if(TwoPlayerOrNetwork.network)
+						((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisible, true);
 					NormalMapScreen.deleteCloak();
 				}
 				if(a instanceof DiveTag && playerType) {
@@ -214,6 +224,27 @@ public class Player extends Sprite {
 			g.stroke(255,255,255);
 		}
 		g.rect((float)x,(float)y,(float)width,(float)height);
+		if(TwoPlayerOrNetwork.network) {
+			if (((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger() == null)
+				return;
+			
+			Queue<NetworkDataObject> queue = ((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
+			while (!queue.isEmpty()) {
+				NetworkDataObject ndo = queue.poll();
+	
+				String host = ndo.getSourceIP();
+	
+				if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
+					if (ndo.message[0].equals(messageTypeInvisible)) {
+						String s = (String)ndo.message[1];
+						if(s.equals(host)) {
+							g.fill(255,255,255);
+							g.stroke(255,255,255);
+						}
+					}
+				}
+			}
+		}
 		g.popStyle();
 	}
 	
