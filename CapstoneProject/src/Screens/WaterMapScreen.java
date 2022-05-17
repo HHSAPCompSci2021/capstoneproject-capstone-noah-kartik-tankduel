@@ -490,7 +490,7 @@ public void processNetworkMessages() {
 						if (c.host.equals(host))
 							return;
 					}
-					Player c = new Player(50,50);
+					Player c = new Player(50,50,surface);
 					c.x = (double) ndo.message[1];
 					c.y = (double) ndo.message[2];
 					String s = "";
