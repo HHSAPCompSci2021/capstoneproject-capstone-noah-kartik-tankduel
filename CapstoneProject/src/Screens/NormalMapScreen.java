@@ -466,7 +466,7 @@ public void processNetworkMessages() {
 				else if (ndo.message[0].equals(messageTypeSetTagger)) {
 					Player s = (Player)ndo.message[1];
 					for(int i = 0; i<players.size();i++) {
-						if(players.get(i).equals(s)) {
+						if(players.get(i).name.equals(s.name)) {
 							players.get(i).setPlayerType(true);
 						}
 					}
