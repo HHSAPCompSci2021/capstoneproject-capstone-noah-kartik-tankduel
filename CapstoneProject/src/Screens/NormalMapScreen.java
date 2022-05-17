@@ -8,6 +8,7 @@ import SpecialAbilities.*;
 import System.DrawingSurface;
 import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
+import networking.frontend.NetworkManagementPanel;
 import networking.frontend.NetworkMessenger;
 
 public class NormalMapScreen extends Screens implements NetworkListener{
@@ -30,7 +31,8 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	
 	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
 	private static final String messageTypeInit = "CREATE_PLAYER";
-	
+	private static final String messageTypeRemovePlayer = "REMOVE_PLAYER";
+
 
 	
 	/* The area created by spawnX and spawnY will be the spawn area.
@@ -50,6 +52,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	boolean third;
 		
 	int firstRun;
+	int check;
 	
 	public NormalMapScreen(DrawingSurface surface) {
 		super(1080, 720);
@@ -129,6 +132,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		third = false;
 		
 		firstRun = 0;
+		check = 0;
 	}
 	/**
 	 * Standard drawing in processing
@@ -138,17 +142,43 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		surface.background(0,0,0);
 		surface.fill(255,255,255);
 		surface.textSize(10);
-		
+
 		surface.pushStyle();
 		surface.background(255,255,255);
 		surface.fill(0,0,0);
 		surface.stroke(2);
-		if(TwoPlayerOrNetwork.network)
-			if(firstRun == 0)
-				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y);	
-		firstRun++;
+		if(TwoPlayerOrNetwork.network) {
+			if(firstRun == 0) {
+				p.name = TwoPlayerOrNetwork.playerName;
+				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,TwoPlayerOrNetwork.playerName);
+				processNetworkMessages();
+			}
+		}
 
-		
+		if(p.name == null)
+			System.out.println(players.size());
+		firstRun=1;
+		if(TwoPlayerOrNetwork.network) {//sets up who is tagger for networking
+			if(NetworkManagementPanel.isHost && check == 0) {
+				if(players.size()== StartNetworkGame.numberOfPlayers) {
+					check =1;
+					if(players.size() == 1)
+						;
+					else if(players.size()<=4) {
+						int a = (int)(Math.random()*players.size());
+						players.get(a).setPlayerType(true);
+					}
+					else {
+						int a = (int)(Math.random()*players.size());
+						players.get(a).setPlayerType(true);
+						int b = (int)(Math.random()*players.size());
+						while (a== b)
+							b = (int)(Math.random()*players.size());
+						players.get(b).setPlayerType(true);
+					}
+				}
+			}
+		}
 		if(!TwoPlayerOrNetwork.network) {
 			surface.textSize(15);
 			if(t.getInvisible())
@@ -161,6 +191,12 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			else
 				surface.fill(0,0,0);
 			surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
+		}
+		if(TwoPlayerOrNetwork.network){
+			surface.textSize(15);
+			surface.fill(0,0,0);
+			for(Player a: players)
+				surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
 		}
 
 		//window border lines
@@ -335,11 +371,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			sneakyCloak.draw(surface);
 			surface.popStyle();
 		}
-		
-		if(TwoPlayerOrNetwork.network) {
-			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
-			processNetworkMessages();
-		}
+	
 		
 		if(!TwoPlayerOrNetwork.network) {
 			if(t.intersects(r) && !(first || second)) {
@@ -350,7 +382,28 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 				}
 			}
 		}
+		else {
+			if(NetworkManagementPanel.isHost) {
+				for(int i = 0; i<players.size();i++) {
+					for(int j = 1; j<players.size();i++) {
+						if(!(first || second) && players.get(i).intersects(players.get(j)) && players.get(i).getPlayerType()!=players.get(j).getPlayerType()) {
+							if(!players.get(i).getPlayerType()) {
+								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(i));
+							}
+							else {
+								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(j));
+							}
+						}
+					}
+				}
+			}
+		}
 		surface.popStyle();
+		
+		if(TwoPlayerOrNetwork.network) {
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
+			processNetworkMessages();
+		}
 	}
 	
 	
@@ -375,7 +428,7 @@ public void processNetworkMessages() {
 							}
 						}
 				}
-				else if (ndo.message[0].equals(messageTypeInit)) {
+				else if (ndo.message[0].equals(messageTypeInit)) {//also send name
 					
 					for (Player c : players) {
 						if (c.host.equals(host))
@@ -384,9 +437,20 @@ public void processNetworkMessages() {
 					Player c = new Player(50,50);
 					c.x = (double) ndo.message[1];
 					c.y = (double) ndo.message[2];
+					c.name = (String)ndo.message[3];
 					c.host = host;
 					players.add(c);
 				
+				}
+				
+				else if (ndo.message[0].equals(messageTypeRemovePlayer)) {//also send name
+					Player s = (Player)ndo.message[1];
+					for(Player a :players) {
+						if(a.equals(s)) {
+							players.remove(a);
+						}
+					}
+						
 				}
 			}
 			else if (ndo.dataSource.equals(ndo.serverHost)) {
