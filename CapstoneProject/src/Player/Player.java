@@ -42,7 +42,7 @@ public class Player extends Sprite {
 	private double xVel, yVel;
 	private int count = 0;
 	public boolean invisUsed;
-
+	public boolean turnInvisOff;
 	
 	/**
 	 * Creates a player at position x and y and calls the super constructor 
@@ -112,6 +112,7 @@ public class Player extends Sprite {
 		}
 		if(System.currentTimeMillis()-cloakTime>4000) {
 			invisible = false;
+			turnInvisOff = true;
 		}
 		if(System.currentTimeMillis()-diveTime>7000) {
 			this.width = 17;
