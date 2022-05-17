@@ -154,9 +154,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 				processNetworkMessages();
 			}
 		}
-
-		if(p.name == null)
-			System.out.println(players.size());
+		System.out.println(players.size());
 		firstRun=1;
 		if(TwoPlayerOrNetwork.network) {//sets up who is tagger for networking
 			if(NetworkManagementPanel.isHost && check == 0) {
@@ -382,11 +380,11 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 				}
 			}
 		}
-		else {
-			if(NetworkManagementPanel.isHost) {
+		if(TwoPlayerOrNetwork.network) {
+			if(NetworkManagementPanel.isHost && !(first||second)) {
 				for(int i = 0; i<players.size();i++) {
 					for(int j = 1; j<players.size();i++) {
-						if(!(first || second) && players.get(i).intersects(players.get(j)) && players.get(i).getPlayerType()!=players.get(j).getPlayerType()) {
+						if(players.get(i).intersects(players.get(j)) && players.get(i).getPlayerType()!=players.get(j).getPlayerType()) {
 							if(!players.get(i).getPlayerType()) {
 								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(i));
 							}
