@@ -34,6 +34,8 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	private static final String messageTypeInit = "CREATE_PLAYER";
 	private static final String messageTypeRemovePlayer = "REMOVE_PLAYER";
 	private static final String messageTypeSetTagger = "SET_TAGGER";
+	private static final String messageTypeGameOver = "GAME_OVER";
+
 
 
 
@@ -212,6 +214,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		if(k) {
 			third = false;
 			roundWinner = true;
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, true);
 			surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 		}
 			
@@ -372,6 +375,9 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 					else
 						currentRunner = Start1v1Game.player2;
 					roundWinner = false;
+					if(TwoPlayerOrNetwork.network)
+						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, false);
+
 					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 					
 				}
@@ -497,8 +503,12 @@ public void processNetworkMessages() {
 							players.get(i).setPlayerType(true);
 						}
 					}
-					for(Player a: players)
-						System.out.println(a.getPlayerType());
+				}
+				
+				else if (ndo.message[0].equals(messageTypeGameOver)) {
+					third = false;
+					roundWinner = (boolean)ndo.message[1];
+					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 				}
 			}
 			else if (ndo.dataSource.equals(ndo.serverHost)) {
