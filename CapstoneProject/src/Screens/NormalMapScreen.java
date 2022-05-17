@@ -450,7 +450,7 @@ public void processNetworkMessages() {
 					c.y = (double) ndo.message[2];
 					String s = "";
 					for(Player p : players)
-						if((String)ndo.message[3] == p.name) {
+						if(((String)ndo.message[3]).equals(p.name)) {
 							s +=repeatName;
 							repeatName++;
 						}
