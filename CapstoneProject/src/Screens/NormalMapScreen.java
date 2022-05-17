@@ -469,9 +469,11 @@ public void processNetworkMessages() {
 					Player s = (Player)ndo.message[1];
 					for(Player a :players) {
 						if(a.equals(s)) {
-							players.remove(a);
+							s = a;
+							break;
 						}
 					}
+					players.remove(s);
 						
 				}
 				
