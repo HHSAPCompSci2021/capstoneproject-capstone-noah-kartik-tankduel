@@ -213,8 +213,10 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		for(Player p: players) {
 			if(p.getPlayerType() == false)
 				k = false;
-			if(p.invisible && !p.invisUsed)
+			if(p.invisible && !p.invisUsed) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisible, p.name);
+				p.invisUsed = true;
+			}
 		}
 		if(k) {
 			third = false;
