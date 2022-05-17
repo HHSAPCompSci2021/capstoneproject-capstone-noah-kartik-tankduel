@@ -140,7 +140,7 @@ public class PlayScreen1 extends Screens{
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		if (back.contains(p))
 			surface.switchScreen(ScreenSwitcher.MENU);
-		if (map.contains(p))
+		if (normalMap.contains(p))
 			surface.setMap(0);
 		if (normalMode.contains(p))
 			surface.setGameMode(1);
@@ -156,7 +156,7 @@ public class PlayScreen1 extends Screens{
 		
 			
 		if(startButton.contains(p) && surface.getGameMode() == 1 && surface.getMap() == 1) 
-			surface.switchScreen(ScreenSwitcher.WATERMAP);
+			surface.switchScreen(ScreenSwitcher.TWOPLAYERORNETWORK);
 	}
 	
 }

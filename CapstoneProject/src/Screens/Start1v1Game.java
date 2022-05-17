@@ -57,7 +57,10 @@ public class Start1v1Game extends Screens{
 	public void mousePressed() {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		if(start.contains(p)) {
-			surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
+			if(surface.getMap() == 0)
+				surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
+			if(surface.getMap() == 1)
+				surface.switchScreen(ScreenSwitcher.WATERMAP);
 		}
 	}
 }
