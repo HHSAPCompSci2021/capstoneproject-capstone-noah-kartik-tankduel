@@ -32,6 +32,8 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
 	private static final String messageTypeInit = "CREATE_PLAYER";
 	private static final String messageTypeRemovePlayer = "REMOVE_PLAYER";
+	private static final String messageTypeSetTagger = "SET_TAGGER";
+
 
 
 	
@@ -165,14 +167,17 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 					else if(players.size()<=4) {
 						int a = (int)(Math.random()*players.size());
 						players.get(a).setPlayerType(true);
+						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(a));
 					}
 					else {
 						int a = (int)(Math.random()*players.size());
 						players.get(a).setPlayerType(true);
+						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger,players.get(a));
 						int b = (int)(Math.random()*players.size());
 						while (a== b)
 							b = (int)(Math.random()*players.size());
 						players.get(b).setPlayerType(true);
+						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(b));
 					}
 				}
 			}
@@ -380,21 +385,26 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 				}
 			}
 		}
+		boolean remove = false;
 		if(TwoPlayerOrNetwork.network) {
 			if(NetworkManagementPanel.isHost && !(first||second)) {
 				for(int i = 0; i<players.size();i++) {
-					for(int j = 1; j<players.size();i++) {
+					for(int j = 1; j<players.size();j++) {
 						if(players.get(i).intersects(players.get(j)) && players.get(i).getPlayerType()!=players.get(j).getPlayerType()) {
 							if(!players.get(i).getPlayerType()) {
 								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(i));
-								break;
+								remove = true;
 							}
 							else {
 								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(j));
-								break;
+								remove = true;
 							}
 						}
+						if(remove)
+							break;
 					}
+					if(remove)
+						break;
 				}
 			}
 		}
@@ -428,7 +438,7 @@ public void processNetworkMessages() {
 							}
 						}
 				}
-				else if (ndo.message[0].equals(messageTypeInit)) {//also send name
+				else if (ndo.message[0].equals(messageTypeInit)) {
 					
 					for (Player c : players) {
 						if (c.host.equals(host))
@@ -443,7 +453,7 @@ public void processNetworkMessages() {
 				
 				}
 				
-				else if (ndo.message[0].equals(messageTypeRemovePlayer)) {//also send name
+				else if (ndo.message[0].equals(messageTypeRemovePlayer)) {
 					Player s = (Player)ndo.message[1];
 					for(Player a :players) {
 						if(a.equals(s)) {
@@ -451,6 +461,15 @@ public void processNetworkMessages() {
 						}
 					}
 						
+				}
+				
+				else if (ndo.message[0].equals(messageTypeSetTagger)) {
+					Player s = (Player)ndo.message[1];
+					for(int i = 0; i<players.size();i++) {
+						if(players.get(i).equals(s)) {
+							players.get(i).setPlayerType(true);
+						}
+					}
 				}
 			}
 			else if (ndo.dataSource.equals(ndo.serverHost)) {
