@@ -204,6 +204,18 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 				surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
 		}
 
+		boolean k = true;
+		for(Player p: players) {
+			if(p.getPlayerType() == false)
+				k = false;
+		}
+		if(k) {
+			third = false;
+			roundWinner = true;
+			surface.switchScreen(ScreenSwitcher.ROUND_OVER);
+		}
+			
+		
 		//window border lines
 		surface.pushStyle();
 		surface.strokeWeight(8);
@@ -359,6 +371,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 						currentRunner = Start1v1Game.player1;
 					else
 						currentRunner = Start1v1Game.player2;
+					roundWinner = false;
 					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 					
 				}

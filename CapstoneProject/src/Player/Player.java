@@ -104,7 +104,7 @@ public class Player extends Sprite {
 		if(System.currentTimeMillis()-jumpTime>7000) {
 			jump = false;
 		}
-		if(System.currentTimeMillis()-cloakTime>7000) {
+		if(System.currentTimeMillis()-cloakTime>4000) {
 			invisible = false;
 		}
 		if(System.currentTimeMillis()-diveTime>7000) {
