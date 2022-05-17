@@ -26,7 +26,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	private long taggedTime;
 	private boolean roundWinner;
 	public static String currentRunner;
-	
+	private int repeatName;
 	private NetworkMessenger nm;
 	
 	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
@@ -135,6 +135,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		
 		firstRun = 0;
 		check = 0;
+		repeatName = 1;
 	}
 	/**
 	 * Standard drawing in processing
@@ -447,7 +448,13 @@ public void processNetworkMessages() {
 					Player c = new Player(50,50);
 					c.x = (double) ndo.message[1];
 					c.y = (double) ndo.message[2];
-					c.name = (String)ndo.message[3];
+					String s = "";
+					for(Player p : players)
+						if((String)ndo.message[3] == p.name) {
+							s +=repeatName;
+							repeatName++;
+						}
+					c.name = (String)ndo.message[3] + s;
 					c.host = host;
 					players.add(c);
 				
@@ -466,7 +473,7 @@ public void processNetworkMessages() {
 				else if (ndo.message[0].equals(messageTypeSetTagger)) {
 					Player s = (Player)ndo.message[1];
 					for(int i = 0; i<players.size();i++) {
-						if(players.get(i).host.equals(s.host)) {
+						if(players.get(i).name.equals(s.name)) {
 							players.get(i).setPlayerType(true);
 						}
 					}
