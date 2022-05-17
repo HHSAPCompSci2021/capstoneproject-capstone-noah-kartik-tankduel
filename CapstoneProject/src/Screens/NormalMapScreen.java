@@ -446,7 +446,7 @@ public void processNetworkMessages() {
 				else if (ndo.message[0].equals(messageTypeRemovePlayer)) {//also send name
 					Player s = (Player)ndo.message[1];
 					for(Player a :players) {
-						if(a.host.equals(host)) {
+						if(a.equals(s)) {
 							players.remove(a);
 						}
 					}
