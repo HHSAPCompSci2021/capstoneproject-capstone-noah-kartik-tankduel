@@ -29,6 +29,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	private int repeatName;
 	private NetworkMessenger nm;
 	private boolean hostIsDead;
+	private boolean invisUsed;
 	
 	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
 	private static final String messageTypeInit = "CREATE_PLAYER";
@@ -213,7 +214,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		for(Player p: players) {
 			if(p.getPlayerType() == false)
 				k = false;
-			if(p.invisible)
+			if(p.invisible && !invisUsed)
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisible, p.name);
 		}
 		if(k) {
@@ -520,6 +521,7 @@ public void processNetworkMessages() {
 					for(int i = 0; i<players.size();i++) {
 						if(players.get(i).name.equals((String)ndo.message[1])) {
 							players.get(i).invisible = true;
+							invisUsed = true;
 						}
 					}				
 				}
