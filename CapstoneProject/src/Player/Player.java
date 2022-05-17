@@ -43,21 +43,19 @@ public class Player extends Sprite {
 	
 	private static final String messageTypeInvisible = "INVISIBLE";
 	private static final String messageTypeDiveTag = "DIVETAG";
-	private DrawingSurface surface;
 	
 	/**
 	 * Creates a player at position x and y and calls the super constructor 
 	 * @param x - x coordinate of the spawn point 
 	 * @param y - y coordinate of the spawn point
 	 */
-	public Player(int x, int y, DrawingSurface surface) {
+	public Player(int x, int y) {
 		super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
 		xVel = 0;
 		yVel = 0;
 		onASurface = false;
 		speed = false;
 		jump = false;
-		this.surface = surface;
 		try {
 			host = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
