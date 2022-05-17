@@ -387,9 +387,11 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 						if(players.get(i).intersects(players.get(j)) && players.get(i).getPlayerType()!=players.get(j).getPlayerType()) {
 							if(!players.get(i).getPlayerType()) {
 								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(i));
+								break;
 							}
 							else {
 								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(j));
+								break;
 							}
 						}
 					}
