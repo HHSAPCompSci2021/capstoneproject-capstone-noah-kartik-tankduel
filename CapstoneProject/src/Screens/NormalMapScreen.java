@@ -377,7 +377,8 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			surface.popStyle();
 		}
 	
-		
+		if(TwoPlayerOrNetwork.network) 
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
 		if(!TwoPlayerOrNetwork.network) {
 			if(t.intersects(r) && !(first || second)) {
 				if(System.currentTimeMillis()-taggedTime>3000) {
@@ -417,7 +418,6 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		surface.popStyle();
 		
 		if(TwoPlayerOrNetwork.network) {
-			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
 			processNetworkMessages();
 		}
 	}
