@@ -104,21 +104,20 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		l0 = new Line2D.Double (940,625,1080,625);
 		l1 = new Line2D.Double (850,550,950,450);
 		l2 = new Line2D.Double (900,400,1000,400);
-//		l3 = new Line2D.Double (668,2,668,2.5);
-//		l4 = new Line2D.Double (500,500,600,500);
-//		l5 = new Line2D.Double (300,70,500,70);
-//		l6 = new Line2D.Double (780,70,1010,70);
-//		l7 = new Line2D.Double (400,270,650,150);
-//		l8 = new Line2D.Double (50,300,250,375);
-//		l9 = new Line2D.Double (829,375,1050,300);
-//		l10 = new Line2D.Double (50,550,230,550);
-//		l11 = new Line2D.Double (849,550,1050,550);
-//		l12 = new Line2D.Double (400,500,630,500);
-//		l13 = new Line2D.Double (480,360,700,360);
-//		l14 = new Line2D.Double (600,620,800,450);
-//		l15 = new Line2D.Double (250,250,350,350);
-//		l16 = new Line2D.Double (200,500,500,300);
-//		l17 = new Line2D.Double (650,2,700,50);
+		l3 = new Line2D.Double (1000,400,1000,300);
+		l4 = new Line2D.Double (1000,300,900,300);
+		l5 = new Line2D.Double (1035,350,1100,350); // edge piece just in case it glitches 
+		l6 = new Line2D.Double (1035,275,880,75); 
+		l7 = new Line2D.Double (1000,100,1100,100);
+		l8 = new Line2D.Double (850,150,750,250);
+		l9 = new Line2D.Double (650,25,800,25);
+		l10 = new Line2D.Double (800,25,800,100);
+		l11 = new Line2D.Double (800,100,650,100);
+		l12 = new Line2D.Double (400,75,550,75);
+		l13 = new Line2D.Double (225,100,300,100);
+		l14 = new Line2D.Double (400,135,550,200);
+		l15 = new Line2D.Double (600,250,700,175);
+		l16 = new Line2D.Double (350,125,330,150);
 //		l18 = new Line2D.Double (320,690,480,640);
 //		l19 = new Line2D.Double (500,590,600,690);
 //		l20 = new Line2D.Double (100,250,280,140);
@@ -153,7 +152,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		border3 = new Line2D.Double (0, 720, 1080, 720);
 		border4 = new Line2D.Double (1080, 720, 1080, 0);
 		
-		platforms = new Line2D[] {l0,l1,l2,spawnX,spawnY,border1,border2,border3,border4};
+		platforms = new Line2D[] {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,spawnX,spawnY,border1,border2,border3,border4};
 		
 		diveTag = new DiveTag((int)(Math.random()*1060)+10,(int)(Math.random()*700)+10);
 		speedBoost = new SpeedBoost((int)(Math.random()*1060)+10,(int)(Math.random()*700)+10);
@@ -230,18 +229,18 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 				surface.fill(255,255,255);
 			else
 				surface.fill(0,0,0);
-			surface.text(Start1v1Game.player1, (float)t.x - surface.textWidth(Start1v1Game.player1)/2 + (float)t.getWidth()/2, (float)(t.y -3.0));
+			//surface.text(Start1v1Game.player1, (float)t.x - surface.textWidth(Start1v1Game.player1)/2 + (float)t.getWidth()/2, (float)(t.y -3.0));
 			if(r.getInvisible())
 				surface.fill(255,255,255);
 			else
 				surface.fill(0,0,0);
-			surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
+		//	surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
 		}
 		if(TwoPlayerOrNetwork.network){
 			surface.textSize(15);
 			surface.fill(0,0,0);
-			for(Player a: players)
-				surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
+			//for(Player a: players)
+				//surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
 		}
 
 		//window border lines

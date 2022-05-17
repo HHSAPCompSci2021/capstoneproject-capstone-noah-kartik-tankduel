@@ -30,7 +30,8 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		inputMethod = false;
 		map = 0;
 		gameMode = 0;
-		
+		WaterMapScreen x = new WaterMapScreen(this);
+		screens.add(x);
 		MenuScreen menu = new MenuScreen(this);
 		screens.add(menu);
 		
