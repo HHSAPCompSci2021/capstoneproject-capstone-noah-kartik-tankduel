@@ -41,6 +41,7 @@ public class Player extends Sprite {
 	private boolean playerType; // false for runner true for tagger
 	private double xVel, yVel;
 	private int count = 0;
+	public boolean invisUsed;
 
 	
 	/**
