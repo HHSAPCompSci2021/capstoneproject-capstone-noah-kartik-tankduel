@@ -220,6 +220,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			}
 			if(p.invisUsed && p.turnInvisOff) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisibleOff, p.name);
+				p.turnInvisOff = false;
 			}
 		}
 		if(k) {
