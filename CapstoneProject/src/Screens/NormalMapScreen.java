@@ -156,7 +156,6 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 				processNetworkMessages();
 			}
 		}
-		System.out.println(players.size());
 		firstRun=1;
 		if(TwoPlayerOrNetwork.network) {//sets up who is tagger for networking
 			if(NetworkManagementPanel.isHost && check == 0) {
@@ -471,6 +470,8 @@ public void processNetworkMessages() {
 							players.get(i).setPlayerType(true);
 						}
 					}
+					for(Player a: players)
+						System.out.println(a.getPlayerType());
 				}
 			}
 			else if (ndo.dataSource.equals(ndo.serverHost)) {
