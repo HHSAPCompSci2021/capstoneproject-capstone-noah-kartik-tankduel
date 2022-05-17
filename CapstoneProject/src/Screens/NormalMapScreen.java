@@ -28,6 +28,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	public static String currentRunner;
 	private int repeatName;
 	private NetworkMessenger nm;
+	private boolean hostIsDead;
 	
 	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
 	private static final String messageTypeInit = "CREATE_PLAYER";
@@ -308,7 +309,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			}
 		}
 		
-		if(TwoPlayerOrNetwork.network) {
+		if(TwoPlayerOrNetwork.network && !hostIsDead) {
 			p.act(platforms,abilities);
 		}
 		
@@ -393,10 +394,14 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 					for(int j = 1; j<players.size();j++) {
 						if(players.get(i).intersects(players.get(j)) && players.get(i).getPlayerType()!=players.get(j).getPlayerType()) {
 							if(!players.get(i).getPlayerType()) {
+								if(players.get(i).equals(p))
+									hostIsDead = true;
 								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(i));
 								remove = true;
 							}
 							else {
+								if(players.get(j).equals(p))
+									hostIsDead = true;
 								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(j));
 								remove = true;
 							}
@@ -454,7 +459,7 @@ public void processNetworkMessages() {
 							s +=repeatName;
 							repeatName++;
 						}
-					c.name = (String)ndo.message[3] + s;
+					c.name = (String)ndo.message[3] ;
 					c.host = host;
 					players.add(c);
 				
