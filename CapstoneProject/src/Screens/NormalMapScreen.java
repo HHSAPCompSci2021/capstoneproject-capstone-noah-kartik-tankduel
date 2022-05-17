@@ -31,7 +31,8 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	
 	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
 	private static final String messageTypeInit = "CREATE_PLAYER";
-	
+	private static final String messageTypeRemovePlayer = "REMOVE_PLAYER";
+
 
 	
 	/* The area created by spawnX and spawnY will be the spawn area.
@@ -385,14 +386,12 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			if(NetworkManagementPanel.isHost) {
 				for(int i = 0; i<players.size();i++) {
 					for(int j = 1; j<players.size();i++) {
-						if(players.get(i).intersects(players.get(j))&& players.get(i).getPlayerType()!=players.get(j).getPlayerType()) {
+						if(!(first || second) && players.get(i).intersects(players.get(j)) && players.get(i).getPlayerType()!=players.get(j).getPlayerType()) {
 							if(!players.get(i).getPlayerType()) {
-								players.remove(i);
-								//send message to all clients of removal 
+								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(i));
 							}
 							else {
-								players.remove(j);
-								//send message to all clients of removal 
+								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(j));
 							}
 						}
 					}
@@ -442,6 +441,16 @@ public void processNetworkMessages() {
 					c.host = host;
 					players.add(c);
 				
+				}
+				
+				else if (ndo.message[0].equals(messageTypeRemovePlayer)) {//also send name
+					Player s = (Player)ndo.message[1];
+					for(Player a :players) {
+						if(a.host.equals(host)) {
+							players.remove(a);
+						}
+					}
+						
 				}
 			}
 			else if (ndo.dataSource.equals(ndo.serverHost)) {
