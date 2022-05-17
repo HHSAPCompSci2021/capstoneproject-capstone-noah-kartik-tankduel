@@ -181,6 +181,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 					}
 				}
 			}
+			processNetworkMessages();
 		}
 		if(!TwoPlayerOrNetwork.network) {
 			surface.textSize(15);
@@ -488,7 +489,7 @@ public void processNetworkMessages() {
 	
 	
 	/**
-	 * Gets the winner of the round of tag currently working on it
+	 * Gets the winner of the round of tag
 	 * @return roundwinner
 	 */
 	public boolean getRoundWinner() {
@@ -497,7 +498,7 @@ public void processNetworkMessages() {
 	}
 	
 	/**
-	 * Makes it so that once you pick up the speedboost it disappears so you cannot pick it up again
+	 * Makes it so that once you pick up the speed boost it disappears so you cannot pick it up again
 	 */
 	public static void deleteSpeed() {
 		speedBoost.x = -100;
