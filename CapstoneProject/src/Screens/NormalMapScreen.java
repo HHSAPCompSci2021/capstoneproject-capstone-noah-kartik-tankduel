@@ -167,14 +167,18 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		firstRun=1;
 		if(TwoPlayerOrNetwork.network) {//sets up who is tagger for networking
 			if(NetworkManagementPanel.isHost && check == 0) {
+				System.out.println("before: " + players.size() + ", static: " +StartNetworkGame.numberOfPlayers );
 				if(players.size()== StartNetworkGame.numberOfPlayers) {
+					System.out.println("after: " + players.size() + ", static: " +StartNetworkGame.numberOfPlayers );
+
 					check =1;
-					if(players.size() == 1)
+					if(StartNetworkGame.numberOfPlayers == 1)
 						;
-					else if(players.size()<=4) {
+					else if(StartNetworkGame.numberOfPlayers<=4) {
 						int a = (int)(Math.random()*players.size());
 						players.get(a).setPlayerType(true);
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(a));
+						processNetworkMessages();
 					}
 					else {
 						int a = (int)(Math.random()*players.size());
@@ -185,6 +189,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 							b = (int)(Math.random()*players.size());
 						players.get(b).setPlayerType(true);
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(b));
+						processNetworkMessages();
 					}
 				}
 			}
@@ -497,6 +502,7 @@ public void processNetworkMessages() {
 				}
 				
 				else if (ndo.message[0].equals(messageTypeRemovePlayer)) {
+					System.out.println("player removed");
 					Player s = (Player)ndo.message[1];
 					for(Player a :players) {
 						if(a.equals(s)) {
@@ -524,10 +530,12 @@ public void processNetworkMessages() {
 				}
 				
 				else if (ndo.message[0].equals(messageTypeInvisible)) {
+					System.out.println("invis is on");
 					for(int i = 0; i<players.size();i++) {
 						if(players.get(i).name.equals((String)ndo.message[1])) {
 							players.get(i).invisible = true;
 							p.invisUsed = true;
+							System.out.println("invis on");
 						}
 					}				
 				}
