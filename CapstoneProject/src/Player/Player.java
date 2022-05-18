@@ -196,7 +196,6 @@ public class Player extends Sprite {
 					NormalMapScreen.deleteJump();
 				}
 				if(a instanceof SneakyCloak && !playerType) {
-					//make invisible here
 					invisible = true;
 					cloakTime = System.currentTimeMillis();
 					NormalMapScreen.deleteCloak();
