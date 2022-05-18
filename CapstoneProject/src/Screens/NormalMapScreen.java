@@ -38,6 +38,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	private static final String messageTypeInvisible = "INVISIBLE";
 	private static final String messageTypeInvisibleOff = "INVISIBLE_OFF";
 	private static final String messageTypeDiveTag = "DIVETAG";
+	private static final String messageTypeDiveOff = "DIVE_OFF";
 
 
 
@@ -158,11 +159,9 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		surface.fill(0,0,0);
 		surface.stroke(2);
 		if(TwoPlayerOrNetwork.network) {
-			if(firstRun == 0) {
-				p.name = TwoPlayerOrNetwork.playerName;
-				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,TwoPlayerOrNetwork.playerName);
-				processNetworkMessages();
-			}
+			p.name = TwoPlayerOrNetwork.playerName;
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,TwoPlayerOrNetwork.playerName);
+			processNetworkMessages();
 		}
 		firstRun=1;
 		if(TwoPlayerOrNetwork.network) {//sets up who is tagger for networking
@@ -227,6 +226,17 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			if(p.invisUsed && p.turnInvisOff) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisibleOff, p.name);
 				p.turnInvisOff = false;
+				processNetworkMessages();
+			}
+			
+			if(p.dive && !p.diveUsed) {
+				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeDiveTag, p.name);
+				p.diveUsed = true;
+				processNetworkMessages();
+			}
+			if(p.diveUsed && p.turnDiveOff) {
+				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeDiveOff, p.name);
+				p.turnDiveOff = false;
 				processNetworkMessages();
 			}
 		}
@@ -549,6 +559,24 @@ public void processNetworkMessages() {
 						}
 					}				
 				}
+				
+				else if (ndo.message[0].equals(messageTypeDiveTag)) {
+					for(int i = 0; i<players.size();i++) {
+						if(players.get(i).name.equals((String)ndo.message[1])) {
+							players.get(i).dive = true;
+							players.get(i).diveUsed = true;
+						}
+					}				
+				}
+				
+				else if (ndo.message[0].equals(messageTypeDiveOff)) {
+					for(int i = 0; i<players.size();i++) {
+						if(players.get(i).name.equals((String)ndo.message[1])) {
+							players.get(i).dive = false;
+							players.get(i).turnDiveOff = false;
+						}
+					}				
+				}
 			}
 			else if (ndo.dataSource.equals(ndo.serverHost)) {
 				players.clear();
@@ -570,7 +598,6 @@ public void processNetworkMessages() {
 	 * @return roundwinner
 	 */
 	public boolean getRoundWinner() {
-	
 		return roundWinner;
 	}
 	

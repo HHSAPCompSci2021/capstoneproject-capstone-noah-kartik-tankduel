@@ -37,12 +37,16 @@ public class Player extends Sprite {
 	private boolean speed;
 	private boolean jump;
 	public boolean invisible;
+	public boolean dive;
 	
 	private boolean playerType; // false for runner true for tagger
 	private double xVel, yVel;
-	private int count = 0;
+	private int countInvis = 0;
+	private int countDive = 0;
 	public boolean invisUsed;
+	public boolean diveUsed;
 	public boolean turnInvisOff;
+	public boolean turnDiveOff;
 	
 	/**
 	 * Creates a player at position x and y and calls the super constructor 
@@ -111,13 +115,12 @@ public class Player extends Sprite {
 			jump = false;
 		}
 		if(cloakTime !=0 && System.currentTimeMillis()-cloakTime>4000) {
-			System.out.println("Millis running");
 			invisible = false;
 			turnInvisOff = true;
 		}
-		if(System.currentTimeMillis()-diveTime>7000) {
-			this.width = 17;
-			this.height = 20;
+		if(diveTime != 0 && System.currentTimeMillis()-diveTime>7000) {
+			dive = false;
+			turnDiveOff = true;
 		}
 		onASurface = false;
 		yVel += 0.2;
@@ -125,12 +128,17 @@ public class Player extends Sprite {
 		x += xVel;
 		y += yVel;
 
-		if(invisible && count == 0) {
-			count = 1;
+		if(invisible && countInvis == 0) {
+			countInvis = 1;
 			cloakTime = System.currentTimeMillis();
 			NormalMapScreen.deleteCloak();
 		}
-			
+		if(dive && countDive == 0) {
+			countDive = 1;
+			diveTime = System.currentTimeMillis();
+			NormalMapScreen.deleteDive();
+		}
+		
 		for(Line2D s: obstacles) {
 			if(super.intersectsLine(s)) {
 				double temp = yVel;
@@ -202,11 +210,9 @@ public class Player extends Sprite {
 					NormalMapScreen.deleteCloak();
 				}
 				if(a instanceof DiveTag && playerType) {
-					//increase tag range here
+					dive = true;
 					diveTime = System.currentTimeMillis();
 					NormalMapScreen.deleteDive();
-					this.width = 26;
-					this.height = 30;
 				}
 				
 			}
@@ -224,6 +230,14 @@ public class Player extends Sprite {
 		if(invisible) {
 			g.fill(255,255,255);
 			g.stroke(255,255,255);
+		}
+		if(dive) {
+			width = 26;
+			height = 30;
+		}
+		else {
+			width = 17;
+			height = 20;
 		}
 		g.rect((float)x,(float)y,(float)width,(float)height);
 		g.popStyle();
