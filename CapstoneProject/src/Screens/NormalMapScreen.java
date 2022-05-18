@@ -167,10 +167,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		firstRun=1;
 		if(TwoPlayerOrNetwork.network) {//sets up who is tagger for networking
 			if(NetworkManagementPanel.isHost && check == 0) {
-				System.out.println("before: " + players.size() + ", static: " +StartNetworkGame.numberOfPlayers );
 				if(players.size()== StartNetworkGame.numberOfPlayers) {
-					System.out.println("after: " + players.size() + ", static: " +StartNetworkGame.numberOfPlayers );
-
 					check =1;
 					if(StartNetworkGame.numberOfPlayers == 1)
 						;
@@ -193,7 +190,6 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 					}
 				}
 			}
-			processNetworkMessages();
 		}
 		if(!TwoPlayerOrNetwork.network) {
 			surface.textSize(15);
@@ -221,10 +217,12 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 				k = false;
 			if(p.invisible && !p.invisUsed) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisible, p.name);
+				processNetworkMessages();
 				p.invisUsed = true;
 			}
 			if(p.invisUsed && p.turnInvisOff) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisibleOff, p.name);
+				processNetworkMessages();
 				p.turnInvisOff = false;
 			}
 		}
@@ -232,6 +230,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 			third = false;
 			roundWinner = true;
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, true);
+			processNetworkMessages();
 			surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 		}
 			
@@ -392,9 +391,10 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 					else
 						currentRunner = Start1v1Game.player2;
 					roundWinner = false;
-					if(TwoPlayerOrNetwork.network)
+					if(TwoPlayerOrNetwork.network) {
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, false);
-
+						processNetworkMessages();
+					}
 					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 					
 				}
