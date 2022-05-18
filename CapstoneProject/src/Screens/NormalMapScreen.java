@@ -506,7 +506,6 @@ public void processNetworkMessages() {
 				}
 				
 				else if (ndo.message[0].equals(messageTypeRemovePlayer)) {
-					System.out.println("player removed");
 					Player s = (Player)ndo.message[1];
 					for(Player a :players) {
 						if(a.equals(s)) {
@@ -534,12 +533,10 @@ public void processNetworkMessages() {
 				}
 				
 				else if (ndo.message[0].equals(messageTypeInvisible)) {
-					System.out.println("invis is on");
 					for(int i = 0; i<players.size();i++) {
 						if(players.get(i).name.equals((String)ndo.message[1])) {
 							players.get(i).invisible = true;
 							players.get(i).invisUsed = true;
-							System.out.println("invis on");
 						}
 					}				
 				}
@@ -547,7 +544,6 @@ public void processNetworkMessages() {
 				else if (ndo.message[0].equals(messageTypeInvisibleOff)) {
 					for(int i = 0; i<players.size();i++) {
 						if(players.get(i).name.equals((String)ndo.message[1])) {
-							System.out.println("message running");
 							players.get(i).invisible = false;
 							players.get(i).turnInvisOff = false;
 						}
