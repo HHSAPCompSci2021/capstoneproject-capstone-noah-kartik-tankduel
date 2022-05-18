@@ -9,12 +9,13 @@ public class FreezeMode extends GameModes{
 	private boolean frozen = false;
 	
 	public boolean frozen() {
+		frozen = true;
 		return frozen;
 		//if intersected make them frozen make their velocity 0
 	}
 	
 	public boolean unfrozen() {
-		return frozen;
+		frozen = false;
 		// if another runner touches them then they are unfrozen and their velocity is set to what the 
 		// keyboard presses
 	}

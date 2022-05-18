@@ -168,6 +168,8 @@ public class PlayScreen1 extends Screens{
 		if(startButton.contains(p) && surface.getGameMode() == 1 && surface.getMap() == 0) 
 			surface.switchScreen(ScreenSwitcher.TWOPLAYERORNETWORK);
 		
+		if(startButton.contains(p) && surface.getGameMode() == 2 && surface.getMap() == 0)
+			surface.switchScreen(ScreenSwitcher.TWOPLAYERORNETWORK);
 			
 		if(startButton.contains(p) && surface.getGameMode() == 1 && surface.getMap() == 1) 
 			surface.switchScreen(ScreenSwitcher.TWOPLAYERORNETWORK);
