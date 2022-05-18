@@ -214,6 +214,7 @@ public class Player extends Sprite {
 		
 	}
 	public void draw(PApplet g) {
+		System.out.println(invisible);
 		g.pushStyle();
 		g.strokeWeight(3);
 		if(playerType)
