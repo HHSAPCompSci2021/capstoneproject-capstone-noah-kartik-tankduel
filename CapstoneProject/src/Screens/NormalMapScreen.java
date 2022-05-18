@@ -534,7 +534,7 @@ public void processNetworkMessages() {
 					for(int i = 0; i<players.size();i++) {
 						if(players.get(i).name.equals((String)ndo.message[1])) {
 							players.get(i).invisible = true;
-							p.invisUsed = true;
+							players.get(i).invisUsed = true;
 							System.out.println("invis on");
 						}
 					}				
@@ -544,7 +544,7 @@ public void processNetworkMessages() {
 					for(int i = 0; i<players.size();i++) {
 						if(players.get(i).name.equals((String)ndo.message[1])) {
 							players.get(i).invisible = false;
-							p.turnInvisOff = false;
+							players.get(i).turnInvisOff = false;
 						}
 					}				
 				}
