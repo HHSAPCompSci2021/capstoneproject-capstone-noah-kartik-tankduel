@@ -543,6 +543,7 @@ public void processNetworkMessages() {
 				else if (ndo.message[0].equals(messageTypeInvisibleOff)) {
 					for(int i = 0; i<players.size();i++) {
 						if(players.get(i).name.equals((String)ndo.message[1])) {
+							System.out.println("message running");
 							players.get(i).invisible = false;
 							players.get(i).turnInvisOff = false;
 						}

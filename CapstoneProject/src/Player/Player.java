@@ -111,6 +111,7 @@ public class Player extends Sprite {
 			jump = false;
 		}
 		if(System.currentTimeMillis()-cloakTime>4000) {
+			System.out.println("Millis running");
 			invisible = false;
 			turnInvisOff = true;
 		}
