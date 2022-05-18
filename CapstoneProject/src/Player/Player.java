@@ -224,6 +224,7 @@ public class Player extends Sprite {
 		if(invisible) {
 			g.fill(255,255,255);
 			g.stroke(255,255,255);
+			System.out.println("invis running");
 		}
 		g.rect((float)x,(float)y,(float)width,(float)height);
 		g.popStyle();

@@ -217,13 +217,13 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 				k = false;
 			if(p.invisible && !p.invisUsed) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisible, p.name);
-				processNetworkMessages();
 				p.invisUsed = true;
+				processNetworkMessages();
 			}
 			if(p.invisUsed && p.turnInvisOff) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisibleOff, p.name);
-				processNetworkMessages();
 				p.turnInvisOff = false;
+				processNetworkMessages();
 			}
 		}
 		if(k) {
