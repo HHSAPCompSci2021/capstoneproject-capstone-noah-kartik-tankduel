@@ -206,9 +206,13 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		}
 		if(TwoPlayerOrNetwork.network){
 			surface.textSize(15);
-			surface.fill(0,0,0);
-			for(Player a: players)
+			for(Player a: players) {
+				surface.fill(0,0,0);
+				if(a.getInvisible())
+					surface.fill(255,255,255);
 				surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
+
+			}
 		}
 
 		boolean k = true;
