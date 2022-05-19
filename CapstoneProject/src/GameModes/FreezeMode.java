@@ -16,6 +16,7 @@ public class FreezeMode extends GameModes{
 	
 	public boolean unfrozen() {
 		frozen = false;
+		return frozen;
 		// if another runner touches them then they are unfrozen and their velocity is set to what the 
 		// keyboard presses
 	}

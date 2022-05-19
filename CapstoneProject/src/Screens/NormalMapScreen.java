@@ -81,7 +81,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		l5 = new Line2D.Double (300,70,500,70);
 		l6 = new Line2D.Double (780,70,1010,70);
 		l7 = new Line2D.Double (400,270,650,150);
-		l8 = new Line2D.Double (50,300,250,375);
+		l8 = new Line2D.Double (50,300,200,425);
 		l9 = new Line2D.Double (829,375,1050,300);
 		l10 = new Line2D.Double (50,550,230,550);
 		l11 = new Line2D.Double (849,550,1050,550);
