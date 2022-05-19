@@ -81,7 +81,9 @@ public class Player extends Sprite {
 	 * @param dir - direction you want the character to go 
 	 */
 	public void walk(int dir) {
-		xVel = dir * 3;
+		xVel = dir * 3.5;
+		if(playerType)
+			xVel*=1.1;
 		if(speed)
 			xVel*=1.25;
 	}
@@ -92,6 +94,8 @@ public class Player extends Sprite {
 	public void jump() {
 		if(onASurface) {
 		yVel -= 6.5;
+		if(playerType)
+			yVel *= 1.1;
 		if(jump)
 			yVel*=1.2;
 		}
