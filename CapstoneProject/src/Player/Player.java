@@ -105,7 +105,7 @@ public class Player extends Sprite {
 	 * Checks to see if a player has collided and if it does then it acts in that way
 	 * Checks to see if a player has picked up any of the special abilities which is basically also a collision.
 	 * @param obstacles - the array of platforms on which the player can jump on
-	 * @param abilities - the array of ablities from which you can pick up 
+	 * @param abilities - the array of abilities from which you can pick up 
 	 */
 	public void act(Line2D[] obstacles,SpecialAbilities[] abilities) {
 		if(System.currentTimeMillis()-speedTime>7000) {
@@ -153,26 +153,42 @@ public class Player extends Sprite {
 					yVel = temp;
 					continue;
 				}
-				if(s.getY2()>s.getY1()) {
-					if(this.getY()<s.getY1() + Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()))
-						this.y = Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())- this.height;
-					else {
-						this.y = Math.abs(Math.min(s.getX1(), s.getX2())-this.getX()-this.width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2());
+
+				if(s.getY2()>s.getY1()) {//   \ slope
+					if(getY() + height -10< s.getY1() + Math.abs(Math.min(s.getX1(), s.getX2())-getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1())) {//top side of \ slope
+						if(getX()<= s.getX1()) {
+							y = s.getY1()-height;
+						}
+						else
+							y = Math.abs(Math.min(s.getX1(), s.getX2())-getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())- height;
+					}
+					else{//under side of \ slope
+						if(getX() + width>s.getX2()) {
+							y = s.getY2();
+						}
+						else if(getX()<s.getX1())
+							y = Math.abs(Math.min(s.getX1(), s.getX2())-getX()-width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2());
+						else
+							y = Math.abs(Math.min(s.getX1(), s.getX2())-getX()-width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2());
 					}
 				}
-				else if(s.getY2() == s.getY1()) {
-					if(this.getY()+5<s.getY1()) {
-						this.y = s.getY1()-this.height;
+				else if(s.getY2() == s.getY1()) {//horizontal slope --
+					if(getY()+5<s.getY1()) {
+						y = s.getY1()-height;
 					}
 					else {
-						this.y = s.getY1()+3;
+						y = s.getY1()+3;
 					}
 				}
-				else {
-					if(getY() + height-10< s.getY1() - Math.abs(Math.min(s.getX1(), s.getX2())-(getX()+width)) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1())) {
-						y = Math.abs(Math.max(s.getX1(), s.getX2())-getX()-width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())-height;
+				else {//   / slope upwards
+					if(getY() + height - 10< s.getY1() - Math.abs(Math.min(s.getX1(), s.getX2())-getX()-width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1())) { // top side
+						if(getX() + width >= s.getX2())
+							y = s.getY2()-height;
+						else
+							y = Math.abs(Math.max(s.getX1(), s.getX2())-getX()-width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())-height;
+
 					}
-					else {
+					else if(getX()<s.getX2()){//bottom side
 						y = Math.abs(Math.max(s.getX1(), s.getX2())-getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2());
 					}
 				}
