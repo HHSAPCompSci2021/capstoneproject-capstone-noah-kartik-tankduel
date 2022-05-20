@@ -43,10 +43,6 @@ public class StartNetworkGame extends Screens{
 		surface.textSize(50);
 		surface.text("START", start.x+start.width/2-surface.textWidth("START")/2, start.y +70);
 		
-//		if(NetworkManagementPanel.isHost && check == 1) {
-//			check = 0;
-//			surface.switchScreen(ScreenSwitcher.PLAYSCREEN1);
-//		}
 		if (((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger() == null)
 			return;
 		
@@ -56,6 +52,7 @@ public class StartNetworkGame extends Screens{
 			NetworkDataObject ndo = queue.poll();
 			if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
 				if (ndo.message[0].equals(messageTypeStartGame)) {
+					System.out.println("message received");
 					if((boolean) ndo.message[1]) {
 						if((int)ndo.message[2] == 0 && (int)ndo.message[3] == 1)
 							surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
