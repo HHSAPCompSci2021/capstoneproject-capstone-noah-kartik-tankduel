@@ -2,14 +2,8 @@ package Player;
 import java.awt.geom.Line2D;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Queue;
-
 import Screens.NormalMapScreen;
-import Screens.ScreenSwitcher;
-import Screens.TwoPlayerOrNetwork;
 import SpecialAbilities.*;
-import System.DrawingSurface;
-import networking.frontend.NetworkDataObject;
 import processing.core.PApplet;
 
 /**
@@ -81,7 +75,7 @@ public class Player extends Sprite {
 	 * @param dir - direction you want the character to go 
 	 */
 	public void walk(int dir) {
-		xVel = dir * 3.5;
+		xVel = dir * 3;
 		if(playerType)
 			xVel*=1.1;
 		if(speed)
@@ -170,9 +164,7 @@ public class Player extends Sprite {
 						if(getX() + width>s.getX2()) {
 							y = s.getY2();
 						}
-						else if(getX()<s.getX1())
-							y = Math.abs(Math.min(s.getX1(), s.getX2())-getX()-width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2());
-						else
+						else if(getX() + width +10 >s.getX1())
 							y = Math.abs(Math.min(s.getX1(), s.getX2())-getX()-width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2());
 					}
 				}
@@ -192,8 +184,11 @@ public class Player extends Sprite {
 							y = Math.abs(Math.max(s.getX1(), s.getX2())-getX()-width) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2())-height;
 
 					}
-					else if(getX()<s.getX2()){//bottom side
-						y = Math.abs(Math.max(s.getX1(), s.getX2())-getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2());
+					else {
+						if(getX() <s.getX1())//bottom side
+							y = s.getY1();
+						else
+							y = Math.abs(Math.max(s.getX1(), s.getX2())-getX()) / Math.abs(s.getX1()-s.getX2()) * Math.abs(s.getY2()-s.getY1()) + Math.min(s.getY1(), s.getY2());
 					}
 				}
 				
