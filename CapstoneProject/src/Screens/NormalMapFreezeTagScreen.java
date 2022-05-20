@@ -326,10 +326,26 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 		f2 = new Player(45,0);
 		r1 = new Player(90,0);
 		r2 = new Player(135,0);
-		if(Math.random() < 0.5) {
-			//t.setPlayerType(true);
+		double r = Math.random();
+	
+		if(r < 1.00/6) {
 			f1.setPlayerType(true);
 			f2.setPlayerType(true);
+		}else if(r < 2.00/6) {
+			f1.setPlayerType(true);
+			r1.setPlayerType(true);
+		}
+		else if(r < 3.00/6){
+			f1.setPlayerType(true);
+			r2.setPlayerType(true);
+		}
+		else if(r<4.00/6) {
+			f2.setPlayerType(true);
+			r2.setPlayerType(true);
+		}
+		else if(r < 5.00/6) {
+			f2.setPlayerType(true);
+			r1.setPlayerType(true);
 		}
 		else {
 			r1.setPlayerType(true);
@@ -668,16 +684,65 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
 		if(!MultiplayerOrNetwork.network) {
 			if(f1.intersects(r1) && !(first || second)) {
-				r1.isFrozen();
+				if(f1.getPlayerType() == r1.getPlayerType()) {
+					;
+				}
+				else if(f1.getPlayerType())
+					r1.isFrozen();
+				else {
+					f1.isFrozen();
+				}
 			}
 			if(f1.intersects(r2) && !(first || second)) {
-				r2.isFrozen();
+				if(f1.getPlayerType() == r2.getPlayerType()) {
+					;
+				}
+				else if(f1.getPlayerType())
+					r2.isFrozen();
+				else {
+					f1.isFrozen();
+				}
 			}
 			if(f2.intersects(r1) && !(first || second)) {
-				r1.isFrozen();
+				if(f2.getPlayerType() == r1.getPlayerType()) {
+					;
+				}
+				else if(f2.getPlayerType())
+					r1.isFrozen();
+				else {
+					f2.isFrozen();
+				}
 			}
 			if(f2.intersects(r2) && !(first || second)) {
-				r2.isFrozen();
+				if(f2.getPlayerType() == r2.getPlayerType()) {
+					;
+				}
+				else if(f2.getPlayerType())
+					r2.isFrozen();
+				else {
+					f2.isFrozen();
+				}
+
+			}
+			if(f2.intersects(f1) && !(first || second)) {
+				if(f2.getPlayerType() == f1.getPlayerType()) {
+					;
+				}
+				else if(f2.getPlayerType())
+					f1.isFrozen();
+				else {
+					f2.isFrozen();
+				}
+			}
+			if(r2.intersects(r1) && !(first || second)) {
+				if(r2.getPlayerType() == r1.getPlayerType()) {
+					;
+				}
+				if(r2.getPlayerType())
+					r1.isFrozen();
+				else {
+					r2.isFrozen();
+				}
 
 			}
 		}
