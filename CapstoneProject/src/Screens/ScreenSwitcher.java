@@ -21,7 +21,7 @@ public interface ScreenSwitcher {
 	public static final int FORESTMAP = 12;
 	public static final int CREDITS = 13;
 	public static final int FOURPLAYERORNETWORK = 14;
-	public static final int FREEZETAGNORMALMAPSCREEN = 	;
+	public static final int FREEZETAGNORMALMAPSCREEN = 	15;
 	public static final int MULTIPLAYERORNETWORK = 16;
 	/**
 	 * switches the screens
