@@ -68,9 +68,6 @@ public class MultiplayerOrNetwork extends Screens{
 		surface.fill(0,0,0);
 		surface.text("NETWORK", server.x+server.width/2-surface.textWidth("NETWORK")/2, server.y+20);
 		surface.fill(255,255,255);
-
-		surface.text("Not yet coded", server.x+server.width, server.y+20);
-
 		
 		
 		
