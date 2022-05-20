@@ -515,7 +515,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			}
 			surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 
-			
+			System.out.println(" ueou");
 		}
 		if(third) {
 			surface.pushStyle();
