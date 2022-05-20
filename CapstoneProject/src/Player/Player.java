@@ -83,6 +83,9 @@ public class Player extends Sprite {
 	public void unFrozen() {
 		frozen = false;
 	}
+	public boolean frozeOrUnfroze() {
+		return frozen;
+	}
 	public void walk(int dir) {
 		if(!frozen) {
 			xVel = dir * 3;
