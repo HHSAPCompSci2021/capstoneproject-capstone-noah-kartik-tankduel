@@ -16,20 +16,21 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 	private Line2D l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35;
 	private Player p;
 	private ArrayList<Player> players;
+	private ArrayList<Player> playersMulti;
+
 	private static DiveTag diveTag;
 	private static HighJump highJump;
 	private static SneakyCloak sneakyCloak;
 	private static SpeedBoost speedBoost;
 	private static SpecialAbilities[] abilities;
-	private Player r;
-	private Player t;
+
 	private Player f1;
 	private Player f2;
 	private Player r1;
 	private Player r2;
 	private long taggedTime;
 	private boolean roundWinner;
-	public static String currentRunner;
+	public static String[] currentRunner;
 	private int repeatName;
 	private NetworkMessenger nm;
 	private boolean hostIsDead;
@@ -75,6 +76,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 		players = new ArrayList<Player>();
 		p.host = "me!";
 		players.add(p);
+		playersMulti = new ArrayList<Player>();
 
 		// X:1080 by Y:720 range lines, make sure that x1 < x2
 		l0 = new Line2D.Double (450,450,500,400);
@@ -116,12 +118,15 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 
 		spawnX = new Line2D.Double(0,150,150,150);
 		spawnY = new Line2D.Double(150,0,150,150);
-		t = new Player(0,0);
-		r = new Player(50,50);
 		f1 = new Player(0,0);
 		f2 = new Player(45,0);
 		r1 = new Player(90,0);
 		r2 = new Player(135,0);
+		playersMulti.add(f1);
+		playersMulti.add(f2);
+		playersMulti.add(r1);
+		playersMulti.add(r2);
+
 		double r = Math.random();
 	
 		if(r < 1.00/6) {
@@ -172,6 +177,8 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 		firstRun = 0;
 		check = 0;
 		repeatName = 1;
+		
+		currentRunner = new String[2];
 	}
 	/**
 	 * Standard drawing in processing
@@ -379,24 +386,24 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 						r2.jump();
 				}
 			}
-			else {
-				if(!((first || second) && t.getPlayerType())) {
-					if (surface.isPressed(KeyEvent.VK_A))
-						t.walk(-1);
-					if (surface.isPressed(KeyEvent.VK_D))
-						t.walk(1);
-					if (surface.isPressed(KeyEvent.VK_W))
-						t.jump();
-				}
-				if(!((first || second) && r.getPlayerType())) {
-					if (surface.isPressed(KeyEvent.VK_LEFT))
-						r.walk(-1);
-					if (surface.isPressed(KeyEvent.VK_RIGHT))
-						r.walk(1);
-					if (surface.isPressed(KeyEvent.VK_UP))
-						r.jump();
-				}
-			}
+//			else {
+//				if(!((first || second) && t.getPlayerType())) {
+//					if (surface.isPressed(KeyEvent.VK_A))
+//						t.walk(-1);
+//					if (surface.isPressed(KeyEvent.VK_D))
+//						t.walk(1);
+//					if (surface.isPressed(KeyEvent.VK_W))
+//						t.jump();
+//				}
+//				if(!((first || second) && r.getPlayerType())) {
+//					if (surface.isPressed(KeyEvent.VK_LEFT))
+//						r.walk(-1);
+//					if (surface.isPressed(KeyEvent.VK_RIGHT))
+//						r.walk(1);
+//					if (surface.isPressed(KeyEvent.VK_UP))
+//						r.jump();
+//				}
+//			}
 		}
 		
 		if(MultiplayerOrNetwork.network && !hostIsDead) {
@@ -449,10 +456,23 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 				curTime = System.currentTimeMillis();
 				if(timer == 0) {
 					third = false;
-					if(!t.getPlayerType())
-						currentRunner = Start1v1Game.player1;
-					else
-						currentRunner = Start1v1Game.player2;
+					int i = 0;
+					if(!f1.getPlayerType()) {
+						currentRunner[i] = Start1v1Game.player1;
+						i++;
+					}
+					if(!f2.getPlayerType()) {
+						currentRunner[i] = Start1v1Game.player2;
+						i++;
+					}
+					if(!r1.getPlayerType()) {
+						currentRunner[i] = Start1v1Game.player3;
+						i++;
+					}
+					if(!r2.getPlayerType()) {
+						currentRunner[i] = Start1v1Game.player4;
+					}
+
 					roundWinner = false;
 					if(MultiplayerOrNetwork.network) {
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, false);
@@ -465,6 +485,34 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			surface.textSize(50);
 			surface.text(timer, 500, 50);
 			surface.popStyle();
+		}
+		boolean b = true;
+		for(Player p: playersMulti) {
+			if(!p.frozeOrUnfroze() && !p.getPlayerType()) {
+				b = false;
+				System.out.println("Running false");
+			}
+		}
+		if(b) {
+			int i = 0;
+			if(f1.getPlayerType()) {
+				currentRunner[i] = Start1v1Game.player1;
+				i++;
+			}
+			if(f2.getPlayerType()) {
+				currentRunner[i] = Start1v1Game.player2;
+				i++;
+			}
+			if(r1.getPlayerType()) {
+				currentRunner[i] = Start1v1Game.player3;
+				i++;
+			}
+			if(r2.getPlayerType()) {
+				currentRunner[i] = Start1v1Game.player4;
+			}
+			surface.switchScreen(ScreenSwitcher.ROUND_OVER);
+
+			
 		}
 		if(third) {
 			surface.pushStyle();

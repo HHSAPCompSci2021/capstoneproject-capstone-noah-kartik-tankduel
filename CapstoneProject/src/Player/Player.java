@@ -142,7 +142,8 @@ public class Player extends Sprite {
 			turnDiveOff = true;
 		}
 		onASurface = false;
-		yVel += 0.2;
+		if(!frozen)
+			yVel += 0.2;
 		
 		x += xVel;
 		y += yVel;
