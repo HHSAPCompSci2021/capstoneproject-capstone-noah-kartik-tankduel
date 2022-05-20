@@ -19,7 +19,8 @@ public class StartNetworkGame extends Screens{
 	private Rectangle start;
 	private static final String messageTypeStartGame = "START_GAME";
 	public static int numberOfPlayers;
-		
+	private int check  = 1;	
+	
 	public StartNetworkGame(DrawingSurface surface) {
 		super(1080,720);
 		this.surface = surface;
@@ -60,8 +61,10 @@ public class StartNetworkGame extends Screens{
 				}
 			}
 		}
-		if(NetworkManagementPanel.isHost)
+		if(NetworkManagementPanel.isHost && check == 1) {
+			check = 0;
 			surface.switchScreen(ScreenSwitcher.PLAYSCREEN1);
+		}
 
 		surface.popStyle();
 	}
