@@ -2,6 +2,8 @@ package Player;
 import java.awt.geom.Line2D;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
+import Screens.NormalMapFreezeTagScreen;
 import Screens.NormalMapScreen;
 import SpecialAbilities.*;
 import processing.core.PApplet;
@@ -161,11 +163,13 @@ public class Player extends Sprite {
 			countInvis = 1;
 			cloakTime = System.currentTimeMillis();
 			NormalMapScreen.deleteCloak();
+			NormalMapFreezeTagScreen.deleteCloak();
 		}
 		if(dive && countDive == 0) {
 			countDive = 1;
 			diveTime = System.currentTimeMillis();
 			NormalMapScreen.deleteDive();
+			NormalMapFreezeTagScreen.deleteDive();
 		}
 		
 		for(Line2D s: obstacles) {
@@ -237,30 +241,35 @@ public class Player extends Sprite {
 			if(y>718)
 				y = 718;
 		}
-		
-		for(SpecialAbilities a: abilities) {
-			if(a.intersects(this)) {
-				if(a instanceof SpeedBoost) {
-					speed = true;
-					speedTime = System.currentTimeMillis();
-					NormalMapScreen.deleteSpeed();
+		if(NormalMapFreezeTagScreen.abilityUseable || NormalMapScreen.abilityUseable) {
+			for(SpecialAbilities a: abilities) {
+				if(a.intersects(this)) {
+					if(a instanceof SpeedBoost) {
+						speed = true;
+						speedTime = System.currentTimeMillis();
+						NormalMapScreen.deleteSpeed();
+						NormalMapFreezeTagScreen.deleteSpeed();
+					}
+					if(a instanceof HighJump) {
+						jump = true;
+						jumpTime = System.currentTimeMillis();
+						NormalMapScreen.deleteJump();
+						NormalMapFreezeTagScreen.deleteJump();
+					}
+					if(a instanceof SneakyCloak && !playerType) {
+						invisible = true;
+						cloakTime = System.currentTimeMillis();
+						NormalMapScreen.deleteCloak();
+						NormalMapFreezeTagScreen.deleteCloak();
+					}
+					if(a instanceof DiveTag && playerType) {
+						dive = true;
+						diveTime = System.currentTimeMillis();
+						NormalMapScreen.deleteDive();
+						NormalMapFreezeTagScreen.deleteDive();
+					}
+					
 				}
-				if(a instanceof HighJump) {
-					jump = true;
-					jumpTime = System.currentTimeMillis();
-					NormalMapScreen.deleteJump();
-				}
-				if(a instanceof SneakyCloak && !playerType) {
-					invisible = true;
-					cloakTime = System.currentTimeMillis();
-					NormalMapScreen.deleteCloak();
-				}
-				if(a instanceof DiveTag && playerType) {
-					dive = true;
-					diveTime = System.currentTimeMillis();
-					NormalMapScreen.deleteDive();
-				}
-				
 			}
 		}
 		

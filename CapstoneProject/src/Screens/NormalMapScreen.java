@@ -29,6 +29,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	private int repeatName;
 	private NetworkMessenger nm;
 	private boolean hostIsDead;
+	public static boolean abilityUseable;
 	
 	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
 	private static final String messageTypeInit = "CREATE_PLAYER";
@@ -294,29 +295,32 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		}
 		if(MultiplayerOrNetwork.network) {
 			p.walk(0);
-			if(surface.getInputMethod()) {
-				if (surface.isPressed(KeyEvent.VK_LEFT))
-					p.walk(-1);
-				if (surface.isPressed(KeyEvent.VK_RIGHT))
-					p.walk(1);
-				if (surface.isPressed(KeyEvent.VK_UP))
-					p.jump();
+			if(!((first || second) && p.getPlayerType())) {
+				if(surface.getInputMethod()) {
+					if (surface.isPressed(KeyEvent.VK_LEFT))
+						p.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_RIGHT))
+						p.walk(1);
+					if (surface.isPressed(KeyEvent.VK_UP))
+						p.jump();
+				}
 			}
 			else {
-				if (surface.isPressed(KeyEvent.VK_A))
-					p.walk(-1);
-				if (surface.isPressed(KeyEvent.VK_D))
-					p.walk(1);
-				if (surface.isPressed(KeyEvent.VK_W))
-					p.jump();
+				if(!((first || second) && p.getPlayerType())) {
+					if (surface.isPressed(KeyEvent.VK_A))
+						p.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_D))
+						p.walk(1);
+					if (surface.isPressed(KeyEvent.VK_W))
+						p.jump();
 				}
+			}
 		}
 		
 		if(!MultiplayerOrNetwork.network) {
 			t.walk(0);
 			r.walk(0);
 			
-			if(surface.getInputMethod()) {
 				if(!((first || second) && t.getPlayerType())) {
 					if (surface.isPressed(KeyEvent.VK_LEFT))
 						t.walk(-1);
@@ -333,25 +337,6 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 					if (surface.isPressed(KeyEvent.VK_W)) 
 						r.jump();
 				}
-			}
-			else {
-				if(!((first || second) && t.getPlayerType())) {
-					if (surface.isPressed(KeyEvent.VK_A))
-						t.walk(-1);
-					if (surface.isPressed(KeyEvent.VK_D))
-						t.walk(1);
-					if (surface.isPressed(KeyEvent.VK_W))
-						t.jump();
-				}
-				if(!((first || second) && r.getPlayerType())) {
-					if (surface.isPressed(KeyEvent.VK_LEFT))
-						r.walk(-1);
-					if (surface.isPressed(KeyEvent.VK_RIGHT))
-						r.walk(1);
-					if (surface.isPressed(KeyEvent.VK_UP))
-						r.jump();
-				}
-			}
 		}
 		
 		if(MultiplayerOrNetwork.network && !hostIsDead) {
@@ -388,6 +373,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 					second = false;
 					third = true;
 					timer = 180;
+					abilityUseable = true;
 				}
 			}
 			surface.textSize(25);
