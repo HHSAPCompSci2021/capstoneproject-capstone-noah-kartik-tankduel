@@ -32,7 +32,6 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 	public static String[] currentRunner;
 	private int repeatName;
 	private NetworkMessenger nm;
-	private boolean hostIsDead;
 	public static boolean abilityUseable;
 	
 	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
@@ -205,23 +204,20 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 					check =1;
 					if(StartNetworkGame.numberOfPlayers == 1)
 						;
-					else if(StartNetworkGame.numberOfPlayers<=4) {
-						int a = (int)(Math.random()*players.size());
-						players.get(a).setPlayerType(true);
-						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(a));
-						processNetworkMessages();
-					}
 					else {
-						int a = (int)(Math.random()*players.size());
-						players.get(a).setPlayerType(true);
-						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger,players.get(a));
-						int b = (int)(Math.random()*players.size());
-						while (a== b)
-							b = (int)(Math.random()*players.size());
-						players.get(b).setPlayerType(true);
-						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(b));
-						processNetworkMessages();
+						int taggerCount = StartNetworkGame.numberOfPlayers/2;
+						ArrayList<Integer> guessed = new ArrayList<>();
+						for(int i = 0; i<taggerCount;i++) {
+							int a = (int)(Math.random()*players.size());
+							while(guessed.contains(a)) {
+								a = (int)(Math.random()*players.size());
+							}
+							guessed.add(a);
+							players.get(a).setPlayerType(true);
+						}
 					}
+					
+					processNetworkMessages();
 				}
 			}
 		}
@@ -427,7 +423,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 //			}
 		}
 		
-		if(MultiplayerOrNetwork.network && !hostIsDead) {
+		if(MultiplayerOrNetwork.network) {
 			p.act(platforms,abilities);
 		}
 		
@@ -508,36 +504,38 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			surface.text(timer, 500, 50);
 			surface.popStyle();
 		}
-		boolean b = true;
-		for(Player p: playersMulti) {
-			if(!p.frozeOrUnfroze() && !p.getPlayerType()) {
-				b = false;
+		if(!MultiplayerOrNetwork.network) {
+			boolean b = true;
+			for(Player p: playersMulti) {
+				if(!p.frozeOrUnfroze() && !p.getPlayerType()) {
+					b = false;
+				}
+				if(p.getTaggedTime() == 3) {
+					b = true;
+					break;
+				}
+					
 			}
-			if(p.getTaggedTime() == 3) {
-				b = true;
-				break;
+			if(b) {
+				int i = 0;
+				if(f1.getPlayerType()) {
+					currentRunner[i] = Start1v1Game.player1;
+					i++;
+				}
+				if(f2.getPlayerType()) {
+					currentRunner[i] = Start1v1Game.player2;
+					i++;
+				}
+				if(r1.getPlayerType()) {
+					currentRunner[i] = Start1v1Game.player3;
+					i++;
+				}
+				if(r2.getPlayerType()) {
+					currentRunner[i] = Start1v1Game.player4;
+				}
+				surface.switchScreen(ScreenSwitcher.ROUND_OVER);
+	
 			}
-				
-		}
-		if(b) {
-			int i = 0;
-			if(f1.getPlayerType()) {
-				currentRunner[i] = Start1v1Game.player1;
-				i++;
-			}
-			if(f2.getPlayerType()) {
-				currentRunner[i] = Start1v1Game.player2;
-				i++;
-			}
-			if(r1.getPlayerType()) {
-				currentRunner[i] = Start1v1Game.player3;
-				i++;
-			}
-			if(r2.getPlayerType()) {
-				currentRunner[i] = Start1v1Game.player4;
-			}
-			surface.switchScreen(ScreenSwitcher.ROUND_OVER);
-
 		}
 		if(third) {
 			surface.pushStyle();
@@ -669,15 +667,11 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 					for(int j = 1; j<players.size();j++) {
 						if(players.get(i).intersects(players.get(j)) && players.get(i).getPlayerType()!=players.get(j).getPlayerType()) {
 							if(!players.get(i).getPlayerType()) {
-								if(players.get(i).equals(p))
-									hostIsDead = true;
-								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(i));
+//								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(i));
 								remove = true;
 							}
 							else {
-								if(players.get(j).equals(p))
-									hostIsDead = true;
-								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(j));
+//								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(j));
 								remove = true;
 							}
 						}
@@ -709,7 +703,7 @@ public void processNetworkMessages() {
 			String host = ndo.getSourceIP();
 
 			if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
-				if (ndo.message[0].equals(messageTypeCurrentLocation)) {
+				if (ndo.message[0].equals(messageTypeCurrentLocation)) {//works
 					
 						for (Player c : players) {
 							if (c.host.equals(host)) {
@@ -718,7 +712,7 @@ public void processNetworkMessages() {
 							}
 						}
 				}
-				else if (ndo.message[0].equals(messageTypeInit)) {
+				else if (ndo.message[0].equals(messageTypeInit)) {//works
 					
 					for (Player c : players) {
 						if (c.host.equals(host))
@@ -739,7 +733,7 @@ public void processNetworkMessages() {
 				
 				}
 				
-				else if (ndo.message[0].equals(messageTypeRemovePlayer)) {
+				else if (ndo.message[0].equals(messageTypeRemovePlayer)) {//works
 					Player s = (Player)ndo.message[1];
 					for(Player a :players) {
 						if(a.equals(s)) {
@@ -760,7 +754,7 @@ public void processNetworkMessages() {
 					}
 				}
 				
-				else if (ndo.message[0].equals(messageTypeGameOver)) {
+				else if (ndo.message[0].equals(messageTypeGameOver)) {//works
 					third = false;
 					roundWinner = (boolean)ndo.message[1];
 					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
