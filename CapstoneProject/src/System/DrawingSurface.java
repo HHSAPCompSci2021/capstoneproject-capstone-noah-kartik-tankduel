@@ -232,6 +232,16 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		return map;
 	}
 	
+	public int getMapScreen() {
+		if(map == 0 && gameMode == 1)
+			return 4;
+		if(map == 0 && gameMode == 2)
+			return 15;
+		if(map == 1)
+			return 11;
+		return 12;
+	}
+	
 	/**
 	 * sets the game mode
 	 * @param i the game mode

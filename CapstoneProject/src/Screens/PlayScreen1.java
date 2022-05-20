@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import System.DrawingSurface;
+import networking.frontend.NetworkListener;
+import networking.frontend.NetworkManagementPanel;
 /**
  * This screen is the first PlayScreen of the game. From this screen a person can choose the game mode and the map
  * 
@@ -22,7 +24,8 @@ public class PlayScreen1 extends Screens{
 	private Rectangle startButton;
 	private Rectangle waterMap;
 	private Rectangle forestMap;
-	
+	public static NetworkManagementPanel nmp;
+
 	/**
 	 * Gives the PlayScreen the default values
 	 * @param surface the DrawingSurface on which to draw on
@@ -175,9 +178,10 @@ public class PlayScreen1 extends Screens{
 			surface.switchScreen(ScreenSwitcher.START1V1GAME);
 		
 		
-		if(startButton.contains(p) && MultiplayerOrNetwork.network) 
+		if(startButton.contains(p) && MultiplayerOrNetwork.network) {
 			surface.switchScreen(ScreenSwitcher.STARTNETWORKGAME);
-
+			nmp = new NetworkManagementPanel("ProcessingDrawing", 10, (NetworkListener) surface.getScreen(surface.getMapScreen()));
+		}
 
 	}
 	

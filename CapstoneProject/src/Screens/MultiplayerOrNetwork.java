@@ -24,7 +24,7 @@ public class MultiplayerOrNetwork extends Screens{
 	private Rectangle back;
 	private Rectangle next;
 	private int method = 0;
-	public NetworkManagementPanel nmp;
+//	public static NetworkManagementPanel nmp;
 	
 	public MultiplayerOrNetwork(DrawingSurface surface) {
 		super(1080,720);
@@ -108,8 +108,8 @@ public class MultiplayerOrNetwork extends Screens{
 			while(playerName == null || playerName.equals("")) {
 				playerName = JOptionPane.showInputDialog("Enter a name!");
 			}
-			nmp = new NetworkManagementPanel("ProcessingDrawing", 10, (NetworkListener) surface.getScreen(4));
-			surface.switchScreen(ScreenSwitcher.STARTNETWORKGAME);
+//			nmp = new NetworkManagementPanel("ProcessingDrawing", 10, (NetworkListener) surface.getScreen(4));
+			surface.switchScreen(ScreenSwitcher.PLAYSCREEN1);
 			network = true;
 		}
 	}

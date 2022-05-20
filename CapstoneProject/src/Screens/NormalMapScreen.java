@@ -295,8 +295,9 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		}
 		if(MultiplayerOrNetwork.network) {
 			p.walk(0);
-			if(!((first || second) && p.getPlayerType())) {
-				if(surface.getInputMethod()) {
+			if(surface.getInputMethod()) {
+				if(!((first || second) && p.getPlayerType())) {
+
 					if (surface.isPressed(KeyEvent.VK_LEFT))
 						p.walk(-1);
 					if (surface.isPressed(KeyEvent.VK_RIGHT))

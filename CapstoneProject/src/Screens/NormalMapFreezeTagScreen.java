@@ -340,8 +340,8 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 		}
 		if(MultiplayerOrNetwork.network) {
 			p.walk(0);
-			if(!((first || second) && p.getPlayerType())) {
-				if(surface.getInputMethod()) {
+			if(surface.getInputMethod()) {
+				if(!((first || second) && p.getPlayerType())) {
 					if (surface.isPressed(KeyEvent.VK_LEFT))
 						p.walk(-1);
 					if (surface.isPressed(KeyEvent.VK_RIGHT))
@@ -363,7 +363,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 		}
 		
 		if(!MultiplayerOrNetwork.network) {
-		//	t.walk(0);
+			//t.walk(0);
 			//r.walk(0);
 			f1.walk(0);
 			f2.walk(0);
