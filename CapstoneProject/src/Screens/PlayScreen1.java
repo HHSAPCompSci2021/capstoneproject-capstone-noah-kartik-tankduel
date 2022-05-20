@@ -3,6 +3,8 @@ package Screens;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import javax.swing.JOptionPane;
+
 import System.DrawingSurface;
 import networking.frontend.NetworkListener;
 import networking.frontend.NetworkManagementPanel;
@@ -181,7 +183,7 @@ public class PlayScreen1 extends Screens{
 		if(startButton.contains(p) && MultiplayerOrNetwork.network) {
 			nmp = new NetworkManagementPanel("ProcessingDrawing", 10, (NetworkListener) surface.getScreen(surface.getMapScreen()));
 			while(!(NetworkManagementPanel.connectedSuccess || NetworkManagementPanel.isHost)) {
-				System.out.println("");
+				System.out.print("");
 			}
 			surface.switchScreen(ScreenSwitcher.STARTNETWORKGAME);
 
