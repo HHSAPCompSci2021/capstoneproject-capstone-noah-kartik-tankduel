@@ -42,11 +42,22 @@ public class StartNetworkGame extends Screens{
 		surface.fill(0,0,0);
 		surface.textSize(50);
 		surface.text("START", start.x+start.width/2-surface.textWidth("START")/2, start.y +70);
+		if(surface.getMapScreen() == 4)
+			if (((NormalMapScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
+				return;
+		else if(surface.getMapScreen() == 15)
+			if (((NormalMapFreezeTagScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
+				return;
+		else if(surface.getMapScreen() == 11)
+			if (((WaterMapScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
+				return;
 		
-		if (((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger() == null)
-			return;
-		
-		Queue<NetworkDataObject> queue = ((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
+		Queue<NetworkDataObject> queue = ((NormalMapScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger().getQueuedMessages();
+		if(surface.getMapScreen() == 15)
+			queue = ((NormalMapFreezeTagScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger().getQueuedMessages();
+		else if(surface.getMapScreen() == 11)
+			queue = ((WaterMapScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger().getQueuedMessages();
+
 		
 		while (!queue.isEmpty()) {
 			NetworkDataObject ndo = queue.poll();
