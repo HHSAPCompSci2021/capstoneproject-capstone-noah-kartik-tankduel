@@ -28,7 +28,6 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 	private Player f2;
 	private Player r1;
 	private Player r2;
-	private long taggedTime;
 	private boolean roundWinner;
 	public static String[] currentRunner;
 	private int repeatName;
@@ -535,10 +534,13 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 						r1.unFrozen();
 					}
 				}
-				else if(f1.getPlayerType())
+				else if(f1.getPlayerType()) {
 					r1.isFrozen();
+					r1.gotTagged();
+				}
 				else {
 					f1.isFrozen();
+					f1.gotTagged();
 				}
 			}
 			if(f1.intersects(r2) && !(first || second)) {
@@ -549,20 +551,29 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 						r2.unFrozen();
 					}
 				}
-				else if(f1.getPlayerType())
+				else if(f1.getPlayerType()) {
 					r2.isFrozen();
+					r2.gotTagged();
+				}
 				else {
 					f1.isFrozen();
+					f1.gotTagged();
 				}
 			}
 			if(f2.intersects(r1) && !(first || second)) {
 				if(f2.getPlayerType() == r1.getPlayerType()) {
-					;
-				}
-				else if(f2.getPlayerType())
+					if(f2.frozeOrUnfroze()) {
+						f2.unFrozen();
+					} else {
+						r1.unFrozen();
+					}				}
+				else if(f2.getPlayerType()) {
 					r1.isFrozen();
+					r1.gotTagged();
+				}
 				else {
 					f2.isFrozen();
+					f2.gotTagged();
 				}
 			}
 			if(f2.intersects(r2) && !(first || second)) {
@@ -575,8 +586,9 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 						}
 					}
 				}
-				else if(f2.getPlayerType())
+				else if(f2.getPlayerType()) {
 					r2.isFrozen();
+				}
 				else {
 					f2.isFrozen();
 				}

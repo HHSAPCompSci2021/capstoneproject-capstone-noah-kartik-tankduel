@@ -42,6 +42,8 @@ public class Player extends Sprite {
 	public boolean diveUsed;
 	public boolean turnInvisOff;
 	public boolean turnDiveOff;
+	private int taggedTime;
+
 	
 	/**
 	 * Creates a player at position x and y and calls the super constructor 
@@ -56,6 +58,7 @@ public class Player extends Sprite {
 		speed = false;
 		jump = false;
 		frozen = false;
+		taggedTime = 0;
 		try {
 			host = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
@@ -85,6 +88,12 @@ public class Player extends Sprite {
 	}
 	public boolean frozeOrUnfroze() {
 		return frozen;
+	}
+	public void gotTagged() {
+		taggedTime++;
+	}
+	public int getTaggedTime() {
+		return taggedTime;
 	}
 	public void walk(int dir) {
 		if(!frozen) {
