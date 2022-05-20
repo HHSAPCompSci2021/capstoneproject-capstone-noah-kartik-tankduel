@@ -265,9 +265,13 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		NormalMapScreen normalMap = new NormalMapScreen(this);
 		
 		RoundOverScreen roundOver = new RoundOverScreen(this);
+		
+		NormalMapFreezeTagScreen freezeMode = new NormalMapFreezeTagScreen(this);
+		
 								
 		screens.set(4, normalMap);
 		screens.set(5, roundOver);
+		screens.set(15, freezeMode);
 	}
 
 }

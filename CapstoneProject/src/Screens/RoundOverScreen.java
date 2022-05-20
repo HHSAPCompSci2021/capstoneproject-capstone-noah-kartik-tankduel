@@ -92,8 +92,14 @@ public class RoundOverScreen extends Screens{
 			}
 			
 			if (playAgain.contains(p)) {
+				if(surface.getGameMode() == 1) {
 				surface.refresh1v1();
 				surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
+				}
+				if(surface.getGameMode() == 2) {
+					surface.refresh1v1();
+					surface.switchScreen(ScreenSwitcher.FREEZETAGNORMALMAPSCREEN);
+				}
 			}
 		}
 	}
