@@ -344,22 +344,26 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 		}
 		if(MultiplayerOrNetwork.network) {
 			p.walk(0);
-			if(surface.getInputMethod()) {
-				if (surface.isPressed(KeyEvent.VK_LEFT))
-					p.walk(-1);
-				if (surface.isPressed(KeyEvent.VK_RIGHT))
-					p.walk(1);
-				if (surface.isPressed(KeyEvent.VK_UP))
-					p.jump();
+			if(!((first || second) && p.getPlayerType())) {
+				if(surface.getInputMethod()) {
+					if (surface.isPressed(KeyEvent.VK_LEFT))
+						p.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_RIGHT))
+						p.walk(1);
+					if (surface.isPressed(KeyEvent.VK_UP))
+						p.jump();
+				}
 			}
 			else {
-				if (surface.isPressed(KeyEvent.VK_A))
-					p.walk(-1);
-				if (surface.isPressed(KeyEvent.VK_D))
-					p.walk(1);
-				if (surface.isPressed(KeyEvent.VK_W))
-					p.jump();
+				if(!((first || second) && p.getPlayerType())) {
+					if (surface.isPressed(KeyEvent.VK_A))
+						p.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_D))
+						p.walk(1);
+					if (surface.isPressed(KeyEvent.VK_W))
+						p.jump();
 				}
+			}
 		}
 		
 		if(!MultiplayerOrNetwork.network) {
