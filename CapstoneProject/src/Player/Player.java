@@ -286,6 +286,9 @@ public class Player extends Sprite {
 			g.fill(255,255,255);
 			g.stroke(255,255,255);
 		}
+		if(frozen) {
+			g.fill(85,118,209);
+		}
 		if(dive) {
 			width = 26;
 			height = 30;
