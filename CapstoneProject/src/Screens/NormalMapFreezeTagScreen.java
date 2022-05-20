@@ -489,8 +489,12 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 		for(Player p: playersMulti) {
 			if(!p.frozeOrUnfroze() && !p.getPlayerType()) {
 				b = false;
-				System.out.println("Running false");
 			}
+			if(p.getTaggedTime() == 3) {
+				b = true;
+				break;
+			}
+				
 		}
 		if(b) {
 			int i = 0;
@@ -534,11 +538,11 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 						r1.unFrozen();
 					}
 				}
-				else if(f1.getPlayerType()) {
+				else if(f1.getPlayerType() && !r1.frozeOrUnfroze()) {
 					r1.isFrozen();
 					r1.gotTagged();
 				}
-				else {
+				else if(r1.getPlayerType() && !f1.frozeOrUnfroze()){
 					f1.isFrozen();
 					f1.gotTagged();
 				}
@@ -551,11 +555,11 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 						r2.unFrozen();
 					}
 				}
-				else if(f1.getPlayerType()) {
+				else if(f1.getPlayerType() && !r2.frozeOrUnfroze()) {
 					r2.isFrozen();
 					r2.gotTagged();
 				}
-				else {
+				else if(r2.getPlayerType() && !f1.frozeOrUnfroze()){
 					f1.isFrozen();
 					f1.gotTagged();
 				}
@@ -567,11 +571,11 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 					} else {
 						r1.unFrozen();
 					}				}
-				else if(f2.getPlayerType()) {
+				else if(f2.getPlayerType() && !r1.frozeOrUnfroze()) {
 					r1.isFrozen();
 					r1.gotTagged();
 				}
-				else {
+				else if(r1.getPlayerType() && !f2.frozeOrUnfroze()){
 					f2.isFrozen();
 					f2.gotTagged();
 				}
@@ -586,11 +590,13 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 						}
 					}
 				}
-				else if(f2.getPlayerType()) {
+				else if(f2.getPlayerType() && !r2.frozeOrUnfroze()) {
 					r2.isFrozen();
+					r2.gotTagged();
 				}
-				else {
+				else if(r2.getPlayerType() && !f2.frozeOrUnfroze()){
 					f2.isFrozen();
+					f2.gotTagged();
 				}
 
 			}
@@ -604,10 +610,13 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 						}
 					}
 				}
-				else if(f2.getPlayerType())
+				else if(f2.getPlayerType() && !f1.frozeOrUnfroze()) {
 					f1.isFrozen();
-				else {
+					f1.gotTagged();
+				}
+				else if(f1.getPlayerType() && !f2.frozeOrUnfroze()){
 					f2.isFrozen();
+					f2.gotTagged();
 				}
 			}
 			if(r2.intersects(r1) && !(first || second)) {
@@ -620,10 +629,13 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 						}
 					}
 				}
-				if(r2.getPlayerType())
+				else if(r2.getPlayerType() && !r1.frozeOrUnfroze()) {
 					r1.isFrozen();
-				else {
+					r1.gotTagged();
+				}
+				else if(r1.getPlayerType() && !r2.frozeOrUnfroze()){
 					r2.isFrozen();
+					r2.gotTagged();
 				}
 
 			}
