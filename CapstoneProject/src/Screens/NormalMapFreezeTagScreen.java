@@ -533,7 +533,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			f2.walk(0);
 			r1.walk(0);
 			r2.walk(0);
-			if(surface.getInputMethod()) {
+			if(!surface.getInputMethod()) {
 				if(!((first || second) && f1.getPlayerType())) {
 					if (surface.isPressed(KeyEvent.VK_LEFT))
 						f1.walk(-1);
