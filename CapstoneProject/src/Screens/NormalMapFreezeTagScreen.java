@@ -241,7 +241,6 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 					else {
 						currentRunner[r] = p.name;
 						r++;
-						System.out.println(p.name);
 					}
 				}
 			}
