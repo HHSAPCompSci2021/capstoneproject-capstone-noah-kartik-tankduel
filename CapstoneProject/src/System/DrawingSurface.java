@@ -57,7 +57,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		AbilitiesInstructScreen abilities = new AbilitiesInstructScreen(this);
 		screens.add(abilities);
 		
-		TwoPlayerOrNetwork network = new TwoPlayerOrNetwork(this);
+		TwoPlayerOrNetworkNotUsed network = new TwoPlayerOrNetworkNotUsed(this);
 		screens.add(network);
 		
 		StartNetworkGame networkGame = new StartNetworkGame(this);
@@ -75,7 +75,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		CreditsScreen credits = new CreditsScreen(this);
 		screens.add(credits);
 		
-		FourPlayerOrNetwork fourPlayer = new FourPlayerOrNetwork(this);
+		FourPlayerOrNetworkNotUsed fourPlayer = new FourPlayerOrNetworkNotUsed(this);
 		screens.add(fourPlayer);
 		
 		NormalMapFreezeTagScreen freeze = new NormalMapFreezeTagScreen(this);

@@ -11,14 +11,15 @@ import networking.frontend.NetworkManagementPanel;
 
 /**
  * Lets you choose if you want to play 1v1 on your computer or if you want to play network
- * @author npien
+ * @author kartik
+ *
  *
  */
-public class TwoPlayerOrNetwork extends Screens{
-	
+public class FourPlayerOrNetworkNotUsed extends Screens{
+//	
 //	public static boolean network;
 //	public static String playerName;
-//	private Rectangle twoPlayer;
+//	private Rectangle fourPlayer;
 //	private Rectangle server;
 //	private DrawingSurface surface;
 //	private Rectangle back;
@@ -26,10 +27,10 @@ public class TwoPlayerOrNetwork extends Screens{
 //	private int method = 0;
 //	public NetworkManagementPanel nmp;
 	
-	public TwoPlayerOrNetwork(DrawingSurface surface) {
+	public FourPlayerOrNetworkNotUsed(DrawingSurface surface) {
 		super(1080,720);
 //		this.surface = surface;
-//		twoPlayer = new Rectangle(465,200,150,30);
+//		fourPlayer = new Rectangle(465,200,150,30);
 //		server = new Rectangle (465,300,150,30);
 //		back = new Rectangle(20,690,70,20);
 //		next = new Rectangle(990,690,70,20);
@@ -52,12 +53,12 @@ public class TwoPlayerOrNetwork extends Screens{
 //		surface.textSize(15);
 //		if(method == 1) {
 //			surface.fill(25,255,255);
-//			surface.rect(twoPlayer.x-5, twoPlayer.y-5, twoPlayer.width+10, twoPlayer.height+10);
+//			surface.rect(fourPlayer.x-5, fourPlayer.y-5, fourPlayer.width+10, fourPlayer.height+10);
 //		}
 //		surface.fill(255,255,255);
-//		surface.rect(twoPlayer.x, twoPlayer.y, twoPlayer.width, twoPlayer.height);	
+//		surface.rect(fourPlayer.x, fourPlayer.y, fourPlayer.width, fourPlayer.height);	
 //		surface.fill(0,0,0);
-//		surface.text("MULTIPLAYER", twoPlayer.x+twoPlayer.width/2-surface.textWidth("MULTIPLAYER")/2, twoPlayer.y +20);
+//		surface.text("FOUR PLAYER", fourPlayer.x+fourPlayer.width/2-surface.textWidth("TWO PLAYER")/2, fourPlayer.y +20);
 //		
 //		if(method == 2) {
 //			surface.fill(25,255,255);
@@ -93,7 +94,7 @@ public class TwoPlayerOrNetwork extends Screens{
 	 */
 	public void mousePressed() {
 //		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
-//		if(twoPlayer.contains(p)) {
+//		if(fourPlayer.contains(p)) {
 //			method = 1;
 //		}
 //		if(server.contains(p)){
@@ -101,9 +102,9 @@ public class TwoPlayerOrNetwork extends Screens{
 //		}
 //
 //		if (back.contains(p) )
-//			surface.switchScreen(ScreenSwitcher.MENU);
-//		if (next.contains(p) && method == 1)
 //			surface.switchScreen(ScreenSwitcher.PLAYSCREEN1);
+//		if (next.contains(p) && method == 1)
+//			surface.switchScreen(ScreenSwitcher.START1V1GAME);
 //		if (next.contains(p) && method == 2) {
 //			while(playerName == null || playerName.equals("")) {
 //				playerName = JOptionPane.showInputDialog("Enter a name!");
