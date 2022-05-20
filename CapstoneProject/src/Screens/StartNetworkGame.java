@@ -44,15 +44,22 @@ public class StartNetworkGame extends Screens{
 		surface.text("START", start.x+start.width/2-surface.textWidth("START")/2, start.y +70);
 		
 		
-		if (((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger() == null)
+		if (((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger() == null && 
+				((NormalMapFreezeTagScreen) surface.getScreen(ScreenSwitcher.FREEZETAGNORMALMAPSCREEN)).getNetworkMessenger() == null && 
+				((WaterMapScreen) surface.getScreen(ScreenSwitcher.WATERMAP)).getNetworkMessenger() == null)
 			return;
 		
-		Queue<NetworkDataObject> queue = ((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
+		Queue<NetworkDataObject> queue = null;
+		if(surface.getMap() == 0 && surface.getGameMode() == 1)
+			queue = ((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
+		else if(surface.getMap() == 0 && surface.getGameMode() == 2)
+			queue = ((NormalMapFreezeTagScreen) surface.getScreen(ScreenSwitcher.FREEZETAGNORMALMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
+		else if(surface.getMap() == 1)
+			queue = ((WaterMapScreen) surface.getScreen(ScreenSwitcher.WATERMAP)).getNetworkMessenger().getQueuedMessages();
+
+
 		while (!queue.isEmpty()) {
 			NetworkDataObject ndo = queue.poll();
-
-			String host = ndo.getSourceIP();
-
 			if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
 				if (ndo.message[0].equals(messageTypeStartGame)) {
 					if((boolean) ndo.message[1]) {
@@ -83,9 +90,13 @@ public class StartNetworkGame extends Screens{
 	public void mousePressed() {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		if(start.contains(p) && NetworkManagementPanel.connectedSuccess && NetworkManagementPanel.isHost) {
-			if(surface.getMap() == 0) {
+			if(surface.getMap() == 0 && surface.getGameMode() == 1) {
 				surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
 				((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true);
+			}
+			if(surface.getMap() == 0 && surface.getGameMode() == 2) {
+				surface.switchScreen(ScreenSwitcher.FREEZETAGNORMALMAPSCREEN);
+				((NormalMapFreezeTagScreen) surface.getScreen(ScreenSwitcher.FREEZETAGNORMALMAPSCREEN)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true);
 			}
 			if(surface.getMap() == 1) {
 				surface.switchScreen(ScreenSwitcher.WATERMAP);
