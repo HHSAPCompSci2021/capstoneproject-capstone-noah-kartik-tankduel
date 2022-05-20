@@ -407,18 +407,12 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			}
 		}
 		if(!MultiplayerOrNetwork.network) {
-			surface.textSize(15);
-			if(t.getInvisible())
-				surface.fill(255,255,255);
-			else
-				surface.fill(0,0,0);
-			surface.text(Start1v1Game.player1, (float)t.x - surface.textWidth(Start1v1Game.player1)/2 + (float)t.getWidth()/2, (float)(t.y -3.0));
-			if(r.getInvisible())
-				surface.fill(255,255,255);
-			else
-				surface.fill(0,0,0);
-			surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
+			surface.text(Start1v1Game.player1, (float)f1.x - surface.textWidth(Start1v1Game.player1)/2 + (float)f1.getWidth()/2, (float)(f1.y -3.0));
+			surface.text(Start1v1Game.player2, (float)f2.x - surface.textWidth(Start1v1Game.player2)/2 + (float)f2.getWidth()/2, (float)(f2.y - 3.0));
+			surface.text(Start1v1Game.player3, (float)r1.x - surface.textWidth(Start1v1Game.player3)/2 + (float)r1.getWidth()/2, (float)(r1.y - 3.0));
+			surface.text(Start1v1Game.player4, (float)r2.x - surface.textWidth(Start1v1Game.player4)/2 + (float)r2.getWidth()/2, (float)(r2.y - 3.0));
 		}
+	
 		if(MultiplayerOrNetwork.network){
 			surface.textSize(15);
 			for(Player a: players) {
@@ -533,25 +527,44 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 		}
 		
 		if(!MultiplayerOrNetwork.network) {
-			t.walk(0);
-			r.walk(0);
-			
+		//	t.walk(0);
+			//r.walk(0);
+			f1.walk(0);
+			f2.walk(0);
+			r1.walk(0);
+			r2.walk(0);
 			if(surface.getInputMethod()) {
-				if(!((first || second) && t.getPlayerType())) {
+				if(!((first || second) && f1.getPlayerType())) {
 					if (surface.isPressed(KeyEvent.VK_LEFT))
-						t.walk(-1);
+						f1.walk(-1);
 					if (surface.isPressed(KeyEvent.VK_RIGHT))
-						t.walk(1);
+						f1.walk(1);
 					if (surface.isPressed(KeyEvent.VK_UP))
-						t.jump();
+						f1.jump();
 				}
-				if(!((first || second) && r.getPlayerType())) {
+				if(!((first || second) && r1.getPlayerType())) {
 					if (surface.isPressed(KeyEvent.VK_A)) 
-						r.walk(-1);
+						r1.walk(-1);
 					if (surface.isPressed(KeyEvent.VK_D)) 
-						r.walk(1);
+						r1.walk(1);
 					if (surface.isPressed(KeyEvent.VK_W)) 
-						r.jump();
+						r1.jump();
+				}
+				if(!((first || second) && f2.getPlayerType())) {
+					if (surface.isPressed(KeyEvent.VK_V)) 
+						f2.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_N)) 
+						f2.walk(1);
+					if (surface.isPressed(KeyEvent.VK_G)) 
+						f2.jump();
+				}
+				if(!((first || second) && r2.getPlayerType())) {
+					if (surface.isPressed(KeyEvent.VK_J)) 
+						r2.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_L)) 
+						r2.walk(1);
+					if (surface.isPressed(KeyEvent.VK_I)) 
+						r2.jump();
 				}
 			}
 			else {
