@@ -32,6 +32,7 @@ public class Player extends Sprite {
 	private boolean jump;
 	public boolean invisible;
 	public boolean dive;
+	private boolean frozen;
 	
 	private boolean playerType; // false for runner true for tagger
 	private double xVel, yVel;
@@ -54,6 +55,7 @@ public class Player extends Sprite {
 		onASurface = false;
 		speed = false;
 		jump = false;
+		frozen = false;
 		try {
 			host = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
@@ -74,12 +76,24 @@ public class Player extends Sprite {
 	 * Makes the character move left and right
 	 * @param dir - direction you want the character to go 
 	 */
+	
+	public void isFrozen() {
+		frozen = true;
+	}
+	public void unFrozen() {
+		frozen = false;
+	}
 	public void walk(int dir) {
-		xVel = dir * 3;
-		if(playerType)
-			xVel*=1.1;
-		if(speed)
-			xVel*=1.25;
+		if(!frozen) {
+			xVel = dir * 3;
+			if(playerType)
+				xVel*=1.1;
+			if(speed)
+				xVel*=1.25;
+		}else {
+			xVel = 0;
+			yVel = 0;
+		}
 	}
 
 	/**
