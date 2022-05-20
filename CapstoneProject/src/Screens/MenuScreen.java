@@ -78,7 +78,7 @@ public class MenuScreen extends Screens{
 		if (rules.contains(p))
 			surface.switchScreen(ScreenSwitcher.RULES);
 		if (play.contains(p))
-			surface.switchScreen(ScreenSwitcher.PLAYSCREEN1);
+			surface.switchScreen(ScreenSwitcher.MULTIPLAYERORNETWORK);
 		if (setting.contains(p))
 			surface.switchScreen(ScreenSwitcher.SETTING);
 		if(credits.contains(p)) 

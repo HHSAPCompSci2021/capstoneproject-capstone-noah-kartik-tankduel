@@ -191,15 +191,15 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		surface.rect(beach.x, beach.y, beach.width, beach.height);
 		surface.fill(0,0,0);
 		surface.stroke(2);
-		if(TwoPlayerOrNetwork.network) {
+		if(MultiplayerOrNetwork.network) {
 			if(firstRun == 0) {
-				p.name = TwoPlayerOrNetwork.playerName;
-				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,TwoPlayerOrNetwork.playerName);
+				p.name = MultiplayerOrNetwork.playerName;
+				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,MultiplayerOrNetwork.playerName);
 				processNetworkMessages();
 			}
 		}
 		firstRun=1;
-		if(TwoPlayerOrNetwork.network) {//sets up who is tagger for networking
+		if(MultiplayerOrNetwork.network) {//sets up who is tagger for networking
 			if(NetworkManagementPanel.isHost && check == 0) {
 				if(players.size()== StartNetworkGame.numberOfPlayers) {
 					check =1;
@@ -224,7 +224,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 			}
 			processNetworkMessages();
 		}
-		if(!TwoPlayerOrNetwork.network) {
+		if(!MultiplayerOrNetwork.network) {
 			surface.textSize(15);
 			if(t.getInvisible())
 				surface.fill(255,255,255);
@@ -237,7 +237,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 				surface.fill(0,0,0);
 			//surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
 		}
-		if(TwoPlayerOrNetwork.network){
+		if(MultiplayerOrNetwork.network){
 			surface.textSize(15);
 			surface.fill(0,0,0);
 			for(Player a: players)
@@ -255,12 +255,12 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		surface.popStyle();
 		
 		surface.strokeWeight(2);
-		if(TwoPlayerOrNetwork.network) {
+		if(MultiplayerOrNetwork.network) {
 			for(Player c:players) {
 				c.draw(this.surface);
 			}
 		}
-		if(!TwoPlayerOrNetwork.network) {
+		if(!MultiplayerOrNetwork.network) {
 			t.draw(this.surface);
 			r.draw(this.surface);
 		}
@@ -277,7 +277,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 			}
 			surface.line((float)l.getX1(), (float)l.getY1(), (float)l.getX2(), (float)l.getY2());
 		}
-		if(TwoPlayerOrNetwork.network) {
+		if(MultiplayerOrNetwork.network) {
 			p.walk(0);
 			if(surface.getInputMethod()) {
 				if (surface.isPressed(KeyEvent.VK_LEFT))
@@ -297,7 +297,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 				}
 		}
 		
-		if(!TwoPlayerOrNetwork.network) {
+		if(!MultiplayerOrNetwork.network) {
 			t.walk(0);
 			r.walk(0);
 			
@@ -339,11 +339,11 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 			}
 		}
 		
-		if(TwoPlayerOrNetwork.network && !hostIsDead) {
+		if(MultiplayerOrNetwork.network && !hostIsDead) {
 			p.act(platforms,abilities);
 		}
 		
-		if(!TwoPlayerOrNetwork.network) {
+		if(!MultiplayerOrNetwork.network) {
 			t.act(platforms, abilities);
 			r.act(platforms, abilities);
 		}		
@@ -407,9 +407,9 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 			surface.popStyle();
 		}
 	
-		if(TwoPlayerOrNetwork.network) 
+		if(MultiplayerOrNetwork.network) 
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
-		if(!TwoPlayerOrNetwork.network) {
+		if(!MultiplayerOrNetwork.network) {
 			if(t.intersects(r) && !(first || second)) {
 				if(System.currentTimeMillis()-taggedTime>3000) {
 					taggedTime = System.currentTimeMillis();
@@ -419,7 +419,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 			}
 		}
 		boolean remove = false;
-		if(TwoPlayerOrNetwork.network) {
+		if(MultiplayerOrNetwork.network) {
 			if(NetworkManagementPanel.isHost && !(first||second)) {
 				for(int i = 0; i<players.size();i++) {
 					for(int j = 1; j<players.size();j++) {
@@ -447,7 +447,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		}
 		surface.popStyle();
 		
-		if(TwoPlayerOrNetwork.network) {
+		if(MultiplayerOrNetwork.network) {
 			processNetworkMessages();
 		}
 	}

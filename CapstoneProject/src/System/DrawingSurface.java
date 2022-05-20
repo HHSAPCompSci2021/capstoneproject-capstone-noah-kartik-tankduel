@@ -80,6 +80,10 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		
 		NormalMapFreezeTagScreen freeze = new NormalMapFreezeTagScreen(this);
 		screens.add(freeze);
+		
+		MultiplayerOrNetwork multiNetwork = new MultiplayerOrNetwork(this);
+		screens.add(multiNetwork);
+		
 		activeScreen = screens.get(0);
 		
 	}

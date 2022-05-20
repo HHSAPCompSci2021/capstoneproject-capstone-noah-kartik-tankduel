@@ -33,7 +33,7 @@ public class RoundOverScreen extends Screens{
 		surface.pushStyle();
 		surface.background(255,255,255);
 		surface.fill(0,0,0);
-		if(!TwoPlayerOrNetwork.network) {
+		if(!MultiplayerOrNetwork.network) {
 			String s = NormalMapScreen.currentRunner;
 			surface.fill(0,0,0);
 			surface.textSize(50);
@@ -67,7 +67,7 @@ public class RoundOverScreen extends Screens{
 	}
 	public void mousePressed() {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
-		if(!TwoPlayerOrNetwork.network) {
+		if(!MultiplayerOrNetwork.network) {
 			if (mainMenu.contains(p)) {
 				surface.switchScreen(ScreenSwitcher.MENU);
 				surface.refresh1v1();

@@ -162,13 +162,13 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 		surface.background(255,255,255);
 		surface.fill(0,0,0);
 		surface.stroke(2);
-		if(TwoPlayerOrNetwork.network) {
-			p.name = TwoPlayerOrNetwork.playerName;
-			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,TwoPlayerOrNetwork.playerName);
+		if(MultiplayerOrNetwork.network) {
+			p.name = MultiplayerOrNetwork.playerName;
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,MultiplayerOrNetwork.playerName);
 			processNetworkMessages();
 		}
 		firstRun=1;
-		if(TwoPlayerOrNetwork.network) {//sets up who is tagger for networking
+		if(MultiplayerOrNetwork.network) {//sets up who is tagger for networking
 			if(NetworkManagementPanel.isHost && check == 0) {
 				if(players.size()== StartNetworkGame.numberOfPlayers) {
 					check =1;
@@ -194,7 +194,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 				}
 			}
 		}
-		if(!TwoPlayerOrNetwork.network) {
+		if(!MultiplayerOrNetwork.network) {
 			surface.textSize(15);
 			if(t.getInvisible())
 				surface.fill(255,255,255);
@@ -207,7 +207,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 				surface.fill(0,0,0);
 			surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
 		}
-		if(TwoPlayerOrNetwork.network){
+		if(MultiplayerOrNetwork.network){
 			surface.textSize(15);
 			for(Player a: players) {
 				surface.fill(0,0,0);
@@ -264,12 +264,12 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 		surface.popStyle();
 		
 		surface.strokeWeight(2);
-		if(TwoPlayerOrNetwork.network) {
+		if(MultiplayerOrNetwork.network) {
 			for(Player c:players) {
 				c.draw(surface);
 			}
 		}
-		if(!TwoPlayerOrNetwork.network) {
+		if(!MultiplayerOrNetwork.network) {
 			t.draw(surface);
 			r.draw(surface);
 //			surface.textSize(5);
@@ -296,7 +296,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			}
 			surface.line((float)l.getX1(), (float)l.getY1(), (float)l.getX2(), (float)l.getY2());
 		}
-		if(TwoPlayerOrNetwork.network) {
+		if(MultiplayerOrNetwork.network) {
 			p.walk(0);
 			if(surface.getInputMethod()) {
 				if (surface.isPressed(KeyEvent.VK_LEFT))
@@ -316,7 +316,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 				}
 		}
 		
-		if(!TwoPlayerOrNetwork.network) {
+		if(!MultiplayerOrNetwork.network) {
 			t.walk(0);
 			r.walk(0);
 			
@@ -358,11 +358,11 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			}
 		}
 		
-		if(TwoPlayerOrNetwork.network && !hostIsDead) {
+		if(MultiplayerOrNetwork.network && !hostIsDead) {
 			p.act(platforms,abilities);
 		}
 		
-		if(!TwoPlayerOrNetwork.network) {
+		if(!MultiplayerOrNetwork.network) {
 			t.act(platforms, abilities);
 			r.act(platforms, abilities);
 		}		
@@ -409,7 +409,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 					else
 						currentRunner = Start1v1Game.player2;
 					roundWinner = false;
-					if(TwoPlayerOrNetwork.network) {
+					if(MultiplayerOrNetwork.network) {
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, false);
 						processNetworkMessages();
 					}
@@ -431,9 +431,9 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			surface.popStyle();
 		}
 	
-		if(TwoPlayerOrNetwork.network) 
+		if(MultiplayerOrNetwork.network) 
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
-		if(!TwoPlayerOrNetwork.network) {
+		if(!MultiplayerOrNetwork.network) {
 			if(t.intersects(r) && !(first || second)) {
 				if(System.currentTimeMillis()-taggedTime>3000) {
 					taggedTime = System.currentTimeMillis();
@@ -443,7 +443,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			}
 		}
 		boolean remove = false;
-		if(TwoPlayerOrNetwork.network) {
+		if(MultiplayerOrNetwork.network) {
 			if(NetworkManagementPanel.isHost && !(first||second)) {
 				for(int i = 0; i<players.size();i++) {
 					for(int j = 1; j<players.size();j++) {
@@ -471,7 +471,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 		}
 		surface.popStyle();
 		
-		if(TwoPlayerOrNetwork.network) {
+		if(MultiplayerOrNetwork.network) {
 			processNetworkMessages();
 		}
 	}

@@ -165,16 +165,16 @@ public class PlayScreen1 extends Screens{
 		}
 		if(forestMap.contains(p))
 			surface.setMap(2);
-		if(startButton.contains(p) && surface.getGameMode() == 1 && surface.getMap() == 0) 
-			surface.switchScreen(ScreenSwitcher.TWOPLAYERORNETWORK);
+		if(startButton.contains(p) && !MultiplayerOrNetwork.network &&surface.getGameMode() == 1 && surface.getMap() == 0) 
+			surface.switchScreen(ScreenSwitcher.START1V1GAME);
 		
-		if(startButton.contains(p) && surface.getGameMode() == 2 && surface.getMap() == 0)
-			surface.switchScreen(ScreenSwitcher.FOURPLAYERORNETWORK);
+		if(startButton.contains(p) && !MultiplayerOrNetwork.network && surface.getGameMode() == 2 && surface.getMap() == 0)
+			surface.switchScreen(ScreenSwitcher.START1V1GAME);
 			
-		if(startButton.contains(p) && surface.getGameMode() == 1 && surface.getMap() == 1) 
-			surface.switchScreen(ScreenSwitcher.TWOPLAYERORNETWORK);
-		if(startButton.contains(p) && surface.getGameMode() == 1 && surface.getMap() == 2) 
-			surface.switchScreen(ScreenSwitcher.TWOPLAYERORNETWORK);
+		if(startButton.contains(p) && !MultiplayerOrNetwork.network && surface.getGameMode() == 1 && surface.getMap() == 1) 
+			surface.switchScreen(ScreenSwitcher.START1V1GAME);
+		if(startButton.contains(p) && !MultiplayerOrNetwork.network && surface.getGameMode() == 1 && surface.getMap() == 2) 
+			surface.switchScreen(ScreenSwitcher.START1V1GAME);
 	}
 	
 	

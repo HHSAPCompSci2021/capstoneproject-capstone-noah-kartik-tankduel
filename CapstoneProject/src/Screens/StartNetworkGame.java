@@ -60,6 +60,9 @@ public class StartNetworkGame extends Screens{
 				}
 			}
 		}
+		if(NetworkManagementPanel.isHost)
+			surface.switchScreen(ScreenSwitcher.PLAYSCREEN1);
+
 		surface.popStyle();
 	}
 	
@@ -72,7 +75,7 @@ public class StartNetworkGame extends Screens{
 		if(start.contains(p) && NetworkManagementPanel.connectedSuccess && NetworkManagementPanel.isHost) {
 			surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
 			((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true);
-			numberOfPlayers = ((TwoPlayerOrNetwork)surface.getScreen(ScreenSwitcher.TWOPLAYERORNETWORK)).nmp.numberOfPeople();
+			numberOfPlayers = ((MultiplayerOrNetwork)surface.getScreen(ScreenSwitcher.MULTIPLAYERORNETWORK)).nmp.numberOfPeople();
 		}
 	}
 }
