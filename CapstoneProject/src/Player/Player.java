@@ -103,12 +103,16 @@ public class Player extends Sprite {
 	 * Makes the player jump up 
 	 */
 	public void jump() {
-		if(onASurface) {
-		yVel -= 6.5;
-		if(playerType)
-			yVel *= 1.1;
-		if(jump)
-			yVel*=1.2;
+		if(!frozen) {
+			if(onASurface) {
+			yVel -= 6.5;
+			if(playerType)
+				yVel *= 1.1;
+			if(jump)
+				yVel*=1.2;
+		}
+		}else {
+			yVel = 0;
 		}
 	}
 	public boolean getInvisible() {

@@ -509,13 +509,8 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			}
 			if(f2.intersects(r1) && !(first || second)) {
 				if(f2.getPlayerType() == r1.getPlayerType()) {
-					if(f2.frozeOrUnfroze()) {
-						f2.unFrozen();
-					} else {
-						r1.unFrozen();
-					}
+					;
 				}
-
 				else if(f2.getPlayerType())
 					r1.isFrozen();
 				else {
@@ -524,13 +519,14 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			}
 			if(f2.intersects(r2) && !(first || second)) {
 				if(f2.getPlayerType() == r2.getPlayerType()) {
-					if(f2.frozeOrUnfroze()) {
-						f2.unFrozen();
-					} else {
-						r2.unFrozen();
+					if(f2.getPlayerType() == r2.getPlayerType()) {
+						if(f2.frozeOrUnfroze()) {
+							f2.unFrozen();
+						} else {
+							r2.unFrozen();
+						}
 					}
 				}
-
 				else if(f2.getPlayerType())
 					r2.isFrozen();
 				else {
@@ -540,13 +536,14 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			}
 			if(f2.intersects(f1) && !(first || second)) {
 				if(f2.getPlayerType() == f1.getPlayerType()) {
-					if(f2.frozeOrUnfroze()) {
-						f2.unFrozen();
-					} else {
-						f1.unFrozen();
+					if(f2.getPlayerType() == f1.getPlayerType()) {
+						if(f2.frozeOrUnfroze()) {
+							f2.unFrozen();
+						} else {
+							f1.unFrozen();
+						}
 					}
 				}
-
 				else if(f2.getPlayerType())
 					f1.isFrozen();
 				else {
@@ -555,7 +552,13 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			}
 			if(r2.intersects(r1) && !(first || second)) {
 				if(r2.getPlayerType() == r1.getPlayerType()) {
-					;
+					if(r2.getPlayerType() == r1.getPlayerType()) {
+						if(r2.frozeOrUnfroze()) {
+							r2.unFrozen();
+						} else {
+							r1.unFrozen();
+						}
+					}
 				}
 				if(r2.getPlayerType())
 					r1.isFrozen();

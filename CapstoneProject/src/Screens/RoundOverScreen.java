@@ -34,6 +34,7 @@ public class RoundOverScreen extends Screens{
 		surface.background(255,255,255);
 		surface.fill(0,0,0);
 		if(!MultiplayerOrNetwork.network) {
+			if(surface.getGameMode() == 1) {
 			String s = NormalMapScreen.currentRunner;
 			surface.fill(0,0,0);
 			surface.textSize(50);
@@ -50,7 +51,23 @@ public class RoundOverScreen extends Screens{
 			surface.fill(255,255,255);
 			surface.textSize(13);
 			surface.text("Play Again", playAgain.x+playAgain.width/2-surface.textWidth("Play Again")/2, playAgain.y + playAgain.height/2 + 4);
-
+			} else if(surface.getGameMode() == 2) {
+				surface.fill(0,0,0);
+				surface.textSize(50);
+				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+				
+				surface.fill(0,0,0);
+				surface.rect(mainMenu.x, mainMenu.y, mainMenu.width, mainMenu.height);
+				surface.fill(255,255,255);
+				surface.textSize(13);
+				surface.text("Main Menu", mainMenu.x+mainMenu.width/2-surface.textWidth("Main Menu")/2, mainMenu.y + mainMenu.height/2 + 4);
+				
+				surface.fill(0,0,0);
+				surface.rect(playAgain.x, playAgain.y, playAgain.width, playAgain.height);
+				surface.fill(255,255,255);
+				surface.textSize(13);
+				surface.text("Play Again", playAgain.x+playAgain.width/2-surface.textWidth("Play Again")/2, playAgain.y + playAgain.height/2 + 4);
+			}
 		}
 		else {
 			String s = "";
