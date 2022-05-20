@@ -42,42 +42,46 @@ public class StartNetworkGame extends Screens{
 		surface.fill(0,0,0);
 		surface.textSize(50);
 		surface.text("START", start.x+start.width/2-surface.textWidth("START")/2, start.y +70);
-		if(surface.getMapScreen() == 4)
-			if (((NormalMapScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
+		if(!NetworkManagementPanel.isHost) {
+			if(surface.getMapScreen() == 4)
+				if (((NormalMapScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
+					return;
+			else if(surface.getMapScreen() == 15)
+				if (((NormalMapFreezeTagScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
+					return;
+			else if(surface.getMapScreen() == 11)
+				if (((WaterMapScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
+					return;
+			
+			Queue<NetworkDataObject> queue = null;
+			if(surface.getMapScreen() == 4)
+				queue = ((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
+			else if(surface.getMapScreen() == 15)
+				queue = ((NormalMapFreezeTagScreen) surface.getScreen(ScreenSwitcher.FREEZETAGNORMALMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
+			else if(surface.getMapScreen() == 11)
+				queue = ((WaterMapScreen) surface.getScreen(ScreenSwitcher.WATERMAP)).getNetworkMessenger().getQueuedMessages();
+	
+			if(queue == null)
 				return;
-		else if(surface.getMapScreen() == 15)
-			if (((NormalMapFreezeTagScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
-				return;
-		else if(surface.getMapScreen() == 11)
-			if (((WaterMapScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
-				return;
-		
-		Queue<NetworkDataObject> queue = ((NormalMapScreen) surface.getScreen(ScreenSwitcher.NORMALMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
-		if(surface.getMapScreen() == 15)
-			queue = ((NormalMapFreezeTagScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger().getQueuedMessages();
-		else if(surface.getMapScreen() == 11)
-			queue = ((WaterMapScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger().getQueuedMessages();
-
-		
-		while (!queue.isEmpty()) {
-			NetworkDataObject ndo = queue.poll();
-			if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
-				if (ndo.message[0].equals(messageTypeStartGame)) {
-					System.out.println("message received");
-					if((boolean) ndo.message[1]) {
-						if((int)ndo.message[2] == 0 && (int)ndo.message[3] == 1)
-							surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
-						if((int)ndo.message[2] == 0 && (int)ndo.message[3] == 2)
-							surface.switchScreen(ScreenSwitcher.FREEZETAGNORMALMAPSCREEN);
-						if((int)ndo.message[2] == 1)
-							surface.switchScreen(ScreenSwitcher.WATERMAP);
-						if((int)ndo.message[2] == 2)
-							surface.switchScreen(ScreenSwitcher.FORESTMAP);
+			while (!queue.isEmpty()) {
+				NetworkDataObject ndo = queue.poll();
+				if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
+					if (ndo.message[0].equals(messageTypeStartGame)) {
+						System.out.println("message received");
+						if((boolean) ndo.message[1]) {
+							if((int)ndo.message[2] == 0 && (int)ndo.message[3] == 1)
+								surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
+							if((int)ndo.message[2] == 0 && (int)ndo.message[3] == 2)
+								surface.switchScreen(ScreenSwitcher.FREEZETAGNORMALMAPSCREEN);
+							if((int)ndo.message[2] == 1)
+								surface.switchScreen(ScreenSwitcher.WATERMAP);
+							if((int)ndo.message[2] == 2)
+								surface.switchScreen(ScreenSwitcher.FORESTMAP);
+						}
 					}
 				}
 			}
 		}
-
 
 		surface.popStyle();
 	}
