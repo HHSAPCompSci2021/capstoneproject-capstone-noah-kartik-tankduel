@@ -62,15 +62,20 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 	private int repeatName;
 	private NetworkMessenger nm;
 	private boolean hostIsDead;
-	private Rectangle beach;
-	private PImage water;
 	
 	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
 	private static final String messageTypeInit = "CREATE_PLAYER";
 	private static final String messageTypeRemovePlayer = "REMOVE_PLAYER";
 	private static final String messageTypeSetTagger = "SET_TAGGER";
+	private static final String messageTypeGameOver = "GAME_OVER";
+	private static final String messageTypeInvisible = "INVISIBLE";
+	private static final String messageTypeInvisibleOff = "INVISIBLE_OFF";
+	private static final String messageTypeDiveTag = "DIVETAG";
+	private static final String messageTypeDiveOff = "DIVE_OFF";
 
 
+	private PImage water;
+	private Rectangle beach;
 
 	
 	/* The area created by spawnX and spawnY will be the spawn area.
@@ -203,12 +208,13 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 			if(NetworkManagementPanel.isHost && check == 0) {
 				if(players.size()== StartNetworkGame.numberOfPlayers) {
 					check =1;
-					if(players.size() == 1)
+					if(StartNetworkGame.numberOfPlayers == 1)
 						;
-					else if(players.size()<=4) {
+					else if(StartNetworkGame.numberOfPlayers<=4) {
 						int a = (int)(Math.random()*players.size());
 						players.get(a).setPlayerType(true);
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(a));
+						processNetworkMessages();
 					}
 					else {
 						int a = (int)(Math.random()*players.size());
@@ -219,10 +225,10 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 							b = (int)(Math.random()*players.size());
 						players.get(b).setPlayerType(true);
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(b));
+						processNetworkMessages();
 					}
 				}
 			}
-			processNetworkMessages();
 		}
 		if(!MultiplayerOrNetwork.network) {
 			surface.textSize(15);
@@ -230,20 +236,58 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 				surface.fill(255,255,255);
 			else
 				surface.fill(0,0,0);
-			//surface.text(Start1v1Game.player1, (float)t.x - surface.textWidth(Start1v1Game.player1)/2 + (float)t.getWidth()/2, (float)(t.y -3.0));
+			surface.text(Start1v1Game.player1, (float)t.x - surface.textWidth(Start1v1Game.player1)/2 + (float)t.getWidth()/2, (float)(t.y -3.0));
 			if(r.getInvisible())
 				surface.fill(255,255,255);
 			else
 				surface.fill(0,0,0);
-			//surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
+			surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
 		}
 		if(MultiplayerOrNetwork.network){
 			surface.textSize(15);
-			surface.fill(0,0,0);
-			for(Player a: players)
+			for(Player a: players) {
+				surface.fill(0,0,0);
+				if(a.getInvisible())
+					surface.fill(255,255,255);
 				surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
+
+			}
 		}
 
+		boolean k = true;
+		for(Player p: players) {
+			if(p.getPlayerType() == false)
+				k = false;
+			if(p.invisible && !p.invisUsed) {
+				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisible, p.name);
+				p.invisUsed = true;
+				processNetworkMessages();
+			}
+			if(p.invisUsed && p.turnInvisOff) {
+				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisibleOff, p.name);
+				p.turnInvisOff = false;
+				processNetworkMessages();
+			}
+			
+			if(p.dive && !p.diveUsed) {
+				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeDiveTag, p.name);
+				p.diveUsed = true;
+				processNetworkMessages();
+			}
+			if(p.diveUsed && p.turnDiveOff) {
+				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeDiveOff, p.name);
+				p.turnDiveOff = false;
+				processNetworkMessages();
+			}
+		}
+		if(k) {
+			third = false;
+			roundWinner = true;
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, true);
+			processNetworkMessages();
+			surface.switchScreen(ScreenSwitcher.ROUND_OVER);
+		}
+		
 		//window border lines
 		surface.pushStyle();
 		surface.strokeWeight(8);
@@ -257,12 +301,22 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		surface.strokeWeight(2);
 		if(MultiplayerOrNetwork.network) {
 			for(Player c:players) {
-				c.draw(this.surface);
+				c.draw(surface);
 			}
 		}
 		if(!MultiplayerOrNetwork.network) {
-			t.draw(this.surface);
-			r.draw(this.surface);
+			t.draw(surface);
+			r.draw(surface);
+//			surface.textSize(5);
+//			surface.fill(0,0,0);
+//			if(t.getPlayerType())
+//				surface.text("Tagger", (float)t.x - surface.textWidth("Tagger")/2 + (float)t.getWidth()/2, (float)t.y +5);
+//			else
+//				surface.text("Runner", (float)t.x - surface.textWidth("Runner")/2 + (float)t.getWidth()/2, (float)t.y +5);
+//			if(r.getPlayerType())
+//				surface.text("Tagger", (float)r.x - surface.textWidth("Tagger")/2 + (float)r.getWidth()/2, (float)r.y +5);
+//			else
+//				surface.text("Runner", (float)r.x - surface.textWidth("Runner")/2 + (float)r.getWidth()/2, (float)r.y +5);
 		}
 		//Platforms
 		surface.strokeWeight(5);
@@ -389,6 +443,11 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 						currentRunner = Start1v1Game.player1;
 					else
 						currentRunner = Start1v1Game.player2;
+					roundWinner = false;
+					if(MultiplayerOrNetwork.network) {
+						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, false);
+						processNetworkMessages();
+					}
 					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 					
 				}
@@ -499,9 +558,11 @@ public void processNetworkMessages() {
 					Player s = (Player)ndo.message[1];
 					for(Player a :players) {
 						if(a.equals(s)) {
-							players.remove(a);
+							s = a;
+							break;
 						}
 					}
+					players.remove(s);
 						
 				}
 				
@@ -512,8 +573,48 @@ public void processNetworkMessages() {
 							players.get(i).setPlayerType(true);
 						}
 					}
-					for(Player a: players)
-						System.out.println(a.getPlayerType());
+				}
+				
+				else if (ndo.message[0].equals(messageTypeGameOver)) {
+					third = false;
+					roundWinner = (boolean)ndo.message[1];
+					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
+				}
+				
+				else if (ndo.message[0].equals(messageTypeInvisible)) {
+					for(int i = 0; i<players.size();i++) {
+						if(players.get(i).name.equals((String)ndo.message[1])) {
+							players.get(i).invisible = true;
+							players.get(i).invisUsed = true;
+						}
+					}				
+				}
+				
+				else if (ndo.message[0].equals(messageTypeInvisibleOff)) {
+					for(int i = 0; i<players.size();i++) {
+						if(players.get(i).name.equals((String)ndo.message[1])) {
+							players.get(i).invisible = false;
+							players.get(i).turnInvisOff = false;
+						}
+					}				
+				}
+				
+				else if (ndo.message[0].equals(messageTypeDiveTag)) {
+					for(int i = 0; i<players.size();i++) {
+						if(players.get(i).name.equals((String)ndo.message[1])) {
+							players.get(i).dive = true;
+							players.get(i).diveUsed = true;
+						}
+					}				
+				}
+				
+				else if (ndo.message[0].equals(messageTypeDiveOff)) {
+					for(int i = 0; i<players.size();i++) {
+						if(players.get(i).name.equals((String)ndo.message[1])) {
+							players.get(i).dive = false;
+							players.get(i).turnDiveOff = false;
+						}
+					}				
 				}
 			}
 			else if (ndo.dataSource.equals(ndo.serverHost)) {
@@ -557,7 +658,7 @@ public void processNetworkMessages() {
 	public static void deleteJump() {
 		highJump.x = -100;
 	}
-
+	
 	/**
 	 * Makes it so that once you pick up the deleteDive it disappears so you cannot pick it up again
 	 */
