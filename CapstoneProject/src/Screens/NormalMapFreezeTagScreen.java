@@ -28,15 +28,19 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 	private Player f2;
 	private Player r1;
 	private Player r2;
-	private boolean roundWinner;
+	public static boolean roundWinner;
 	public static String[] currentRunner;
+	public static String[] currentTagger;
+
 	private int repeatName;
 	private NetworkMessenger nm;
 	public static boolean abilityUseable;
 	
 	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
 	private static final String messageTypeInit = "CREATE_PLAYER";
-	private static final String messageTypeRemovePlayer = "REMOVE_PLAYER";
+	private static final String messageTypeIsFrozen = "IS_FROZEN";
+	private static final String messageTypeUnfrozen = "UNFROZEN";
+
 	private static final String messageTypeSetTagger = "SET_TAGGER";
 	private static final String messageTypeGameOver = "GAME_OVER";
 	private static final String messageTypeInvisible = "INVISIBLE";
@@ -178,6 +182,8 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 		repeatName = 1;
 		
 		currentRunner = new String[2];
+		currentTagger = new String[0];
+		
 	}
 	/**
 	 * Standard drawing in processing
@@ -214,12 +220,32 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 							}
 							guessed.add(a);
 							players.get(a).setPlayerType(true);
+							nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(a));
 						}
 					}
-					
 					processNetworkMessages();
 				}
 			}
+			
+			if(check == 10 || (NetworkManagementPanel.isHost && check == 1)) {
+				check = 2;
+				currentTagger = new String[StartNetworkGame.numberOfPlayers/2];
+				currentRunner = new String[StartNetworkGame.numberOfPlayers - StartNetworkGame.numberOfPlayers/2];
+				int r = 0;
+				int t = 0;
+				for(Player p: players) {
+					if(p.getPlayerType()) {
+						currentTagger[t] = p.name;
+						t++;
+					}
+					else {
+						currentRunner[r] = p.name;
+						r++;
+						System.out.println(p.name);
+					}
+				}
+			}
+			
 		}
 		if(!MultiplayerOrNetwork.network) {
 			surface.textSize(15);
@@ -258,7 +284,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 
 		boolean k = true;
 		for(Player p: players) {
-			if(p.getPlayerType() == false)
+			if(p.getPlayerType() == false && p.frozeOrUnfroze() == false)
 				k = false;
 			if(p.invisible && !p.invisUsed) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisible, p.name);
@@ -460,7 +486,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 				if(timer == 0) {
 					second = false;
 					third = true;
-					timer = 180;
+					timer = 1;
 					abilityUseable = true;
 				}
 			}
@@ -475,22 +501,23 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 				if(timer == 0) {
 					third = false;
 					int i = 0;
-					if(!f1.getPlayerType()) {
-						currentRunner[i] = Start1v1Game.player1;
-						i++;
+					if(!MultiplayerOrNetwork.network) {
+						if(!f1.getPlayerType()) {
+							currentRunner[i] = Start1v1Game.player1;
+							i++;
+						}
+						if(!f2.getPlayerType()) {
+							currentRunner[i] = Start1v1Game.player2;
+							i++;
+						}
+						if(!r1.getPlayerType()) {
+							currentRunner[i] = Start1v1Game.player3;
+							i++;
+						}
+						if(!r2.getPlayerType()) {
+							currentRunner[i] = Start1v1Game.player4;
+						}
 					}
-					if(!f2.getPlayerType()) {
-						currentRunner[i] = Start1v1Game.player2;
-						i++;
-					}
-					if(!r1.getPlayerType()) {
-						currentRunner[i] = Start1v1Game.player3;
-						i++;
-					}
-					if(!r2.getPlayerType()) {
-						currentRunner[i] = Start1v1Game.player4;
-					}
-
 					roundWinner = false;
 					if(MultiplayerOrNetwork.network) {
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, false);
@@ -535,6 +562,25 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 				}
 				surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 	
+			}
+		}
+		if(MultiplayerOrNetwork.network) {
+			boolean b = true;
+			for(Player p: players) {
+				if(!p.frozeOrUnfroze() && !p.getPlayerType()) {
+					b = false;
+				}
+				if(p.getTaggedTime() == 3) {
+					b = true;
+					break;
+				}
+					
+			}		
+			if(b) {
+				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, true);
+				processNetworkMessages();
+				roundWinner = true;
+				surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 			}
 		}
 		if(third) {
@@ -660,26 +706,18 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 
 			}
 		}
-		boolean remove = false;
 		if(MultiplayerOrNetwork.network) {
-			if(NetworkManagementPanel.isHost && !(first||second)) {
+			if(!(first||second)) {
 				for(int i = 0; i<players.size();i++) {
-					for(int j = 1; j<players.size();j++) {
-						if(players.get(i).intersects(players.get(j)) && players.get(i).getPlayerType()!=players.get(j).getPlayerType()) {
-							if(!players.get(i).getPlayerType()) {
-//								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(i));
-								remove = true;
-							}
-							else {
-//								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(j));
-								remove = true;
-							}
+					if(players.get(i).intersects(p) && players.get(i).getPlayerType()!=p.getPlayerType()) {
+						if(!p.getPlayerType() && !p.frozeOrUnfroze()) {
+							nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeIsFrozen, p);
+							p.gotTagged();
 						}
-						if(remove)
-							break;
 					}
-					if(remove)
-						break;
+					if(players.get(i).intersects(p) && players.get(i).getPlayerType() == p.getPlayerType())
+						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeUnfrozen, p);
+
 				}
 			}
 		}
@@ -733,7 +771,7 @@ public void processNetworkMessages() {
 				
 				}
 				
-				else if (ndo.message[0].equals(messageTypeRemovePlayer)) {//works
+				else if (ndo.message[0].equals(messageTypeIsFrozen)) {
 					Player s = (Player)ndo.message[1];
 					for(Player a :players) {
 						if(a.equals(s)) {
@@ -741,7 +779,8 @@ public void processNetworkMessages() {
 							break;
 						}
 					}
-					players.remove(s);
+					s.isFrozen();
+					s.gotTagged();
 						
 				}
 				
@@ -752,6 +791,7 @@ public void processNetworkMessages() {
 							players.get(i).setPlayerType(true);
 						}
 					}
+					check = 10;
 				}
 				
 				else if (ndo.message[0].equals(messageTypeGameOver)) {//works
@@ -792,6 +832,14 @@ public void processNetworkMessages() {
 						if(players.get(i).name.equals((String)ndo.message[1])) {
 							players.get(i).dive = false;
 							players.get(i).turnDiveOff = false;
+						}
+					}				
+				}
+				
+				else if (ndo.message[0].equals(messageTypeUnfrozen)) {
+					for(int i = 0; i<players.size();i++) {
+						if(players.get(i).name.equals(((Player)ndo.message[1]).name)) {
+							players.get(i).unFrozen();
 						}
 					}				
 				}

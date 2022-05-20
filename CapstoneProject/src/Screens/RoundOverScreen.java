@@ -71,15 +71,33 @@ public class RoundOverScreen extends Screens{
 			}
 		}
 		else {
-			String s = "";
-			if(!surface.getRoundWinner()) {//runners win
-				s = "RUNNERS";
+			if(surface.getGameMode() == 1) {
+				String s = "";
+				if(!surface.getRoundWinner()) {//runners win
+					s = "RUNNERS";
+				}
+				else
+					s = "TAGGERS";
+				surface.fill(0,0,0);
+				surface.textSize(50);
+				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
 			}
-			else
-				s = "TAGGERS";
-			surface.fill(0,0,0);
-			surface.textSize(50);
-			surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+			else if(surface.getGameMode() == 2) {
+				String s = "";
+				if(NormalMapFreezeTagScreen.roundWinner) {
+					for(String t : NormalMapFreezeTagScreen.currentTagger) {
+						s = s + t +" ";
+					}
+				}
+				else {
+					for(String r : NormalMapFreezeTagScreen.currentRunner) {
+						s = s + r +" ";
+					}
+				}
+				surface.fill(0,0,0);
+				surface.textSize(50);
+				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+			}
 		}
 		surface.popStyle();
 	}
