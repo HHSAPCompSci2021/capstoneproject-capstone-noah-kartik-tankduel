@@ -56,8 +56,10 @@ public class StartNetworkGame extends Screens{
 			if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
 				if (ndo.message[0].equals(messageTypeStartGame)) {
 					if((boolean) ndo.message[1]) {
-						if(surface.getMap() == 0)
+						if(surface.getMap() == 0 && surface.getGameMode() == 1)
 							surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
+						if(surface.getMap() == 0 && surface.getGameMode() == 2)
+							surface.switchScreen(ScreenSwitcher.FREEZETAGNORMALMAPSCREEN);
 						if(surface.getMap() == 1)
 							surface.switchScreen(ScreenSwitcher.WATERMAP);
 						if(surface.getMap() == 2)
