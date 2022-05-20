@@ -56,7 +56,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 	private static SpecialAbilities[] abilities;
 	private Player r;
 	private Player t;
-	private long taggedTime;
+	private long taggedTime;	
 	private boolean roundWinner;
 	public static String currentRunner;
 	private int repeatName;
@@ -115,17 +115,17 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		l5 = new Line2D.Double (1050,75,1100,75); // edge piece just in case it glitches 
 		l6 = new Line2D.Double (400,100,600,150); 
 		l7 = new Line2D.Double (250,150,300,100);
-		l8 = new Line2D.Double (250,150,450,225);
+		l8 = new Line2D.Double (300,150,450,225);
 		l9 = new Line2D.Double (625,250,725,175);
 		l10 = new Line2D.Double (950,175,1020,125);
 		l11 = new Line2D.Double (1035,150,1075,200);
 		l12 = new Line2D.Double (850,300,1000,300);
 		l13 = new Line2D.Double (975,275,1050,275);
-		l14 = new Line2D.Double (1050,275,1075,350);
-		l15 = new Line2D.Double (975,350,1075,350);
-		l16 = new Line2D.Double (200,150,1000,500);
+		l14 = new Line2D.Double (1050,275,1050,350);
+		l15 = new Line2D.Double (975,350,1050,350);
+		l16 = new Line2D.Double (200,150,900,500);
 		l17 = new Line2D.Double (950,500,1025,400);
-		l18 = new Line2D.Double (50,200,175,150);
+		l18 = new Line2D.Double (50,200,175,200);
 		l19 = new Line2D.Double (25,250,100,250);
 		l20 = new Line2D.Double (25,250,25,325);
 		l21 = new Line2D.Double (25,325,100,325);
@@ -135,14 +135,14 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		l25 = new Line2D.Double (225,320,300,400);
 		l26 = new Line2D.Double (550,370,600,400);
 		l27 = new Line2D.Double (250,500,350,450);
-		l28 = new Line2D.Double (75,720,150,600);
+		l28 = new Line2D.Double (75,680,150,600);
 		l29 = new Line2D.Double (300,650,375,520);
 		l30 = new Line2D.Double (510,520,510,650);
 		l31 = new Line2D.Double (510,650,600,650);
 		l32 = new Line2D.Double (400,680,550,100);
 		l32 = new Line2D.Double (450,680,550,680);
 		l33 = new Line2D.Double (575,520,850,540);
-		l34 = new Line2D.Double(750,720,1000,650);
+		l34 = new Line2D.Double(750,680,1000,550);
 		l35 = new Line2D.Double(900,650,1020,650);
 
 		spawnX = new Line2D.Double(0,150,150,150);
@@ -236,12 +236,12 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 				surface.fill(255,255,255);
 			else
 				surface.fill(0,0,0);
-			surface.text(Start1v1Game.player1, (float)t.x - surface.textWidth(Start1v1Game.player1)/2 + (float)t.getWidth()/2, (float)(t.y -3.0));
+		//	surface.text(Start1v1Game.player1, (float)t.x - surface.textWidth(Start1v1Game.player1)/2 + (float)t.getWidth()/2, (float)(t.y -3.0));
 			if(r.getInvisible())
 				surface.fill(255,255,255);
 			else
 				surface.fill(0,0,0);
-			surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
+			//surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
 		}
 		if(MultiplayerOrNetwork.network){
 			surface.textSize(15);
@@ -249,7 +249,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 				surface.fill(0,0,0);
 				if(a.getInvisible())
 					surface.fill(255,255,255);
-				surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
+			//	surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
 
 			}
 		}
