@@ -23,7 +23,7 @@ import networking.frontend.NetworkDataObject;
 public class ClientWriter implements Runnable{
 
 	private static final int RETRY_TIMEOUT = 10;
-	private static final int WAIT_TIME = 16;
+	private static final int WAIT_TIME = 0;//16
 	
     private Socket s;
     private InetAddress host;
