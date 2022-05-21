@@ -229,8 +229,8 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			
 			if(check == 10 || (NetworkManagementPanel.isHost && check == 1)) {
 				check = 2;
-				currentTagger = new String[StartNetworkGame.numberOfPlayers/2];
-				currentRunner = new String[StartNetworkGame.numberOfPlayers - StartNetworkGame.numberOfPlayers/2];
+				currentTagger = new String[players.size()/2];
+				currentRunner = new String[players.size() - players.size()/2];
 				int r = 0;
 				int t = 0;
 				for(Player p: players) {
