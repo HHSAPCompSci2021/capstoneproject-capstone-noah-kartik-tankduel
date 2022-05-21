@@ -220,7 +220,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 							}
 							guessed.add(a);
 							players.get(a).setPlayerType(true);
-							nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(a));
+							nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(a),StartNetworkGame.numberOfPlayers);
 						}
 					}
 					processNetworkMessages();
@@ -594,7 +594,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 	
 		if(MultiplayerOrNetwork.network) 
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
-		if(!MultiplayerOrNetwork.network) {
+		if(!MultiplayerOrNetwork.network) {//need to add 3 second grace period
 			if(f1.intersects(r1) && !(first || second)) {
 				if(f1.getPlayerType() == r1.getPlayerType()) {
 					if(f1.frozeOrUnfroze()) {
@@ -612,6 +612,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 					f1.gotTagged();
 				}
 			}
+			
 			if(f1.intersects(r2) && !(first || second)) {
 				if(f1.getPlayerType() == r2.getPlayerType()) {
 					if(f1.frozeOrUnfroze()) {
@@ -790,6 +791,7 @@ public void processNetworkMessages() {
 							players.get(i).setPlayerType(true);
 						}
 					}
+					StartNetworkGame.numberOfPlayers = (int)ndo.message[2];
 					check = 10;
 				}
 				
