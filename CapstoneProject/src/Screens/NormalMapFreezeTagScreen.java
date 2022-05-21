@@ -200,7 +200,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 		surface.stroke(2);
 		if(MultiplayerOrNetwork.network) {
 			p.name = MultiplayerOrNetwork.playerName;
-			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,MultiplayerOrNetwork.playerName);
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y, MultiplayerOrNetwork.playerName);
 			processNetworkMessages();
 		}
 		firstRun=1;
@@ -262,12 +262,12 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 				surface.fill(255,255,255);
 			else
 				surface.fill(0,0,0);
-			surface.text(Start1v1Game.player1, (float)r1.x - surface.textWidth(Start1v1Game.player1)/2 + (float)r1.getWidth()/2, (float)(r1.y -3.0));
+			surface.text(Start1v1Game.player3, (float)r1.x - surface.textWidth(Start1v1Game.player1)/2 + (float)r1.getWidth()/2, (float)(r1.y -3.0));
 			if(r2.getInvisible())
 				surface.fill(255,255,255);
 			else
 				surface.fill(0,0,0);
-			surface.text(Start1v1Game.player2, (float)r2.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r2.getWidth()/2, (float)(r2.y - 3.0));
+			surface.text(Start1v1Game.player4, (float)r2.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r2.getWidth()/2, (float)(r2.y - 3.0));
 		}
 	
 		if(MultiplayerOrNetwork.network){
