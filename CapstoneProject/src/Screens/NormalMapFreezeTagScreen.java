@@ -704,14 +704,16 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			if(!(first||second)) {
 				for(int i = 0; i<players.size();i++) {
 					if(players.get(i).intersects(p) && players.get(i).getPlayerType()!=p.getPlayerType()) {
-						if(!p.getPlayerType() && !p.frozeOrUnfroze()) {
+						if(!p.getPlayerType() && !p.frozeOrUnfroze() && System.currentTimeMillis() - p.getunfrozenTime() > 3000) {
+							p.isFrozen();
 							nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeIsFrozen, p);
 							p.gotTagged();
 						}
 					}
-					if(players.get(i).intersects(p) && players.get(i).getPlayerType() == p.getPlayerType())
+					if(players.get(i).intersects(p) && players.get(i).getPlayerType() == p.getPlayerType() && System.currentTimeMillis() - p.getFrozenTime() > 1000) {
+						p.unFrozen();
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeUnfrozen, p);
-
+					}
 				}
 			}
 		}
