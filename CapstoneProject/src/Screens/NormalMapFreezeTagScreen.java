@@ -774,15 +774,7 @@ public void processNetworkMessages() {
 							players.get(i).isFrozen();
 							players.get(i).gotTagged();
 						}
-					}
-					for(Player a :players) {
-						if(a.equals(s)) {
-							s = a;
-							break;
-						}
-					}
-
-						
+					}						
 				}
 				
 				else if (ndo.message[0].equals(messageTypeSetTagger)) {
