@@ -23,6 +23,7 @@ public interface ScreenSwitcher {
 	public static final int FOURPLAYERORNETWORK = 14;
 	public static final int FREEZETAGNORMALMAPSCREEN = 	15;
 	public static final int MULTIPLAYERORNETWORK = 16;
+	public static final int COPSNROBBERS = 17;
 	/**
 	 * switches the screens
 	 * @param i the screen to switch to

@@ -168,6 +168,7 @@ public class PlayScreen1 extends Screens{
 		if(waterMap.contains(p)) {
 			surface.setMap(1);
 		}
+	
 		if(forestMap.contains(p))
 			surface.setMap(2);
 		if(startButton.contains(p) && !MultiplayerOrNetwork.network &&surface.getGameMode() == 1 && surface.getMap() == 0) 
@@ -178,7 +179,8 @@ public class PlayScreen1 extends Screens{
 			surface.switchScreen(ScreenSwitcher.START1V1GAME);
 		if(startButton.contains(p) && !MultiplayerOrNetwork.network && surface.getGameMode() == 1 && surface.getMap() == 2) 
 			surface.switchScreen(ScreenSwitcher.START1V1GAME);
-		
+		if(startButton.contains(p) && !MultiplayerOrNetwork.network && surface.getGameMode() == 3 && surface.getMap() == 0)
+			surface.switchScreen(ScreenSwitcher.START1V1GAME);
 		
 		if(startButton.contains(p) && MultiplayerOrNetwork.network) {
 			nmp = new NetworkManagementPanel("ProcessingDrawing", 10, (NetworkListener) surface.getScreen(surface.getMapScreen()));

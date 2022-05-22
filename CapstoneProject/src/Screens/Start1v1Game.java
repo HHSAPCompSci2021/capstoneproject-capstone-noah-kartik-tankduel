@@ -65,6 +65,23 @@ public class Start1v1Game extends Screens{
 
 			}
 		}
+		
+		if(surface.getGameMode() == 3) {
+			if(player1 == null || player1.equals("")) {
+				player1 = JOptionPane.showInputDialog("Enter player one's name!");
+			}
+			if(player2 == null || player2.equals("")) {
+				player2 = JOptionPane.showInputDialog("Enter player two's name!");
+
+			}
+			if(player3 == null || player3.equals("")) {
+				player3 = JOptionPane.showInputDialog("Enter player three's name!");
+			}
+			if(player4 == null || player4.equals("")) {
+				player4 = JOptionPane.showInputDialog("Enter player four's name!");
+
+			}
+		}
 		surface.popStyle();
 		
 	}
@@ -84,7 +101,8 @@ public class Start1v1Game extends Screens{
 				surface.switchScreen(ScreenSwitcher.WATERMAP);
 			if(surface.getMap() == 2)
 				surface.switchScreen(ScreenSwitcher.FORESTMAP);
-				
+			if(surface.getMap() == 0 && surface.getGameMode() == 3)
+				surface.switchScreen(ScreenSwitcher.COPSNROBBERS);
 		}
 	}
 }
