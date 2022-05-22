@@ -769,14 +769,19 @@ public void processNetworkMessages() {
 				
 				else if (ndo.message[0].equals(messageTypeIsFrozen)) {
 					Player s = (Player)ndo.message[1];
+					for(int i = 0; i<players.size();i++) {
+						if(s.name.equals(players.get(i).name)) {
+							players.get(i).isFrozen();
+							players.get(i).gotTagged();
+						}
+					}
 					for(Player a :players) {
 						if(a.equals(s)) {
 							s = a;
 							break;
 						}
 					}
-					s.isFrozen();
-					s.gotTagged();
+
 						
 				}
 				
