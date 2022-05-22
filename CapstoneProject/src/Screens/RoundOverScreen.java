@@ -69,7 +69,26 @@ public class RoundOverScreen extends Screens{
 				surface.textSize(13);
 				surface.text("Play Again", playAgain.x+playAgain.width/2-surface.textWidth("Play Again")/2, playAgain.y + playAgain.height/2 + 4);
 			}
+		
+		else if(surface.getGameMode() == 3) {
+			String s = NormalMapCopsNRobbers.currentRunner[0] + " and " + NormalMapCopsNRobbers.currentRunner[1];
+			surface.fill(0,0,0);
+			surface.textSize(50);
+			surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+			
+			surface.fill(0,0,0);
+			surface.rect(mainMenu.x, mainMenu.y, mainMenu.width, mainMenu.height);
+			surface.fill(255,255,255);
+			surface.textSize(13);
+			surface.text("Main Menu", mainMenu.x+mainMenu.width/2-surface.textWidth("Main Menu")/2, mainMenu.y + mainMenu.height/2 + 4);
+			
+			surface.fill(0,0,0);
+			surface.rect(playAgain.x, playAgain.y, playAgain.width, playAgain.height);
+			surface.fill(255,255,255);
+			surface.textSize(13);
+			surface.text("Play Again", playAgain.x+playAgain.width/2-surface.textWidth("Play Again")/2, playAgain.y + playAgain.height/2 + 4);
 		}
+	}
 		else {
 			if(surface.getGameMode() == 1) {
 				String s = "";
@@ -98,6 +117,23 @@ public class RoundOverScreen extends Screens{
 				surface.textSize(50);
 				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
 			}
+			else if(surface.getGameMode() == 3) {
+				String s = "";
+				if(NormalMapCopsNRobbers.roundWinner) {
+					for(String t: NormalMapCopsNRobbers.currentTagger) {
+						s = s + t + " ";
+	
+					}
+				}
+				else {
+					for(String r: NormalMapCopsNRobbers.currentRunner) {
+						s = s + r + " ";
+					}	
+				}
+				surface.fill(0,0,0);
+				surface.textSize(50);
+				surface.text(s + "WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+			}
 		}
 		surface.popStyle();
 	}
@@ -117,6 +153,10 @@ public class RoundOverScreen extends Screens{
 				if(surface.getGameMode() == 2) {
 					surface.refresh1v1();
 					surface.switchScreen(ScreenSwitcher.FREEZETAGNORMALMAPSCREEN);
+				}
+				if(surface.getGameMode() == 3) {
+					surface.refresh1v1();
+					surface.switchScreen(ScreenSwitcher.COPSNROBBERS);
 				}
 			}
 		}
