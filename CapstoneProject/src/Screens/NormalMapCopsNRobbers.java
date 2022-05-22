@@ -571,7 +571,7 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 				if(p.getTaggedTime() == 3) {
 					b = true;
 					break;
-				}
+				}ioiioooo
 					
 			}		
 			if(b) {
