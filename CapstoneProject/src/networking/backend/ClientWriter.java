@@ -91,7 +91,7 @@ public class ClientWriter implements Runnable{
                 }
             	
                 long waitTime = WAIT_TIME - (System.currentTimeMillis() - startTime);
-                
+
                 if (waitTime > 0) {
                     try {
                         Thread.sleep(waitTime);
