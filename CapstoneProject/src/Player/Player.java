@@ -87,16 +87,12 @@ public class Player extends Sprite {
 	 */
 	
 	public void isFrozen() {
-		if(System.currentTimeMillis() - unfrozenTime > 3000) {
 			frozen = true;
 			frozenTime = System.currentTimeMillis();
-		}
 	}
 	public void unFrozen() {
-		if(System.currentTimeMillis() - frozenTime > 1000) {
 			frozen = false;
 			unfrozenTime = System.currentTimeMillis();
-		}
 	}
 	public long getunfrozenTime() {
 		return unfrozenTime;
