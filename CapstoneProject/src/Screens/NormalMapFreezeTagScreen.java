@@ -594,20 +594,20 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 	
 		if(MultiplayerOrNetwork.network) 
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
-		if(!MultiplayerOrNetwork.network) {//need to add 3 second grace period
+		if(!MultiplayerOrNetwork.network) {//need to add 3 second grace period and maybe has to be frozen for at least 1 second before becoming unfrozen
 			if(f1.intersects(r1) && !(first || second)) {
 				if(f1.getPlayerType() == r1.getPlayerType()) {
-					if(f1.frozeOrUnfroze()) {
+					if(f1.frozeOrUnfroze() && System.currentTimeMillis() - f1.getFrozenTime() > 1000) {
 						f1.unFrozen();
-					} else {
+					} else if(r1.frozeOrUnfroze() && System.currentTimeMillis() - r1.getFrozenTime() > 1000) {
 						r1.unFrozen();
 					}
 				}
-				else if(f1.getPlayerType() && !r1.frozeOrUnfroze()) {
+				else if(f1.getPlayerType() && !r1.frozeOrUnfroze() && System.currentTimeMillis() - r1.getunfrozenTime() > 3000) {
 					r1.isFrozen();
 					r1.gotTagged();
 				}
-				else if(r1.getPlayerType() && !f1.frozeOrUnfroze()){
+				else if(r1.getPlayerType() && !f1.frozeOrUnfroze() && System.currentTimeMillis() - f1.getunfrozenTime() > 3000){
 					f1.isFrozen();
 					f1.gotTagged();
 				}
@@ -615,52 +615,50 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			
 			if(f1.intersects(r2) && !(first || second)) {
 				if(f1.getPlayerType() == r2.getPlayerType()) {
-					if(f1.frozeOrUnfroze()) {
+					if(f1.frozeOrUnfroze() && System.currentTimeMillis() - f1.getFrozenTime() > 1000) {
 						f1.unFrozen();
-					} else {
+					} else if(r2.frozeOrUnfroze() && System.currentTimeMillis() - r2.getFrozenTime() > 1000){
 						r2.unFrozen();
 					}
 				}
-				else if(f1.getPlayerType() && !r2.frozeOrUnfroze()) {
+				else if(f1.getPlayerType() && !r2.frozeOrUnfroze() && System.currentTimeMillis() - r2.getunfrozenTime() > 3000) {
 					r2.isFrozen();
 					r2.gotTagged();
 				}
-				else if(r2.getPlayerType() && !f1.frozeOrUnfroze()){
+				else if(r2.getPlayerType() && !f1.frozeOrUnfroze() && System.currentTimeMillis() - f1.getunfrozenTime() > 3000){
 					f1.isFrozen();
 					f1.gotTagged();
 				}
 			}
 			if(f2.intersects(r1) && !(first || second)) {
 				if(f2.getPlayerType() == r1.getPlayerType()) {
-					if(f2.frozeOrUnfroze()) {
+					if(f2.frozeOrUnfroze() && System.currentTimeMillis() - f2.getFrozenTime() > 1000) {
 						f2.unFrozen();
-					} else {
+					} else if(r1.frozeOrUnfroze() && System.currentTimeMillis() - r1.getFrozenTime() > 1000){
 						r1.unFrozen();
 					}				}
-				else if(f2.getPlayerType() && !r1.frozeOrUnfroze()) {
+				else if(f2.getPlayerType() && !r1.frozeOrUnfroze() && System.currentTimeMillis() - r1.getunfrozenTime() > 3000) {
 					r1.isFrozen();
 					r1.gotTagged();
 				}
-				else if(r1.getPlayerType() && !f2.frozeOrUnfroze()){
+				else if(r1.getPlayerType() && !f2.frozeOrUnfroze() && System.currentTimeMillis() - f2.getunfrozenTime() > 3000){
 					f2.isFrozen();
 					f2.gotTagged();
 				}
 			}
 			if(f2.intersects(r2) && !(first || second)) {
 				if(f2.getPlayerType() == r2.getPlayerType()) {
-					if(f2.getPlayerType() == r2.getPlayerType()) {
-						if(f2.frozeOrUnfroze()) {
-							f2.unFrozen();
-						} else {
-							r2.unFrozen();
-						}
+					if(f2.frozeOrUnfroze() && System.currentTimeMillis() - f2.getFrozenTime() > 1000) {
+						f2.unFrozen();
+					} else if(r2.frozeOrUnfroze() && System.currentTimeMillis() - r2.getFrozenTime() > 1000){
+						r2.unFrozen();
 					}
 				}
-				else if(f2.getPlayerType() && !r2.frozeOrUnfroze()) {
+				else if(f2.getPlayerType() && !r2.frozeOrUnfroze() && System.currentTimeMillis() - r2.getunfrozenTime() > 3000) {
 					r2.isFrozen();
 					r2.gotTagged();
 				}
-				else if(r2.getPlayerType() && !f2.frozeOrUnfroze()){
+				else if(r2.getPlayerType() && !f2.frozeOrUnfroze() && System.currentTimeMillis() - f2.getunfrozenTime() > 3000){
 					f2.isFrozen();
 					f2.gotTagged();
 				}
@@ -668,38 +666,34 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			}
 			if(f2.intersects(f1) && !(first || second)) {
 				if(f2.getPlayerType() == f1.getPlayerType()) {
-					if(f2.getPlayerType() == f1.getPlayerType()) {
-						if(f2.frozeOrUnfroze()) {
-							f2.unFrozen();
-						} else {
-							f1.unFrozen();
-						}
+					if(f2.frozeOrUnfroze() && System.currentTimeMillis() - f2.getFrozenTime() > 1000) {
+						f2.unFrozen();
+					} else if(f1.frozeOrUnfroze() && System.currentTimeMillis() - f1.getFrozenTime() > 1000){
+						f1.unFrozen();
 					}
 				}
-				else if(f2.getPlayerType() && !f1.frozeOrUnfroze()) {
+				else if(f2.getPlayerType() && !f1.frozeOrUnfroze() && System.currentTimeMillis() - f1.getunfrozenTime() > 3000) {
 					f1.isFrozen();
 					f1.gotTagged();
 				}
-				else if(f1.getPlayerType() && !f2.frozeOrUnfroze()){
+				else if(f1.getPlayerType() && !f2.frozeOrUnfroze() && System.currentTimeMillis() - f2.getunfrozenTime() > 3000){
 					f2.isFrozen();
 					f2.gotTagged();
 				}
 			}
 			if(r2.intersects(r1) && !(first || second)) {
 				if(r2.getPlayerType() == r1.getPlayerType()) {
-					if(r2.getPlayerType() == r1.getPlayerType()) {
-						if(r2.frozeOrUnfroze()) {
-							r2.unFrozen();
-						} else {
-							r1.unFrozen();
-						}
+					if(r2.frozeOrUnfroze() && System.currentTimeMillis() - r2.getFrozenTime() > 1000) {
+						r2.unFrozen();
+					} else if(r1.frozeOrUnfroze() && System.currentTimeMillis() - r1.getFrozenTime() > 1000){
+						r1.unFrozen();
 					}
 				}
-				else if(r2.getPlayerType() && !r1.frozeOrUnfroze()) {
+				else if(r2.getPlayerType() && !r1.frozeOrUnfroze() && System.currentTimeMillis() - r1.getunfrozenTime() > 3000) {
 					r1.isFrozen();
 					r1.gotTagged();
 				}
-				else if(r1.getPlayerType() && !r2.frozeOrUnfroze()){
+				else if(r1.getPlayerType() && !r2.frozeOrUnfroze() && System.currentTimeMillis() - r2.getunfrozenTime() > 3000){
 					r2.isFrozen();
 					r2.gotTagged();
 				}

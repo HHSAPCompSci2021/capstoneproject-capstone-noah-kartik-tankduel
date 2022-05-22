@@ -45,6 +45,8 @@ public class Player extends Sprite {
 	public boolean turnInvisOff;
 	public boolean turnDiveOff;
 	private int taggedTime;
+	private long unfrozenTime;
+	private long frozenTime;
 
 	
 	/**
@@ -61,6 +63,8 @@ public class Player extends Sprite {
 		jump = false;
 		frozen = false;
 		taggedTime = 0;
+		unfrozenTime = 0;
+		frozenTime= 0;
 		try {
 			host = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
@@ -84,9 +88,17 @@ public class Player extends Sprite {
 	
 	public void isFrozen() {
 		frozen = true;
+		frozenTime = System.currentTimeMillis();
 	}
 	public void unFrozen() {
 		frozen = false;
+		unfrozenTime = System.currentTimeMillis();
+	}
+	public long getunfrozenTime() {
+		return unfrozenTime;
+	}
+	public long getFrozenTime() {
+		return frozenTime;
 	}
 	public boolean frozeOrUnfroze() {
 		return frozen;
