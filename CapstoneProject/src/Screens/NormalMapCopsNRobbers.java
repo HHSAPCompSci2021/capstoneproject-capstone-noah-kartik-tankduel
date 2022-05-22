@@ -536,10 +536,6 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 				if(!p.frozeOrUnfroze() && !p.getPlayerType()) {
 					b = false;
 				}
-				if(p.getTaggedTime() == 3) {
-					b = true;
-					break;
-				}
 					
 			}
 			if(b) {
