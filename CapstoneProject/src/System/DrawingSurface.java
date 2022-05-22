@@ -85,7 +85,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		MultiplayerOrNetwork multiNetwork = new MultiplayerOrNetwork(this);
 		screens.add(multiNetwork);
 		
-		CopsNRobbers copsNRobbers = new CopsNRobbers(this);
+		NormalMapCopsNRobbers copsNRobbers = new NormalMapCopsNRobbers(this);
 		screens.add(copsNRobbers);
 		activeScreen = screens.get(0);
 		
