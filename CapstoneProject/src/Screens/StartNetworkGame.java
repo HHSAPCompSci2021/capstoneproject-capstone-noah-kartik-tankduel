@@ -78,6 +78,8 @@ public class StartNetworkGame extends Screens{
 				queue = ((WaterMapFreezeTagScreen) surface.getScreen(ScreenSwitcher.FREEZETAGWATERMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
 			else if(surface.getMapScreen() == 19)
 				queue = ((CopsNRobbersWaterMap) surface.getScreen(ScreenSwitcher.COPSNROBBERSWATERMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
+			else
+				queue = null;
 			
 			
 			if(queue == null)
