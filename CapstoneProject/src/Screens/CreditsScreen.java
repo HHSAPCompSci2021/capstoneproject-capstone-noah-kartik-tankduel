@@ -9,6 +9,10 @@ import processing.event.MouseEvent;
  */
 public class CreditsScreen extends Screens{
 	private DrawingSurface surface;
+	/**
+	 * draws the credit screen
+	 * @param surface the surface on which to draw on
+	 */
 	public CreditsScreen(DrawingSurface surface) {
 		super(1080,720);
 		this.surface = surface;

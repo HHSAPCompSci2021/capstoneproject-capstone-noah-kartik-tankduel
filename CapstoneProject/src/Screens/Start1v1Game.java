@@ -10,7 +10,7 @@ import System.DrawingSurface;
 
 /**
  * Lets you choose if you want to play 1v1 on your computer or if you want to play network
- * @author npien
+ * @author Noah Pien and Kartik Joshi
  *
  */
 public class Start1v1Game extends Screens{
@@ -20,6 +20,10 @@ public class Start1v1Game extends Screens{
 	public static String player2;
 	public static String player3;
 	public static String player4;
+	/**
+	 * sets up the start 1v1 game screen
+	 * @param surface the surface on which to draw on
+	 */
 	public Start1v1Game(DrawingSurface surface) {
 		super(1080,720);
 		this.surface = surface;

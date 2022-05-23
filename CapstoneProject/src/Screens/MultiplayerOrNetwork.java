@@ -27,7 +27,7 @@ public class MultiplayerOrNetwork extends Screens{
 	
 	/**
 	 * sets up the multiplayer or network screen
-	 * @param surface
+	 * @param surface the surface on which to draw on
 	 */
 	public MultiplayerOrNetwork(DrawingSurface surface) {
 		super(1080,720);

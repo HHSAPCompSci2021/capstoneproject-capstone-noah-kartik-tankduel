@@ -8,7 +8,6 @@ import System.DrawingSurface;
  * This screen shows the rules of the game
  * 
  * @author Noah Pien and Kartik Joshi
- * Credits to John Shelby for part of code
  */
 public class RulesScreen extends Screens{
 

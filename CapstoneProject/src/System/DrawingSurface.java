@@ -249,7 +249,10 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 	public int getMap() {
 		return map;
 	}
-	
+	/**
+	 * returns the map for every combination of game modes and maps
+	 * @return an integer representing the map
+	 */
 	public int getMapScreen() {
 		if(map == 0 && gameMode == 1)//normal map/normal mode
 			return 4;
@@ -300,10 +303,18 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		return ((NormalMapScreen)screens.get(NORMALMAPSCREEN)).getRoundWinner();
 	}
 	
+	/**
+	 * returns screen in the screens list
+	 * @param i the index
+	 * @return the screen at the index
+	 */
 	public Screens getScreen(int i) {
 		return screens.get(i);
 	}
 	
+	/**
+	 * refreshes the screen for when you play again
+	 */
 	public void refresh1v1() {		
 		
 		NormalMapScreen normalMap = new NormalMapScreen(this);

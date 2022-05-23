@@ -15,6 +15,7 @@ public class Main {
 
 	/**
 	 * Runs the main method and starts the game
+	 * @param args the string
 	 */
 		public static void main(String args[]) {
 

@@ -5,6 +5,11 @@ import java.awt.Rectangle;
 
 import System.DrawingSurface;
 
+/**
+ * The screen that shows who won
+ * @author Noah Pien and Kartik Joshi
+ *
+ */
 public class RoundOverScreen extends Screens{
 	private DrawingSurface surface;
 	private Rectangle mainMenu;
@@ -360,6 +365,10 @@ public class RoundOverScreen extends Screens{
 		}
 		surface.popStyle();
 	}
+	
+	/**
+	 * Actions for when mouse is pressed
+	 */
 	public void mousePressed() {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		if(!MultiplayerOrNetwork.network) {

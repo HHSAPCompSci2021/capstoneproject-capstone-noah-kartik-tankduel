@@ -28,7 +28,7 @@ public class FourPlayerOrNetworkNotUsed extends Screens{
 //	public NetworkManagementPanel nmp;
 	/**
 	 * sets up the four player or network screen
-	 * @param surface
+	 * @param surface the surface on which to draw on
 	 */
 	public FourPlayerOrNetworkNotUsed(DrawingSurface surface) {
 		super(1080,720);

@@ -26,6 +26,10 @@ public class TwoPlayerOrNetworkNotUsed extends Screens{
 //	private int method = 0;
 //	public NetworkManagementPanel nmp;
 	
+	/**
+	 * Draws the screen for two player or network
+	 * @param surface the surface on which to draw on
+	 */
 	public TwoPlayerOrNetworkNotUsed(DrawingSurface surface) {
 		super(1080,720);
 //		this.surface = surface;

@@ -20,6 +20,10 @@ public class StartNetworkGame extends Screens{
 	private static final String messageTypeStartGame = "START_GAME";
 	public static int numberOfPlayers;
 	
+	/**
+	 * sets up the start network game screen
+	 * @param surface the surface on which to draw on
+	 */
 	public StartNetworkGame(DrawingSurface surface) {
 		super(1080,720);
 		this.surface = surface;

@@ -8,7 +8,6 @@ import System.DrawingSurface;
  * This screen shows the settings of the game. The player can adjust this.
  * 
  * @author Noah Pien and Kartik Joshi
- * Credits to John Shelby for part of code
  */
 public class SettingScreen extends Screens{
 
