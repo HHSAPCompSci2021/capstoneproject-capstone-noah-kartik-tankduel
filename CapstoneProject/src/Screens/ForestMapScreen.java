@@ -548,7 +548,7 @@ public void processNetworkMessages() {
 					c.name = (String)ndo.message[3] ;
 					c.host = host;
 					players.add(c);
-				
+
 				}
 				
 				else if (ndo.message[0].equals(messageTypeRemovePlayer)) {
@@ -560,7 +560,7 @@ public void processNetworkMessages() {
 						}
 					}
 					players.remove(s);
-						
+					System.out.println("removed");
 				}
 				
 				else if (ndo.message[0].equals(messageTypeSetTagger)) {
