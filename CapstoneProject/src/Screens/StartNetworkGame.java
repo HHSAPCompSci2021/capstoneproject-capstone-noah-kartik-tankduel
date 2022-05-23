@@ -73,8 +73,12 @@ public class StartNetworkGame extends Screens{
 								surface.switchScreen(ScreenSwitcher.NORMALMAPSCREEN);
 							if((int)ndo.message[2] == 0 && (int)ndo.message[3] == 2)
 								surface.switchScreen(ScreenSwitcher.FREEZETAGNORMALMAPSCREEN);
-							if((int)ndo.message[2] == 1)
+							if((int)ndo.message[2] == 0 && (int)ndo.message[3] == 3)
+								surface.switchScreen(ScreenSwitcher.COPSNROBBERS);
+							if((int)ndo.message[2] == 1 && (int)ndo.message[3] == 1)
 								surface.switchScreen(ScreenSwitcher.WATERMAP);
+							if((int)ndo.message[2] == 1 && (int)ndo.message[3] == 2)
+								surface.switchScreen(ScreenSwitcher.FREEZETAGWATERMAPSCREEN);
 							if((int)ndo.message[2] == 2)
 								surface.switchScreen(ScreenSwitcher.FORESTMAP);
 						}
@@ -101,9 +105,17 @@ public class StartNetworkGame extends Screens{
 				surface.switchScreen(ScreenSwitcher.FREEZETAGNORMALMAPSCREEN);
 				((NormalMapFreezeTagScreen) surface.getScreen(ScreenSwitcher.FREEZETAGNORMALMAPSCREEN)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true, 0, 2);
 			}
-			if(surface.getMap() == 1) {
+			if(surface.getMap() == 0 && surface.getGameMode() == 3) {
+				surface.switchScreen(ScreenSwitcher.COPSNROBBERS);
+				((NormalMapCopsNRobbers) surface.getScreen(ScreenSwitcher.COPSNROBBERS)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true, 0, 3);
+			}
+			if(surface.getMap() == 1 && surface.getGameMode() == 1) {
 				surface.switchScreen(ScreenSwitcher.WATERMAP);
-				((WaterMapScreen) surface.getScreen(ScreenSwitcher.WATERMAP)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true, 1);
+				((WaterMapScreen) surface.getScreen(ScreenSwitcher.WATERMAP)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true, 1,1);
+			}
+			if(surface.getMap() == 1 && surface.getGameMode() == 2) {
+				surface.switchScreen(ScreenSwitcher.FREEZETAGWATERMAPSCREEN);
+				((WaterMapFreezeTagScreen) surface.getScreen(ScreenSwitcher.FREEZETAGWATERMAPSCREEN)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true, 1,2);
 			}
 //			if(surface.getMap() == 2) {
 //				surface.switchScreen(ScreenSwitcher.FORESTMAP);

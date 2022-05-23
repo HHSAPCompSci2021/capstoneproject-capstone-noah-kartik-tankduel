@@ -157,20 +157,22 @@ public class PlayScreen1 extends Screens{
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		if (back.contains(p))
 			surface.switchScreen(ScreenSwitcher.MENU);
-		if (normalMap.contains(p))
-			surface.setMap(0);
+		
 		if (normalMode.contains(p))
 			surface.setGameMode(1);
 		if (freezeMode.contains(p))
 			surface.setGameMode(2);
 		if (copsNRobbers.contains(p))
 			surface.setGameMode(3);
-		if(waterMap.contains(p)) {
+		
+		if (normalMap.contains(p))
+			surface.setMap(0);
+		if(waterMap.contains(p))
 			surface.setMap(1);
-		}
-	
 		if(forestMap.contains(p))
 			surface.setMap(2);
+		
+		
 		if(startButton.contains(p) && !MultiplayerOrNetwork.network) 
 			surface.switchScreen(ScreenSwitcher.START1V1GAME);
 		if(startButton.contains(p) && MultiplayerOrNetwork.network) {
