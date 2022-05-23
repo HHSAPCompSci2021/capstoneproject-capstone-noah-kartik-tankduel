@@ -536,7 +536,6 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, false);
 						processNetworkMessages();
 					}
-					System.out.println("Switcher 2");
 					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 					
 				}
@@ -570,7 +569,6 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 				if(r2.getPlayerType()) {
 					currentRunner[i] = Start1v1Game.player4;
 				}
-				System.out.println("Switcher 3");
 				surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 	
 			}
@@ -580,18 +578,12 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 			for(Player p: players) {
 				if(!p.frozeOrUnfroze() && !p.getPlayerType()) {
 					b = false;
-				}
-				if(p.getTaggedTime() == 3) {
-					b = true;
-					break;
 				}	
-					
 			}		
 			if(b) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, true);
 				processNetworkMessages();
 				roundWinner = true;
-				System.out.println("Switcher 4");
 				surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 			}
 		}
