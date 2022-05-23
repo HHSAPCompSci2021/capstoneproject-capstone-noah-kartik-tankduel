@@ -2,6 +2,7 @@ package Screens;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Queue;
 import Player.Player;
 import SpecialAbilities.*;
@@ -63,6 +64,8 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 
 	private Line2D border1,border2,border3,border4;
 	private Line2D[] platforms;
+	
+	private int[] addresses;
 	int timer;
 	double curTime;
 	boolean first;
@@ -243,6 +246,17 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 						r++;
 					}
 				}
+			}
+			if(check == 10 || check == 2) {
+				check = 3;
+				addresses = new int[players.size()];
+				for(int i = 0; i< players.size(); i++) {
+					String address = players.get(i).host;
+					address = address.substring(address.lastIndexOf(".")+1);
+					int num = Integer.parseInt(address);
+					addresses[i] = num;
+				}
+				Arrays.sort(addresses);
 			}
 			
 		}
@@ -720,6 +734,16 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 					if(players.get(i).intersects(p) && players.get(i).getPlayerType()!=p.getPlayerType()) {
 						if(!p.getPlayerType() && !p.frozeOrUnfroze() && System.currentTimeMillis() - p.getunfrozenTime() > 3000 && !players.get(i).equals(p)) {
 							p.isFrozen();
+							String address = players.get(i).host;
+							address = address.substring(address.lastIndexOf(".")+1);
+							int num = Integer.parseInt(address);
+							for(int j = 0; j < players.size(); j++) {
+								int d = j * 20 + 10;
+								if(addresses[j] == num) {
+									p.x = d;
+									p.y = 30;
+								}
+							}
 							nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeIsFrozen, p);
 							processNetworkMessages();
 						}
