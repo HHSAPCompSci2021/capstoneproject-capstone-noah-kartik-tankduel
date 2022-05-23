@@ -72,12 +72,7 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 	private Rectangle tree1;
 	private Rectangle tree2;
 	private Rectangle tree3;
-	private Rectangle tree4;
-	private Rectangle tree5;
-	
-
-
-	
+	private Rectangle tree4;	
 	/* The area created by spawnX and spawnY will be the spawn area.
 	 * When the 10 second count down to START the game reaches 0,
 	 * the spawnY line will disappear and only the 
@@ -145,6 +140,9 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 		spawnX = new Line2D.Double(0,150,150,150);
 		spawnY = new Line2D.Double(150,0,150,150);
 		tree1 = new Rectangle(120,320,20,200);
+		tree2 = new Rectangle(400,320,20,200);
+		tree3 = new Rectangle(680,320,20,200);
+		tree4 = new Rectangle(960,320,20,200);
 		t = new Player(0,0);
 		r = new Player(50,50);
 		if(Math.random() < 0.5) 
@@ -187,13 +185,30 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 		surface.pushStyle();
 		surface.background(136,206,235);
 		surface.fill(109,74,59);
-		
 		surface.rect(ground.x, ground.y, ground.width, ground.height);
 		surface.fill(101,67,33);
 		surface.rect(tree1.x, tree1.y, tree1.width, tree1.height);
+		surface.rect(tree2.x, tree2.y, tree2.width, tree2.height);
+		surface.rect(tree3.x, tree3.y, tree3.width, tree3.height);
+		surface.rect(tree4.x, tree4.y, tree4.width, tree4.height);
 		surface.fill(66,105,47);
-		surface.stroke(5);
-		surface.triangle(110,300,150,150,190,300);
+		surface.strokeWeight(5);
+		surface.stroke(1,50,32);
+		surface.triangle(50,375,130,250,210,375);
+		surface.triangle(50,275,130,150,210,275);
+		surface.triangle(50, 175, 130, 75, 210, 175);
+		
+		surface.triangle(330,375,410,250,490,375);
+		surface.triangle(330,275,410,150,490,275);
+		surface.triangle(330,175,410,75, 490, 175);
+		
+		surface.triangle(610,375,690,250,760,375);
+		surface.triangle(610,275,690,150,760,275);
+		surface.triangle(620, 175, 690, 75, 760, 175);
+		
+		surface.triangle(890,375,970,250,1040,375);
+		surface.triangle(890,275,970,150,1040,275);
+		surface.triangle(890, 175, 970, 75, 1040, 175);
 		surface.stroke(2);
 		if(MultiplayerOrNetwork.network) {
 			p.name = MultiplayerOrNetwork.playerName;
