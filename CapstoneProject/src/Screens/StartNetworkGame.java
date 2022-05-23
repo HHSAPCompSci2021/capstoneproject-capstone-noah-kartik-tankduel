@@ -146,7 +146,7 @@ public class StartNetworkGame extends Screens{
 			}
 			if(surface.getMap() == 1 && surface.getGameMode() == 3) {
 				surface.switchScreen(ScreenSwitcher.COPSNROBBERSWATERMAPSCREEN);
-				((CopsNRobbersWaterMap) surface.getScreen(ScreenSwitcher.COPSNROBBERSWATERMAPSCREEN)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true, 1,2);
+				((CopsNRobbersWaterMap) surface.getScreen(ScreenSwitcher.COPSNROBBERSWATERMAPSCREEN)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true, 1,3);
 			}
 			if(surface.getMap() == 2 && surface.getGameMode() == 1) {
 				surface.switchScreen(ScreenSwitcher.FORESTMAP);
