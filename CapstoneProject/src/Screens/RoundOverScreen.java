@@ -101,7 +101,7 @@ public class RoundOverScreen extends Screens{
 				surface.textSize(50);
 				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
 			}
-			else if(surface.getGameMode() == 2 && surface.getMap() == 0) {
+			else if(surface.getGameMode() == 2 && surface.getMap() == 0) {//if freeze tag and normal map
 				String s = "";
 				if(NormalMapFreezeTagScreen.roundWinner) {
 					for(String t : NormalMapFreezeTagScreen.currentTagger) {
@@ -117,7 +117,7 @@ public class RoundOverScreen extends Screens{
 				surface.textSize(50);
 				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
 			}
-			else if(surface.getGameMode() == 2 && surface.getMap() == 1) {
+			else if(surface.getGameMode() == 2 && surface.getMap() == 1) {// if freeze tag and water map
 				String s = "";
 				if(WaterMapFreezeTagScreen.roundWinner) {
 					for(String t : WaterMapFreezeTagScreen.currentTagger) {

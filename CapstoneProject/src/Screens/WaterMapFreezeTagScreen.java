@@ -190,7 +190,7 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 		repeatName = 1;
 		
 		currentRunner = new String[2];
-		currentTagger = new String[0];
+		currentTagger = new String[2];
 		
 	}
 	/**
@@ -558,21 +558,27 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 			if(b) {
 				int i = 0;
 				if(f1.getPlayerType()) {
-					currentRunner[i] = Start1v1Game.player1;
+					currentTagger[i] = Start1v1Game.player1;
+					System.out.println("current tagger1 is " + Start1v1Game.player1);
 					i++;
 				}
 				if(f2.getPlayerType()) {
-					currentRunner[i] = Start1v1Game.player2;
+					currentTagger[i] = Start1v1Game.player2;
+					System.out.println("current tagger1 is " + Start1v1Game.player2);
 					i++;
 				}
 				if(r1.getPlayerType()) {
-					currentRunner[i] = Start1v1Game.player3;
+					currentTagger[i] = Start1v1Game.player3;
+					System.out.println("current tagger1 is " + Start1v1Game.player3);
+
 					i++;
 				}
 				if(r2.getPlayerType()) {
-					currentRunner[i] = Start1v1Game.player4;
+					currentTagger[i] = Start1v1Game.player4;
+					System.out.println("current tagger1 is " + Start1v1Game.player4);
 				}
 				System.out.println("Switcher 3");
+				roundWinner = true;
 				surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 	
 			}
