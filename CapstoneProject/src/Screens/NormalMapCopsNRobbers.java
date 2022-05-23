@@ -80,7 +80,6 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 		this.surface = surface;
 		p =new Player(50,50);
 		players = new ArrayList<Player>();
-		p.host = "me!";
 		players.add(p);
 		playersMulti = new ArrayList<Player>();
 
@@ -511,6 +510,10 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 		else if(third) {
 			if(System.currentTimeMillis()-curTime >1000) {
 				timer -= 1;
+				if(timer == 178) {
+					platforms[36] = new Line2D.Double(50,150,150,150);
+
+				}
 				curTime = System.currentTimeMillis();
 				if(timer == 0) {
 					third = false;
@@ -537,7 +540,6 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, false);
 						processNetworkMessages();
 					}
-					System.out.println("Switcher 2");
 					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 					
 				}
@@ -571,7 +573,6 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 				if(r2.getPlayerType()) {
 					currentRunner[i] = Start1v1Game.player4;
 				}
-				System.out.println("Switcher 3");
 				surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 	
 			}
@@ -581,18 +582,12 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 			for(Player p: players) {
 				if(!p.frozeOrUnfroze() && !p.getPlayerType()) {
 					b = false;
-				}
-				if(p.getTaggedTime() == 3) {
-					b = true;
-					break;
 				}	
-					
 			}		
 			if(b) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, true);
 				processNetworkMessages();
 				roundWinner = true;
-				System.out.println("Switcher 4");
 				surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 			}
 		}
@@ -734,14 +729,18 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 					if(players.get(i).intersects(p) && players.get(i).getPlayerType()!=p.getPlayerType()) {
 						if(!p.getPlayerType() && !p.frozeOrUnfroze() && System.currentTimeMillis() - p.getunfrozenTime() > 3000 && !players.get(i).equals(p)) {
 							p.isFrozen();
-							String address = players.get(i).host;
+							String address = p.host;
 							address = address.substring(address.lastIndexOf(".")+1);
 							int num = Integer.parseInt(address);
 							for(int j = 0; j < players.size(); j++) {
 								int d = j * 20 + 10;
+								int e = 30;
+								if(d > 130) {
+									e = 60;
+								}
 								if(addresses[j] == num) {
 									p.x = d;
-									p.y = 30;
+									p.y = e;
 								}
 							}
 							nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeIsFrozen, p);
@@ -829,7 +828,6 @@ public void processNetworkMessages() {
 				else if (ndo.message[0].equals(messageTypeGameOver)) {//works
 					third = false;
 					roundWinner = (boolean)ndo.message[1];
-					System.out.println("Switcher 5");
 					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 				}
 				
