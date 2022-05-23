@@ -1,14 +1,16 @@
-/**
- * Author - Kartik Joshi
- */
 package Screens;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.Queue;
+
 import Player.Player;
-import SpecialAbilities.*;
+import SpecialAbilities.DiveTag;
+import SpecialAbilities.HighJump;
+import SpecialAbilities.SneakyCloak;
+import SpecialAbilities.SpecialAbilities;
+import SpecialAbilities.SpeedBoost;
 import System.DrawingSurface;
 import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
@@ -52,7 +54,7 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 	private static final String messageTypeDiveTag = "DIVETAG";
 	private static final String messageTypeDiveOff = "DIVE_OFF";
 
-
+	private Rectangle beach;
 
 
 
@@ -71,7 +73,6 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 	double curTime;
 	boolean first;
 	boolean second;
-	private Rectangle beach;
 	boolean third;
 		
 	int firstRun;
@@ -79,13 +80,13 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 	
 	public WaterMapFreezeTagScreen(DrawingSurface surface) {
 		super(1080, 720);
+		beach = new Rectangle(0,520,1080,400);
 		this.surface = surface;
 		p =new Player(50,50);
 		players = new ArrayList<Player>();
 		p.host = "me!";
 		players.add(p);
 		playersMulti = new ArrayList<Player>();
-		beach = new Rectangle(0,520,1080,400);
 
 		// X:1080 by Y:720 range lines, make sure that x1 < x2
 		l0 = new Line2D.Double (200,50,250,50);
@@ -207,7 +208,6 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 		surface.circle(960, 80, 100);
 		surface.fill(194,178,128);
 		surface.rect(beach.x, beach.y, beach.width, beach.height);
-		surface.fill(0,0,0);
 		surface.stroke(2);
 		if(MultiplayerOrNetwork.network) {
 			p.name = MultiplayerOrNetwork.playerName;
@@ -323,6 +323,7 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 			roundWinner = true;
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, true);
 			processNetworkMessages();
+			System.out.println("Switcher 1");
 			surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 		}
 			
@@ -533,6 +534,7 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, false);
 						processNetworkMessages();
 					}
+					System.out.println("Switcher 2");
 					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 					
 				}
@@ -570,6 +572,7 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 				if(r2.getPlayerType()) {
 					currentRunner[i] = Start1v1Game.player4;
 				}
+				System.out.println("Switcher 3");
 				surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 	
 			}
@@ -590,6 +593,7 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, true);
 				processNetworkMessages();
 				roundWinner = true;
+				System.out.println("Switcher 4");
 				surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 			}
 		}
@@ -712,22 +716,20 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 			}
 		}
 		if(MultiplayerOrNetwork.network) {
-			System.out.println("network");
 			if(!(first||second)) {
-				System.out.println("first/second");
 				for(int i = 0; i<players.size();i++) {
 					if(players.get(i).intersects(p) && players.get(i).getPlayerType()!=p.getPlayerType()) {
-						System.out.println(p.getPlayerType() + "   " + p.frozeOrUnfroze() + "     " + (System.currentTimeMillis() - p.getunfrozenTime()));
-						if(!p.getPlayerType() && !p.frozeOrUnfroze() && System.currentTimeMillis() - p.getunfrozenTime() > 3000) {
-							System.out.println("2");
+						if(!p.getPlayerType() && !p.frozeOrUnfroze() && System.currentTimeMillis() - p.getunfrozenTime() > 3000 && !players.get(i).equals(p)) {
 							p.isFrozen();
 							nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeIsFrozen, p);
+							processNetworkMessages();
 							p.gotTagged();
 						}
 					}
-					if(players.get(i).intersects(p) && players.get(i).getPlayerType() == p.getPlayerType() && System.currentTimeMillis() - p.getFrozenTime() > 1000) {
+					if(players.get(i).intersects(p) && players.get(i).getPlayerType() == p.getPlayerType() && System.currentTimeMillis() - p.getFrozenTime() > 1000 && !players.get(i).equals(p)) {
 						p.unFrozen();
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeUnfrozen, p);
+						processNetworkMessages();
 					}
 				}
 			}
@@ -806,6 +808,7 @@ public void processNetworkMessages() {
 				else if (ndo.message[0].equals(messageTypeGameOver)) {//works
 					third = false;
 					roundWinner = (boolean)ndo.message[1];
+					System.out.println("Switcher 5");
 					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 				}
 				
@@ -913,3 +916,4 @@ public void processNetworkMessages() {
 		
 	}
 }
+
