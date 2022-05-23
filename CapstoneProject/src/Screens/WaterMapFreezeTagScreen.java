@@ -217,11 +217,11 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 		surface.fill(194,178,128);
 		surface.rect(beach.x, beach.y, beach.width, beach.height);
 		surface.stroke(2);
-		if(MultiplayerOrNetwork.network&& first) {
+		if(MultiplayerOrNetwork.network&& firstRun <=3) {
 			p.name = MultiplayerOrNetwork.playerName;
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,MultiplayerOrNetwork.playerName);
+			firstRun++;
 		}
-		firstRun=1;
 		if(MultiplayerOrNetwork.network) {//sets up who is tagger for networking
 			if(NetworkManagementPanel.isHost && check == 0) {
 				if(players.size()== StartNetworkGame.numberOfPlayers) {
