@@ -217,10 +217,9 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 		surface.triangle(890,275,970,150,1040,275);
 		surface.triangle(890, 175, 970, 75, 1040, 175);
 		surface.stroke(2);
-		if(MultiplayerOrNetwork.network) {
+		if(MultiplayerOrNetwork.network&& firstRun == 0) {
 			p.name = MultiplayerOrNetwork.playerName;
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,MultiplayerOrNetwork.playerName);
-			processNetworkMessages();
 		}
 		firstRun=1;
 		if(MultiplayerOrNetwork.network) {//sets up who is tagger for networking
@@ -233,7 +232,7 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 						int a = (int)(Math.random()*players.size());
 						players.get(a).setPlayerType(true);
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(a));
-						processNetworkMessages();
+						
 					}
 					else {
 						int a = (int)(Math.random()*players.size());
@@ -244,7 +243,7 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 							b = (int)(Math.random()*players.size());
 						players.get(b).setPlayerType(true);
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(b));
-						processNetworkMessages();
+						
 					}
 				}
 			}
@@ -277,30 +276,30 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 			if(p.invisible && !p.invisUsed) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisible, p.name);
 				p.invisUsed = true;
-				processNetworkMessages();
+				
 			}
 			if(p.invisUsed && p.turnInvisOff) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisibleOff, p.name);
 				p.turnInvisOff = false;
-				processNetworkMessages();
+				
 			}
 			
 			if(p.dive && !p.diveUsed) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeDiveTag, p.name);
 				p.diveUsed = true;
-				processNetworkMessages();
+				
 			}
 			if(p.diveUsed && p.turnDiveOff) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeDiveOff, p.name);
 				p.turnDiveOff = false;
-				processNetworkMessages();
+				
 			}
 		}
 		if(k) {
 			third = false;
 			roundWinner = true;
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, true);
-			processNetworkMessages();
+			
 			surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 		}
 			
@@ -449,7 +448,7 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 					roundWinner = false;
 					if(MultiplayerOrNetwork.network) {
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, false);
-						processNetworkMessages();
+						
 					}
 					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 					
@@ -471,7 +470,7 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 	
 		if(MultiplayerOrNetwork.network) {
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
-			processNetworkMessages();
+			
 		}
 		if(!MultiplayerOrNetwork.network) {
 			if(t.intersects(r) && !(first || second)) {

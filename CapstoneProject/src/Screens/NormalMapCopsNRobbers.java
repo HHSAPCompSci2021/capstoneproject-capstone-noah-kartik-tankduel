@@ -210,7 +210,7 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 		if(MultiplayerOrNetwork.network) {
 			p.name = MultiplayerOrNetwork.playerName;
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y, MultiplayerOrNetwork.playerName);
-			processNetworkMessages();
+			
 		}
 		firstRun=1;
 		if(MultiplayerOrNetwork.network) {//sets up who is tagger for networking
@@ -232,7 +232,7 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 							nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(a),StartNetworkGame.numberOfPlayers);
 						}
 					}
-					processNetworkMessages();
+					
 				}
 			}
 			
@@ -308,30 +308,30 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 			if(p.invisible && !p.invisUsed) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisible, p.name);
 				p.invisUsed = true;
-				processNetworkMessages();
+				
 			}
 			if(p.invisUsed && p.turnInvisOff) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisibleOff, p.name);
 				p.turnInvisOff = false;
-				processNetworkMessages();
+				
 			}
 			
 			if(p.dive && !p.diveUsed) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeDiveTag, p.name);
 				p.diveUsed = true;
-				processNetworkMessages();
+				
 			}
 			if(p.diveUsed && p.turnDiveOff) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeDiveOff, p.name);
 				p.turnDiveOff = false;
-				processNetworkMessages();
+				
 			}
 		}
 		if(k) {
 			third = false;
 			roundWinner = true;
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, true);
-			processNetworkMessages();
+			
 			System.out.println("Switcher 1");
 			surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 		}
@@ -544,7 +544,7 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 					roundWinner = false;
 					if(MultiplayerOrNetwork.network) {
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, false);
-						processNetworkMessages();
+						
 					}
 					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 					
@@ -592,7 +592,7 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 			}		
 			if(b) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, true);
-				processNetworkMessages();
+				
 				roundWinner = true;
 				surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 			}
@@ -750,13 +750,13 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 								}
 							}
 							nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeIsFrozen, p);
-							processNetworkMessages();
+							
 						}
 					}
 					if(players.get(i).intersects(p) && players.get(i).getPlayerType() == p.getPlayerType() && System.currentTimeMillis() - p.getFrozenTime() > 1000 && !players.get(i).equals(p)) {
 						p.unFrozen();
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeUnfrozen, p);
-						processNetworkMessages();
+						
 					}
 				}
 			}
