@@ -24,6 +24,7 @@
 //
 //}
 package Screens;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
@@ -66,9 +67,14 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 	private static final String messageTypeInvisibleOff = "INVISIBLE_OFF";
 	private static final String messageTypeDiveTag = "DIVETAG";
 	private static final String messageTypeDiveOff = "DIVE_OFF";
-
-
-
+	private Rectangle ground;
+	private Rectangle forests;
+	private Rectangle tree1;
+	private Rectangle tree2;
+	private Rectangle tree3;
+	private Rectangle tree4;
+	private Rectangle tree5;
+	
 
 
 	
@@ -94,7 +100,7 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 	public ForestMapScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
-		p =new Player(50,50,surface);
+		p =new Player(50,50);
 		players = new ArrayList<Player>();
 		p.host = "me!";
 		players.add(p);
@@ -135,11 +141,12 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 		l33 = new Line2D.Double (500,150,550,100);
 		l34 = new Line2D.Double (200,680,280,550);
 		l35 = new Line2D.Double (730,400,780,400);
-
+		ground = new Rectangle(0,520,1080,200);
 		spawnX = new Line2D.Double(0,150,150,150);
 		spawnY = new Line2D.Double(150,0,150,150);
-		t = new Player(0,0,surface);
-		r = new Player(50,50,surface);
+		tree1 = new Rectangle(120,320,20,200);
+		t = new Player(0,0);
+		r = new Player(50,50);
 		if(Math.random() < 0.5) 
 			t.setPlayerType(true);
 		else 
@@ -171,19 +178,22 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 		check = 0;
 		repeatName = 1;
 	}
-	public void setup() {
-		forest = surface.loadImage("img/forest.jpg");
-	}
 	/**
 	 * Standard drawing in processing
 	 */
 	public void draw() {
 		surface.clear();
-		surface.image(forest, 0, 0, 1080, 720);
 		surface.textSize(10);
 		surface.pushStyle();
-//		surface.background(255,255,255);
-//		surface.fill(0,0,0);
+		surface.background(136,206,235);
+		surface.fill(109,74,59);
+		
+		surface.rect(ground.x, ground.y, ground.width, ground.height);
+		surface.fill(101,67,33);
+		surface.rect(tree1.x, tree1.y, tree1.width, tree1.height);
+		surface.fill(66,105,47);
+		surface.stroke(5);
+		surface.triangle(110,300,150,150,190,300);
 		surface.stroke(2);
 		if(MultiplayerOrNetwork.network) {
 			p.name = MultiplayerOrNetwork.playerName;
@@ -513,7 +523,7 @@ public void processNetworkMessages() {
 						if (c.host.equals(host))
 							return;
 					}
-					Player c = new Player(50,50,surface);
+					Player c = new Player(50,50);
 					c.x = (double) ndo.message[1];
 					c.y = (double) ndo.message[2];
 					String s = "";

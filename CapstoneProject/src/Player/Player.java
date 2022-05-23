@@ -54,9 +54,8 @@ public class Player extends Sprite {
 	 * @param x - x coordinate of the spawn point 
 	 * @param y - y coordinate of the spawn point
 	 */
-	public Player(int x, int y, DrawingSurface surface) {
+	public Player(int x, int y) {
 		super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
-		this.surface = surface;
 		xVel = 0;
 		yVel = 0;
 		onASurface = false;
