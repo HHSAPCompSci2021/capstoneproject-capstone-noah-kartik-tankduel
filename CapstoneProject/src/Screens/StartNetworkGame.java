@@ -68,12 +68,12 @@ public class StartNetworkGame extends Screens{
 			else if(surface.getMapScreen() == 15)
 				queue = ((NormalMapFreezeTagScreen) surface.getScreen(ScreenSwitcher.FREEZETAGNORMALMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
 			else if(surface.getMapScreen() == 17)
-				queue = ((NormalMapCopsNRobbers) surface.getScreen(ScreenSwitcher.WATERMAP)).getNetworkMessenger().getQueuedMessages();
+				queue = ((NormalMapCopsNRobbers) surface.getScreen(ScreenSwitcher.COPSNROBBERS)).getNetworkMessenger().getQueuedMessages();
 			
 			else if(surface.getMapScreen() == 11)
 				queue = ((WaterMapScreen) surface.getScreen(ScreenSwitcher.WATERMAP)).getNetworkMessenger().getQueuedMessages();
 			else if(surface.getMapScreen() == 18)
-				queue = ((WaterMapFreezeTagScreen) surface.getScreen(ScreenSwitcher.WATERMAP)).getNetworkMessenger().getQueuedMessages();
+				queue = ((WaterMapFreezeTagScreen) surface.getScreen(ScreenSwitcher.FREEZETAGWATERMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
 			
 			if(queue == null)
 				return;
