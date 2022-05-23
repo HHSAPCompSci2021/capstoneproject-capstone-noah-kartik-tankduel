@@ -46,6 +46,10 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 	private static final String messageTypeInvisibleOff = "INVISIBLE_OFF";
 	private static final String messageTypeDiveTag = "DIVETAG";
 	private static final String messageTypeDiveOff = "DIVE_OFF";
+	public static final int width = 1080;
+	public static final int height  = 400;
+	public static final int x = 0;
+	public static final int y= 520;
 
 
 	private PImage water;
@@ -74,11 +78,12 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 	public WaterMapScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
-		p =new Player(50,50);
+		p =new Player(50,50,surface);
 		players = new ArrayList<Player>();
 		p.host = "me!";
 		players.add(p);
 		beach = new Rectangle(0,520,1080,400);
+		
 
 		// X:1080 by Y:720 range lines, make sure that x1 < x2
 		l0 = new Line2D.Double (200,50,250,50);
@@ -121,8 +126,8 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 
 		spawnX = new Line2D.Double(0,150,150,150);
 		spawnY = new Line2D.Double(150,0,150,150);
-		t = new Player(0,0);
-		r = new Player(50,50);
+		t = new Player(0,0,surface);
+		r = new Player(50,50,surface);
 		if(Math.random() < 0.5) 
 			t.setPlayerType(true);
 		else 
@@ -205,23 +210,21 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		}
 		if(!MultiplayerOrNetwork.network) {
 			surface.textSize(15);
-			if(t.getInvisible())
-				surface.fill(255,255,255);
-			else
-				surface.fill(0,0,0);
-			surface.text(Start1v1Game.player1, (float)t.x - surface.textWidth(Start1v1Game.player1)/2 + (float)t.getWidth()/2, (float)(t.y -3.0));
-			if(r.getInvisible())
-				surface.fill(255,255,255);
-			else
-				surface.fill(0,0,0);
-			surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
+			surface.fill(0,0,0);
+			if(!t.invisible) {
+				surface.text(Start1v1Game.player1, (float)t.x - surface.textWidth(Start1v1Game.player1)/2 + (float)t.getWidth()/2, (float)(t.y -3.0));
+			}
+			if(!r.invisible){
+				surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
+
+			}
 		}
 		if(MultiplayerOrNetwork.network){
 			surface.textSize(15);
 			for(Player a: players) {
 				surface.fill(0,0,0);
 				if(a.getInvisible())
-					surface.fill(255,255,255);
+					surface.fill(0,119,190);
 				surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
 
 			}
@@ -498,7 +501,7 @@ public void processNetworkMessages() {
 						if (c.host.equals(host))
 							return;
 					}
-					Player c = new Player(50,50);
+					Player c = new Player(50,50,surface);
 					c.x = (double) ndo.message[1];
 					c.y = (double) ndo.message[2];
 					String s = "";

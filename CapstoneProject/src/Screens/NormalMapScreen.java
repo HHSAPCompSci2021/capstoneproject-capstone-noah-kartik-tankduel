@@ -68,7 +68,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	public NormalMapScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
-		p =new Player(50,50);
+		p =new Player(50,50,surface);
 		players = new ArrayList<Player>();
 		p.host = "me!";
 		players.add(p);
@@ -113,8 +113,8 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 
 		spawnX = new Line2D.Double(0,150,150,150);
 		spawnY = new Line2D.Double(150,0,150,150);
-		t = new Player(0,0);
-		r = new Player(50,50);
+		t = new Player(0,0,surface);
+		r = new Player(50,50,surface);
 		if(Math.random() < 0.5) 
 			t.setPlayerType(true);
 		else 
@@ -487,7 +487,7 @@ public void processNetworkMessages() {
 						if (c.host.equals(host))
 							return;
 					}
-					Player c = new Player(50,50);
+					Player c = new Player(50,50,surface);
 					c.x = (double) ndo.message[1];
 					c.y = (double) ndo.message[2];
 					String s = "";
