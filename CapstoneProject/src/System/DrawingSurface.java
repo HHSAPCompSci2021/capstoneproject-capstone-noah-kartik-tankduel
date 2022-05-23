@@ -33,62 +33,62 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 	
 		
 		
-		MenuScreen menu = new MenuScreen(this);
+		MenuScreen menu = new MenuScreen(this);//0
 		screens.add(menu);
 		
-		RulesScreen rules = new RulesScreen(this);
+		RulesScreen rules = new RulesScreen(this);//1
 		screens.add(rules);
 		
-		PlayScreen1 playScreen1 = new PlayScreen1(this);
+		PlayScreen1 playScreen1 = new PlayScreen1(this);//2
 		screens.add(playScreen1);
 		
-		SettingScreen setting = new SettingScreen(this);
+		SettingScreen setting = new SettingScreen(this);//3
 		screens.add(setting);
 		
 		
-		NormalMapScreen normalMap = new NormalMapScreen(this);
+		NormalMapScreen normalMap = new NormalMapScreen(this);//4
 		screens.add(normalMap);
 		
-		RoundOverScreen roundOver = new RoundOverScreen(this);
+		RoundOverScreen roundOver = new RoundOverScreen(this);//5
 		screens.add(roundOver);
 		
-		GameOverScreen gameOver = new GameOverScreen(this);
+		GameOverScreen gameOver = new GameOverScreen(this);//6
 		screens.add(gameOver);
 		
-		AbilitiesInstructScreen abilities = new AbilitiesInstructScreen(this);
+		AbilitiesInstructScreen abilities = new AbilitiesInstructScreen(this);//7
 		screens.add(abilities);
 		
-		TwoPlayerOrNetworkNotUsed network = new TwoPlayerOrNetworkNotUsed(this);
+		TwoPlayerOrNetworkNotUsed network = new TwoPlayerOrNetworkNotUsed(this);//8
 		screens.add(network);
 		
-		StartNetworkGame networkGame = new StartNetworkGame(this);
+		StartNetworkGame networkGame = new StartNetworkGame(this);//9
 		screens.add(networkGame);
 		
-		Start1v1Game oneVOneGame = new Start1v1Game(this);
+		Start1v1Game oneVOneGame = new Start1v1Game(this);//10
 		screens.add(oneVOneGame);
 		
-		WaterMapScreen waterMap = new WaterMapScreen(this);
+		WaterMapScreen waterMap = new WaterMapScreen(this);//11
 		screens.add(waterMap);
 		
-		ForestMapScreen forestMap = new ForestMapScreen(this);
+		ForestMapScreen forestMap = new ForestMapScreen(this);//12
 		screens.add(forestMap);
 		
-		CreditsScreen credits = new CreditsScreen(this);
+		CreditsScreen credits = new CreditsScreen(this);//13
 		screens.add(credits);
 		
-		FourPlayerOrNetworkNotUsed fourPlayer = new FourPlayerOrNetworkNotUsed(this);
+		FourPlayerOrNetworkNotUsed fourPlayer = new FourPlayerOrNetworkNotUsed(this);//14
 		screens.add(fourPlayer);
 		
-		NormalMapFreezeTagScreen freeze = new NormalMapFreezeTagScreen(this);
+		NormalMapFreezeTagScreen freeze = new NormalMapFreezeTagScreen(this);//15
 		screens.add(freeze);
 		
-		MultiplayerOrNetwork multiNetwork = new MultiplayerOrNetwork(this);
+		MultiplayerOrNetwork multiNetwork = new MultiplayerOrNetwork(this);//16
 		screens.add(multiNetwork);
 		
-		NormalMapCopsNRobbers copsNRobbers = new NormalMapCopsNRobbers(this);
+		NormalMapCopsNRobbers copsNRobbers = new NormalMapCopsNRobbers(this);//17
 		screens.add(copsNRobbers);
 		
-		WaterMapFreezeTagScreen waterMapFreezeTag = new WaterMapFreezeTagScreen(this);
+		WaterMapFreezeTagScreen waterMapFreezeTag = new WaterMapFreezeTagScreen(this);//18
 		screens.add(waterMapFreezeTag);
 		
 		CopsNRobbersWaterMap copsNRobbersWaterMap = new CopsNRobbersWaterMap(this);
