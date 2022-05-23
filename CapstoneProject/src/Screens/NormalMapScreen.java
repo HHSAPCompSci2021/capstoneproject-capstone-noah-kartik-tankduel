@@ -243,7 +243,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 				p.turnDiveOff = false;
 			}
 		}
-		if(k) {
+		if(k && !(first || second)) {
 			third = false;
 			roundWinner = true;
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, true);
