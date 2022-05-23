@@ -186,6 +186,9 @@ public class Player extends Sprite {
 			CopsNRobbersWaterMap.deleteCloak();
 			NormalMapCopsNRobbers.deleteCloak();
 			WaterMapScreen.deleteCloak();
+			ForestMapFreezeTag.deleteCloak();
+			ForestMapCopsNRobbers.deleteCloak();
+
 		}
 		if(dive && countDive == 0) {
 			countDive = 1;
@@ -198,7 +201,11 @@ public class Player extends Sprite {
 			CopsNRobbersWaterMap.deleteDive();
 			NormalMapCopsNRobbers.deleteDive();
 			WaterMapScreen.deleteDive();
+			ForestMapFreezeTag.deleteDive();
+			ForestMapCopsNRobbers.deleteDive();
+
 		}
+		
 		
 		for(Line2D s: obstacles) {
 			if(super.intersectsLine(s)) {
@@ -271,10 +278,9 @@ public class Player extends Sprite {
 		}
 		if(NormalMapFreezeTagScreen.abilityUseable || NormalMapScreen.abilityUseable
 				|| WaterMapFreezeTagScreen.abilityUseable || WaterMapScreen.abilityUseable 
-				|| CopsNRobbersWaterMap.abilityUseable || NormalMapCopsNRobbers.abilityUseable
-				|| ForestMapScreen.abilityUseable || NormalMapCopsNRobbers.abilityUseable 
-				|| WaterMapScreen.abilityUseable || CopsNRobbersWaterMap.abilityUseable 
-				|| WaterMapFreezeTagScreen.abilityUseable)
+				|| CopsNRobbersWaterMap.abilityUseable || ForestMapScreen.abilityUseable 
+				|| NormalMapCopsNRobbers.abilityUseable || ForestMapFreezeTag.abilityUseable
+				|| ForestMapCopsNRobbers.abilityUseable)
 				{
 			for(SpecialAbilities a: abilities) {
 				if(a.intersects(this)) {
@@ -288,6 +294,8 @@ public class Player extends Sprite {
 						CopsNRobbersWaterMap.deleteSpeed();
 						NormalMapCopsNRobbers.deleteSpeed();
 						ForestMapScreen.deleteSpeed();
+						ForestMapFreezeTag.deleteSpeed();
+						ForestMapCopsNRobbers.deleteSpeed();
 					}
 					if(a instanceof HighJump) {
 						jump = true;
@@ -299,6 +307,9 @@ public class Player extends Sprite {
 						CopsNRobbersWaterMap.deleteJump();
 						NormalMapCopsNRobbers.deleteJump();
 						ForestMapScreen.deleteJump();
+						ForestMapFreezeTag.deleteJump();
+						ForestMapCopsNRobbers.deleteJump();
+
 					}
 					if(a instanceof SneakyCloak && !playerType) {
 						invisible = true;
@@ -310,6 +321,10 @@ public class Player extends Sprite {
 						CopsNRobbersWaterMap.deleteCloak();
 						NormalMapCopsNRobbers.deleteCloak();
 						ForestMapScreen.deleteCloak();
+						ForestMapFreezeTag.deleteCloak();
+						ForestMapCopsNRobbers.deleteCloak();
+
+
 					}
 					if(a instanceof DiveTag && playerType) {
 						dive = true;
@@ -321,6 +336,10 @@ public class Player extends Sprite {
 						CopsNRobbersWaterMap.deleteDive();
 						NormalMapCopsNRobbers.deleteDive();
 						ForestMapScreen.deleteDive();
+						ForestMapFreezeTag.deleteDive();
+						ForestMapCopsNRobbers.deleteDive();
+
+
 					}
 					
 				}
