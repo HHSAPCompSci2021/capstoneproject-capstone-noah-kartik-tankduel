@@ -30,7 +30,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	private NetworkMessenger nm;
 	private boolean hostIsDead;
 	public static boolean abilityUseable;
-	
+
 	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
 	private static final String messageTypeInit = "CREATE_PLAYER";
 	private static final String messageTypeRemovePlayer = "REMOVE_PLAYER";
@@ -61,10 +61,10 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 	boolean first;
 	boolean second;
 	boolean third;
-		
+
 	int firstRun;
 	int check;
-	
+
 	public NormalMapScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;

@@ -29,13 +29,14 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 	private static SpecialAbilities[] abilities;
 	private Player r;
 	private Player t;
-	private long taggedTime;	
+	private long taggedTime;
 	private boolean roundWinner;
 	public static String currentRunner;
 	private int repeatName;
 	private NetworkMessenger nm;
 	private boolean hostIsDead;
-	
+	public static boolean abilityUseable;
+
 	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
 	private static final String messageTypeInit = "CREATE_PLAYER";
 	private static final String messageTypeRemovePlayer = "REMOVE_PLAYER";
@@ -66,7 +67,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 	boolean first;
 	boolean second;
 	boolean third;
-		
+
 	int firstRun;
 	int check;
 	
@@ -171,11 +172,9 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		surface.fill(0,0,0);
 		surface.stroke(2);
 		if(MultiplayerOrNetwork.network) {
-			if(firstRun == 0) {
-				p.name = MultiplayerOrNetwork.playerName;
-				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,MultiplayerOrNetwork.playerName);
-				processNetworkMessages();
-			}
+			p.name = MultiplayerOrNetwork.playerName;
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,MultiplayerOrNetwork.playerName);
+			processNetworkMessages();
 		}
 		firstRun=1;
 		if(MultiplayerOrNetwork.network) {//sets up who is tagger for networking
@@ -308,28 +307,32 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		if(MultiplayerOrNetwork.network) {
 			p.walk(0);
 			if(surface.getInputMethod()) {
-				if (surface.isPressed(KeyEvent.VK_LEFT))
-					p.walk(-1);
-				if (surface.isPressed(KeyEvent.VK_RIGHT))
-					p.walk(1);
-				if (surface.isPressed(KeyEvent.VK_UP))
-					p.jump();
+				if(!((first || second) && p.getPlayerType())) {
+
+					if (surface.isPressed(KeyEvent.VK_LEFT))
+						p.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_RIGHT))
+						p.walk(1);
+					if (surface.isPressed(KeyEvent.VK_UP))
+						p.jump();
+				}
 			}
 			else {
-				if (surface.isPressed(KeyEvent.VK_A))
-					p.walk(-1);
-				if (surface.isPressed(KeyEvent.VK_D))
-					p.walk(1);
-				if (surface.isPressed(KeyEvent.VK_W))
-					p.jump();
+				if(!((first || second) && p.getPlayerType())) {
+					if (surface.isPressed(KeyEvent.VK_A))
+						p.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_D))
+						p.walk(1);
+					if (surface.isPressed(KeyEvent.VK_W))
+						p.jump();
 				}
+			}
 		}
 		
 		if(!MultiplayerOrNetwork.network) {
 			t.walk(0);
 			r.walk(0);
 			
-			if(surface.getInputMethod()) {
 				if(!((first || second) && t.getPlayerType())) {
 					if (surface.isPressed(KeyEvent.VK_LEFT))
 						t.walk(-1);
@@ -346,25 +349,6 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 					if (surface.isPressed(KeyEvent.VK_W)) 
 						r.jump();
 				}
-			}
-			else {
-				if(!((first || second) && t.getPlayerType())) {
-					if (surface.isPressed(KeyEvent.VK_A))
-						t.walk(-1);
-					if (surface.isPressed(KeyEvent.VK_D))
-						t.walk(1);
-					if (surface.isPressed(KeyEvent.VK_W))
-						t.jump();
-				}
-				if(!((first || second) && r.getPlayerType())) {
-					if (surface.isPressed(KeyEvent.VK_LEFT))
-						r.walk(-1);
-					if (surface.isPressed(KeyEvent.VK_RIGHT))
-						r.walk(1);
-					if (surface.isPressed(KeyEvent.VK_UP))
-						r.jump();
-				}
-			}
 		}
 		
 		if(MultiplayerOrNetwork.network && !hostIsDead) {
@@ -401,6 +385,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 					second = false;
 					third = true;
 					timer = 180;
+					abilityUseable = true;
 				}
 			}
 			surface.textSize(25);

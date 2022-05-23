@@ -2,9 +2,7 @@ package Player;
 import java.awt.geom.Line2D;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
-import Screens.NormalMapFreezeTagScreen;
-import Screens.NormalMapScreen;
+import Screens.*;
 import SpecialAbilities.*;
 import processing.core.PApplet;
 
@@ -180,12 +178,16 @@ public class Player extends Sprite {
 			cloakTime = System.currentTimeMillis();
 			NormalMapScreen.deleteCloak();
 			NormalMapFreezeTagScreen.deleteCloak();
+			WaterMapScreen.deleteCloak();
+			WaterMapFreezeTagScreen.deleteCloak();
 		}
 		if(dive && countDive == 0) {
 			countDive = 1;
 			diveTime = System.currentTimeMillis();
 			NormalMapScreen.deleteDive();
 			NormalMapFreezeTagScreen.deleteDive();
+			WaterMapScreen.deleteDive();
+			WaterMapFreezeTagScreen.deleteDive();
 		}
 		
 		for(Line2D s: obstacles) {
@@ -257,7 +259,8 @@ public class Player extends Sprite {
 			if(y>718)
 				y = 718;
 		}
-		if(NormalMapFreezeTagScreen.abilityUseable || NormalMapScreen.abilityUseable) {
+		if(NormalMapFreezeTagScreen.abilityUseable || NormalMapScreen.abilityUseable
+				|| WaterMapFreezeTagScreen.abilityUseable || WaterMapScreen.abilityUseable) {
 			for(SpecialAbilities a: abilities) {
 				if(a.intersects(this)) {
 					if(a instanceof SpeedBoost) {
@@ -265,24 +268,32 @@ public class Player extends Sprite {
 						speedTime = System.currentTimeMillis();
 						NormalMapScreen.deleteSpeed();
 						NormalMapFreezeTagScreen.deleteSpeed();
+						WaterMapScreen.deleteSpeed();
+						WaterMapFreezeTagScreen.deleteSpeed();
 					}
 					if(a instanceof HighJump) {
 						jump = true;
 						jumpTime = System.currentTimeMillis();
 						NormalMapScreen.deleteJump();
 						NormalMapFreezeTagScreen.deleteJump();
+						WaterMapScreen.deleteJump();
+						WaterMapFreezeTagScreen.deleteJump();
 					}
 					if(a instanceof SneakyCloak && !playerType) {
 						invisible = true;
 						cloakTime = System.currentTimeMillis();
 						NormalMapScreen.deleteCloak();
 						NormalMapFreezeTagScreen.deleteCloak();
+						WaterMapScreen.deleteCloak();
+						WaterMapFreezeTagScreen.deleteCloak();
 					}
 					if(a instanceof DiveTag && playerType) {
 						dive = true;
 						diveTime = System.currentTimeMillis();
 						NormalMapScreen.deleteDive();
 						NormalMapFreezeTagScreen.deleteDive();
+						WaterMapScreen.deleteDive();
+						WaterMapFreezeTagScreen.deleteDive();
 					}
 					
 				}
