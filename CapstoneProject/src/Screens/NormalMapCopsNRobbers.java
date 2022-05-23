@@ -325,6 +325,7 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 			roundWinner = true;
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, true);
 			processNetworkMessages();
+			System.out.println("Switcher 1");
 			surface.switchScreen(ScreenSwitcher.ROUND_OVER);
 		}
 			
@@ -727,11 +728,15 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 							String address = players.get(i).host;
 							address = address.substring(address.lastIndexOf(".")+1);
 							int num = Integer.parseInt(address);
-							for(int j = 0; j < currentRunner.length; j++) {
+							for(int j = 0; j < players.size(); j++) {
 								int d = j * 20 + 10;
+								int e = 30;
+								if(d > 130) {
+									e = 60;
+								}
 								if(addresses[j] == num) {
 									p.x = d;
-									p.y = 30;
+									p.y = e;
 								}
 							}
 							nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeIsFrozen, p);
