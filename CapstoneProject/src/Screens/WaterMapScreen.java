@@ -30,7 +30,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 	private Player r;
 	private Player t;
 	private long taggedTime;
-	private boolean roundWinner;
+	public static boolean roundWinner;
 	public static String currentRunner;
 	private int repeatName;
 	private NetworkMessenger nm;
