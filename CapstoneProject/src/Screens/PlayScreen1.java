@@ -176,6 +176,7 @@ public class PlayScreen1 extends Screens{
 		if(startButton.contains(p) && !MultiplayerOrNetwork.network) 
 			surface.switchScreen(ScreenSwitcher.START1V1GAME);
 		if(startButton.contains(p) && MultiplayerOrNetwork.network) {
+			System.out.println(surface.getMapScreen());
 			nmp = new NetworkManagementPanel("ProcessingDrawing", 10, (NetworkListener) surface.getScreen(surface.getMapScreen()));
 			while(!(NetworkManagementPanel.connectedSuccess || NetworkManagementPanel.isHost)) {
 				System.out.print("");
