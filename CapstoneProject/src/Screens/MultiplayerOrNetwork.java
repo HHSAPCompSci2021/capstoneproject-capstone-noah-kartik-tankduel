@@ -86,7 +86,7 @@ public class MultiplayerOrNetwork extends Screens{
 	
 
 	/**
-	 * Actions for when mouse is pressed
+	 * When mouse if pressed it navigates to the right screen depending on which button you click
 	 */
 	public void mousePressed() {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));

@@ -83,6 +83,10 @@ public class ForestMapFreezeTag extends Screens implements NetworkListener{
 	int firstRun;
 	int check;
 	
+	/**
+	 * Draws the forest map freeze tag screens 
+	 * @param surface - DrawingSurface PApplet
+	 */
 	public ForestMapFreezeTag(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;

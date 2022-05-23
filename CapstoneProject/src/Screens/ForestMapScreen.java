@@ -91,6 +91,11 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 
 	int firstRun;
 	int check;
+	
+	/**
+	 * Draws the forest map screen 
+	 * @param surface - DrawingSurface PApplet
+	 */
 
 	public ForestMapScreen(DrawingSurface surface) {
 		super(1080, 720);

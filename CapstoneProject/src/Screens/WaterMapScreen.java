@@ -75,6 +75,10 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 	int firstRun;
 	int check;
 	
+	/**
+	 * Draws the Water map screens 
+	 * @param surface - DrawingSurface PApplet
+	 */
 	public WaterMapScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;

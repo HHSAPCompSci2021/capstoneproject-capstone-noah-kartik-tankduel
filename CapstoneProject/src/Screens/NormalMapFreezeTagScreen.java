@@ -77,6 +77,10 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 	int firstRun;
 	int check;
 	
+	/**
+	 * Draws the Normal map freeze tag screens 
+	 * @param surface - DrawingSurface PApplet
+	 */
 	public NormalMapFreezeTagScreen(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
