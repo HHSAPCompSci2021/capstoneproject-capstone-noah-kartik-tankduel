@@ -80,7 +80,6 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 		this.surface = surface;
 		p =new Player(50,50);
 		players = new ArrayList<Player>();
-		p.host = "me!";
 		players.add(p);
 		playersMulti = new ArrayList<Player>();
 
