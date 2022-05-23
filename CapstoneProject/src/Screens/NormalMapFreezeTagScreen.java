@@ -3,8 +3,13 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.Queue;
+
 import Player.Player;
-import SpecialAbilities.*;
+import SpecialAbilities.DiveTag;
+import SpecialAbilities.HighJump;
+import SpecialAbilities.SneakyCloak;
+import SpecialAbilities.SpecialAbilities;
+import SpecialAbilities.SpeedBoost;
 import System.DrawingSurface;
 import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
@@ -704,15 +709,17 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 			if(!(first||second)) {
 				for(int i = 0; i<players.size();i++) {
 					if(players.get(i).intersects(p) && players.get(i).getPlayerType()!=p.getPlayerType()) {
-						if(!p.getPlayerType() && !p.frozeOrUnfroze() && System.currentTimeMillis() - p.getunfrozenTime() > 3000) {
+						if(!p.getPlayerType() && !p.frozeOrUnfroze() && System.currentTimeMillis() - p.getunfrozenTime() > 3000 && !players.get(i).equals(p)) {
 							p.isFrozen();
 							nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeIsFrozen, p);
+							processNetworkMessages();
 							p.gotTagged();
 						}
 					}
 					if(players.get(i).intersects(p) && players.get(i).getPlayerType() == p.getPlayerType() && System.currentTimeMillis() - p.getFrozenTime() > 1000 && !players.get(i).equals(p)) {
 						p.unFrozen();
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeUnfrozen, p);
+						processNetworkMessages();
 					}
 				}
 			}
