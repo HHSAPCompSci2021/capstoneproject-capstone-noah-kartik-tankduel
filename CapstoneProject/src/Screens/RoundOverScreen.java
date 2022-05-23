@@ -88,6 +88,22 @@ public class RoundOverScreen extends Screens{
 			surface.textSize(13);
 			surface.text("Play Again", playAgain.x+playAgain.width/2-surface.textWidth("Play Again")/2, playAgain.y + playAgain.height/2 + 4);
 		}
+		else if(surface.getGameMode() == 2 && surface.getMap() == 1) {// if freeze tag and water map
+			String s = "";
+			if(WaterMapFreezeTagScreen.roundWinner) {
+				for(String t : WaterMapFreezeTagScreen.currentTagger) {
+					s = s + t +" ";
+				}
+			}
+			else {
+				for(String r : WaterMapFreezeTagScreen.currentRunner) {
+					s = s + r +" ";
+				}
+			}
+			surface.fill(0,0,0);
+			surface.textSize(50);
+			surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+		}
 	}
 		else {
 			if(surface.getGameMode() == 1) {
