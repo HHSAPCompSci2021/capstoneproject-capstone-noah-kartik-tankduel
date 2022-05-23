@@ -181,7 +181,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		surface.rect(beach.x, beach.y, beach.width, beach.height);
 		surface.fill(0,0,0);
 		surface.stroke(2);
-		if(MultiplayerOrNetwork.network&& firstRun == 0) {
+		if(MultiplayerOrNetwork.network&& first) {
 			p.name = MultiplayerOrNetwork.playerName;
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,MultiplayerOrNetwork.playerName);
 		}

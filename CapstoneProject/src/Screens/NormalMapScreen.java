@@ -168,10 +168,9 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		surface.background(255,255,255);
 		surface.fill(0,0,0);
 		surface.stroke(2);
-		if(MultiplayerOrNetwork.network&& firstRun == 0) {
+		if(MultiplayerOrNetwork.network&& first) {
 			p.name = MultiplayerOrNetwork.playerName;
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,MultiplayerOrNetwork.playerName);
-			System.out.println("sends player");
 		}
 		firstRun=1;
 		if(MultiplayerOrNetwork.network) {//sets up who is tagger for networking

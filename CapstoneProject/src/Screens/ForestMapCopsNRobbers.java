@@ -242,7 +242,7 @@ public class ForestMapCopsNRobbers extends Screens implements NetworkListener{
 		surface.triangle(890,275,970,150,1040,275);
 		surface.triangle(890, 175, 970, 75, 1040, 175);
 		surface.stroke(2);
-		if(MultiplayerOrNetwork.network&& firstRun == 0) {
+		if(MultiplayerOrNetwork.network&& first) {
 			p.name = MultiplayerOrNetwork.playerName;
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,MultiplayerOrNetwork.playerName);
 		}
