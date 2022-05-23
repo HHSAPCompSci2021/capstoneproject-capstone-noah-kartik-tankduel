@@ -177,11 +177,15 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 		surface.fill(0,0,0);
 		surface.stroke(2);
 		if(MultiplayerOrNetwork.network) {
-			p.name = MultiplayerOrNetwork.playerName;
-			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,MultiplayerOrNetwork.playerName);
-			processNetworkMessages();
+			if(players.size()!= StartNetworkGame.numberOfPlayers && firstRun == 1) {
+				p.name = MultiplayerOrNetwork.playerName;
+				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,MultiplayerOrNetwork.playerName);
+				processNetworkMessages();
+				if(players.size()== StartNetworkGame.numberOfPlayers) {
+					firstRun = 2;
+				}
+			}
 		}
-		firstRun=1;
 		if(MultiplayerOrNetwork.network) {//sets up who is tagger for networking
 			if(NetworkManagementPanel.isHost && check == 0) {
 				if(players.size()== StartNetworkGame.numberOfPlayers) {
