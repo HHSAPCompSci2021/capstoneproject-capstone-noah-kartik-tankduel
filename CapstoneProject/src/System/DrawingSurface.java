@@ -266,12 +266,12 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		
 		
 		if(map == 2 && gameMode == 1)//forest map/normal mode
-			return 4;
+			return 12;
 		if(map == 2 && gameMode == 2)//forest map/freeze mode
-			return 15;
+			return 20;
 		if(map == 2 && gameMode == 3)//forest map/cops n robbers mode
-			return 17;
-		return 17;
+			return 21;
+		return -1;
 	}
 	
 	/**

@@ -63,6 +63,17 @@ public class StartNetworkGame extends Screens{
 				if (((CopsNRobbersWaterMap) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
 					return;
 			
+			else if(surface.getMapScreen() == 12)
+				if (((ForestMapScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
+					return;
+			else if(surface.getMapScreen() == 20)
+				if (((ForestMapFreezeTag) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
+					return;
+			else if(surface.getMapScreen() == 21)
+				if (((ForestMapCopsNRobbers) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
+					return;
+			
+			
 			
 			Queue<NetworkDataObject> queue = null;
 			if(surface.getMapScreen() == 4)
@@ -78,8 +89,13 @@ public class StartNetworkGame extends Screens{
 				queue = ((WaterMapFreezeTagScreen) surface.getScreen(ScreenSwitcher.FREEZETAGWATERMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
 			else if(surface.getMapScreen() == 19)
 				queue = ((CopsNRobbersWaterMap) surface.getScreen(ScreenSwitcher.COPSNROBBERSWATERMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
-			else
-				queue = null;
+			
+			else if(surface.getMapScreen() == 12)
+				queue = ((ForestMapScreen) surface.getScreen(ScreenSwitcher.FORESTMAP)).getNetworkMessenger().getQueuedMessages();
+			else if(surface.getMapScreen() == 20)
+				queue = ((ForestMapFreezeTag) surface.getScreen(ScreenSwitcher.FORESTMAPFREEZETAG)).getNetworkMessenger().getQueuedMessages();
+			else if(surface.getMapScreen() == 21)
+				queue = ((ForestMapCopsNRobbers) surface.getScreen(ScreenSwitcher.FORESTMAPCOPSNROBBERS)).getNetworkMessenger().getQueuedMessages();
 			
 			
 			if(queue == null)
@@ -105,9 +121,9 @@ public class StartNetworkGame extends Screens{
 							if((int)ndo.message[2] == 2 && (int)ndo.message[3] == 1)
 								surface.switchScreen(ScreenSwitcher.FORESTMAP);
 							if((int)ndo.message[2] == 2 && (int)ndo.message[3] == 2)
-								surface.switchScreen(ScreenSwitcher.FORESTMAP);
+								surface.switchScreen(ScreenSwitcher.FORESTMAPFREEZETAG);
 							if((int)ndo.message[2] == 2 && (int)ndo.message[3] == 3)
-								surface.switchScreen(ScreenSwitcher.FORESTMAP);
+								surface.switchScreen(ScreenSwitcher.FORESTMAPCOPSNROBBERS);
 						}
 					}
 				}
@@ -150,7 +166,15 @@ public class StartNetworkGame extends Screens{
 			}
 			if(surface.getMap() == 2 && surface.getGameMode() == 1) {
 				surface.switchScreen(ScreenSwitcher.FORESTMAP);
-				((ForestMapScreen) surface.getScreen(ScreenSwitcher.FORESTMAP)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true);
+				((ForestMapScreen) surface.getScreen(ScreenSwitcher.FORESTMAP)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true, 2,1);
+			}
+			if(surface.getMap() == 2 && surface.getGameMode() == 2) {
+				surface.switchScreen(ScreenSwitcher.FORESTMAPFREEZETAG);
+				((ForestMapFreezeTag) surface.getScreen(ScreenSwitcher.FORESTMAPFREEZETAG)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true,2,2);
+			}
+			if(surface.getMap() == 2 && surface.getGameMode() == 3) {
+				surface.switchScreen(ScreenSwitcher.FORESTMAPCOPSNROBBERS);
+				((ForestMapCopsNRobbers) surface.getScreen(ScreenSwitcher.FORESTMAPCOPSNROBBERS)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true,2,3);
 			}
 			numberOfPlayers = PlayScreen1.nmp.numberOfPeople();
 		}
