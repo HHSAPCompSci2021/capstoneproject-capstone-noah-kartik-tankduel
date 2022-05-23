@@ -725,7 +725,7 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 					if(players.get(i).intersects(p) && players.get(i).getPlayerType()!=p.getPlayerType()) {
 						if(!p.getPlayerType() && !p.frozeOrUnfroze() && System.currentTimeMillis() - p.getunfrozenTime() > 3000 && !players.get(i).equals(p)) {
 							p.isFrozen();
-							String address = players.get(i).host;
+							String address = p.host;
 							address = address.substring(address.lastIndexOf(".")+1);
 							int num = Integer.parseInt(address);
 							for(int j = 0; j < players.size(); j++) {
