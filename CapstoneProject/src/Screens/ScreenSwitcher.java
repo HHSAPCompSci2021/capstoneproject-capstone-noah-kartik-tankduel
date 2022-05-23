@@ -24,6 +24,7 @@ public interface ScreenSwitcher {
 	public static final int FREEZETAGNORMALMAPSCREEN = 	15;
 	public static final int MULTIPLAYERORNETWORK = 16;
 	public static final int COPSNROBBERS = 17;
+	public static final int FREEZETAGWATERMAPSCREEN = 18;
 	/**
 	 * switches the screens
 	 * @param i the screen to switch to
