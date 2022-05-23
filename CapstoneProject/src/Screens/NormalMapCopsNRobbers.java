@@ -512,7 +512,6 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 				timer -= 1;
 				if(timer == 178) {
 					platforms[36] = new Line2D.Double(50,150,150,150);
-
 				}
 				curTime = System.currentTimeMillis();
 				if(timer == 0) {

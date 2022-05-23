@@ -266,8 +266,8 @@ public class Player extends Sprite {
 				y = 718;
 		}
 		if(NormalMapFreezeTagScreen.abilityUseable || NormalMapScreen.abilityUseable
-				|| WaterMapFreezeTagScreen.abilityUseable || WaterMapScreen.abilityUseable 
-				|| CopsNRobbersWaterMap.abilityUseable || NormalMapCopsNRobbers.abilityUseable
+				|| NormalMapCopsNRobbers.abilityUseable || WaterMapScreen.abilityUseable 
+					|| CopsNRobbersWaterMap.abilityUseable || WaterMapFreezeTagScreen.abilityUseable
 				) {
 			for(SpecialAbilities a: abilities) {
 				if(a.intersects(this)) {
