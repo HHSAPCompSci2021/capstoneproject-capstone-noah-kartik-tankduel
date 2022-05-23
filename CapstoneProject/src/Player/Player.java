@@ -1,9 +1,11 @@
 package Player;
 import java.awt.geom.Line2D;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import Screens.*;
 import SpecialAbilities.*;
+import System.DrawingSurface;
 import processing.core.PApplet;
 
 /**
@@ -27,7 +29,7 @@ public class Player extends Sprite {
 	private long speedTime;
 	private long cloakTime;
 	private long jumpTime;
-
+	private DrawingSurface surface;
 	private boolean speed;
 	private boolean jump;
 	public boolean invisible;
@@ -52,8 +54,9 @@ public class Player extends Sprite {
 	 * @param x - x coordinate of the spawn point 
 	 * @param y - y coordinate of the spawn point
 	 */
-	public Player(int x, int y) {
+	public Player(int x, int y, DrawingSurface surface) {
 		super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
+		this.surface = surface;
 		xVel = 0;
 		yVel = 0;
 		onASurface = false;
@@ -323,10 +326,7 @@ public class Player extends Sprite {
 			g.fill(238,232,170);
 		else
 			g.fill(25,255,255);
-		if(invisible) {
-			g.fill(255,255,255);
-			g.stroke(255,255,255);
-		}
+		
 		if(frozen) {
 			g.fill(85,118,209);
 		}
@@ -338,7 +338,9 @@ public class Player extends Sprite {
 			width = 17;
 			height = 20;
 		}
-		g.rect((float)x,(float)y,(float)width,(float)height);
+		if(!invisible) {
+			g.rect((float)x,(float)y,(float)width,(float)height);
+		}
 		g.popStyle();
 	}
 	

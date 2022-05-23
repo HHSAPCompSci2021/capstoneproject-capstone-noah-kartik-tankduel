@@ -82,7 +82,7 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 		super(1080, 720);
 		beach = new Rectangle(0,520,1080,400);
 		this.surface = surface;
-		p =new Player(50,50);
+		p =new Player(50,50,surface);
 		players = new ArrayList<Player>();
 		p.host = "me!";
 		players.add(p);
@@ -129,10 +129,10 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 
 		spawnX = new Line2D.Double(0,150,150,150);
 		spawnY = new Line2D.Double(150,0,150,150);
-		f1 = new Player(0,0);
-		f2 = new Player(45,0);
-		r1 = new Player(90,0);
-		r2 = new Player(135,0);
+		f1 = new Player(0,0,surface);
+		f2 = new Player(45,0,surface);
+		r1 = new Player(90,0,surface);
+		r2 = new Player(135,0,surface);
 		playersMulti.add(f1);
 		playersMulti.add(f2);
 		playersMulti.add(r1);
@@ -260,22 +260,22 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 		if(!MultiplayerOrNetwork.network) {
 			surface.textSize(15);
 			if(f1.getInvisible())
-				surface.fill(255,255,255);
+				surface.fill(0,119,190);
 			else
 				surface.fill(0,0,0);
 			surface.text(Start1v1Game.player1, (float)f1.x - surface.textWidth(Start1v1Game.player1)/2 + (float)f1.getWidth()/2, (float)(f1.y -3.0));
 			if(f2.getInvisible())
-				surface.fill(255,255,255);
+				surface.fill(0,119,190);
 			else
 				surface.fill(0,0,0);
 			surface.text(Start1v1Game.player2, (float)f2.x - surface.textWidth(Start1v1Game.player2)/2 + (float)f2.getWidth()/2, (float)(f2.y - 3.0));
 			if(r1.getInvisible())
-				surface.fill(255,255,255);
+				surface.fill(0,119,190);
 			else
 				surface.fill(0,0,0);
 			surface.text(Start1v1Game.player3, (float)r1.x - surface.textWidth(Start1v1Game.player1)/2 + (float)r1.getWidth()/2, (float)(r1.y -3.0));
 			if(r2.getInvisible())
-				surface.fill(255,255,255);
+				surface.fill(0,119,190);
 			else
 				surface.fill(0,0,0);
 			surface.text(Start1v1Game.player4, (float)r2.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r2.getWidth()/2, (float)(r2.y - 3.0));
@@ -286,7 +286,7 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 			for(Player a: players) {
 				surface.fill(0,0,0);
 				if(a.getInvisible())
-					surface.fill(255,255,255);
+					surface.fill(0,119,190);
 				surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
 
 			}
@@ -769,7 +769,7 @@ public void processNetworkMessages() {
 						if (c.host.equals(host))
 							return;
 					}
-					Player c = new Player(50,50);
+					Player c = new Player(50,50,surface);
 					c.x = (double) ndo.message[1];
 					c.y = (double) ndo.message[2];
 					String s = "";

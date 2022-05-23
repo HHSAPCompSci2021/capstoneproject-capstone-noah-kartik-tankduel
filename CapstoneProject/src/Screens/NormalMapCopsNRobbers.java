@@ -75,7 +75,7 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 	public NormalMapCopsNRobbers(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
-		p =new Player(50,50);
+		p =new Player(50,50,surface);
 		players = new ArrayList<Player>();
 		p.host = "me!";
 		players.add(p);
@@ -121,10 +121,10 @@ public class NormalMapCopsNRobbers extends Screens implements NetworkListener{
 
 		spawnX = new Line2D.Double(0,150,150,150);
 		spawnY = new Line2D.Double(150,0,150,150);
-		f1 = new Player(0,0);
-		f2 = new Player(45,0);
-		r1 = new Player(90,0);
-		r2 = new Player(135,0);
+		f1 = new Player(0,0,surface);
+		f2 = new Player(45,0,surface);
+		r1 = new Player(90,0,surface);
+		r2 = new Player(135,0,surface);
 		playersMulti.add(f1);
 		playersMulti.add(f2);
 		playersMulti.add(r1);
@@ -766,7 +766,7 @@ public void processNetworkMessages() {
 						if (c.host.equals(host))
 							return;
 					}
-					Player c = new Player(50,50);
+					Player c = new Player(50,50,surface);
 					c.x = (double) ndo.message[1];
 					c.y = (double) ndo.message[2];
 					String s = "";
