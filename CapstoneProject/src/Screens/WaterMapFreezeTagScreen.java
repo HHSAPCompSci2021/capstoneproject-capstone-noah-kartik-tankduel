@@ -78,6 +78,10 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 	int firstRun;
 	int check;
 	
+	/**
+	 * Draws the Water map freeze tag screen
+	 * @param surface - DrawingSurface PApplet
+	 */
 	public WaterMapFreezeTagScreen(DrawingSurface surface) {
 		super(1080, 720);
 		beach = new Rectangle(0,520,1080,400);

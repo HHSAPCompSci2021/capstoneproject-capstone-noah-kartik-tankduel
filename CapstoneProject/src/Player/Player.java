@@ -352,6 +352,11 @@ public class Player extends Sprite {
 		
 		
 	}
+	/**
+	 * Drawing the player on the screen
+	 * If invisible do not draw it
+	 * g - PApplet 
+	 */
 	public void draw(PApplet g) {
 		g.pushStyle();
 		g.strokeWeight(3);

@@ -77,6 +77,10 @@ public class CopsNRobbersWaterMap extends Screens implements NetworkListener{
 	int firstRun;
 	int check;
 	
+	/**
+	 * Draws the Water map cops and robbers screens 
+	 * @param surface - DrawingSurface PApplet
+	 */
 	public CopsNRobbersWaterMap(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;

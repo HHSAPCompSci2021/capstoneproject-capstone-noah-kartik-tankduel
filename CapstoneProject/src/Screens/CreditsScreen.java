@@ -11,6 +11,9 @@ public class CreditsScreen extends Screens{
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * Standard processing drawing
+	 */
 	public void draw() {
 		surface.clear();
 		surface.pushStyle();
@@ -27,9 +30,5 @@ public class CreditsScreen extends Screens{
 		
 	}
 	
-	public void mouseWheel(MouseEvent event) {
-		float e = event.getCount();
-		System.out.println(e);	
-	}
 
 }

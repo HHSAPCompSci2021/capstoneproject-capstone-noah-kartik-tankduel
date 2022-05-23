@@ -81,6 +81,10 @@ public class ForestMapCopsNRobbers extends Screens implements NetworkListener{
 	int firstRun;
 	int check;
 	
+	/**
+	 * Draws the forest map cops and robbers screens 
+	 * @param surface - DrawingSurface PApplet
+	 */
 	public ForestMapCopsNRobbers(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
