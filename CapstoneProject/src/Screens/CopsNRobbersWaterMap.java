@@ -217,10 +217,9 @@ public class CopsNRobbersWaterMap extends Screens implements NetworkListener{
 		surface.rect(beach.x, beach.y, beach.width, beach.height);
 		surface.fill(0,0,0);
 		surface.stroke(2);
-		if(MultiplayerOrNetwork.network) {
+		if(MultiplayerOrNetwork.network&& firstRun == 0) {
 			p.name = MultiplayerOrNetwork.playerName;
-			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y, MultiplayerOrNetwork.playerName);
-			
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,MultiplayerOrNetwork.playerName);
 		}
 		firstRun=1;
 		if(MultiplayerOrNetwork.network) {//sets up who is tagger for networking

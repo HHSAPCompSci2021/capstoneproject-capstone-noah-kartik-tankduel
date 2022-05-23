@@ -161,7 +161,7 @@ public class NetworkManagementPanel extends JPanel
 		}
 
 		JFrame window = new JFrame("Network Management");
-		window.setBounds(300, 300, 700, 480);
+		window.setBounds(100, 100, 700, 480);
 		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		window.add(this);
 		window.setVisible(true);
