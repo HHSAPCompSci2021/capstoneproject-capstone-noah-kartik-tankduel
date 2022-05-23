@@ -514,6 +514,7 @@ public void processNetworkMessages() {
 		if (nm == null)
 			return;
 		
+		
 		Queue<NetworkDataObject> queue = nm.getQueuedMessages();
 		while (!queue.isEmpty()) {
 			NetworkDataObject ndo = queue.poll();

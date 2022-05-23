@@ -478,10 +478,6 @@ public void processNetworkMessages() {
 		
 		if (nm == null)
 			return;
-		//tree1 = new Rectangle(120,320,20,200);
-		//tree2 = new Rectangle(400,320,20,200);
-		//tree3 = new Rectangle(680,320,20,200);
-		//tree4 = new Rectangle(960,320,20,200);
 		
 		
 		Queue<NetworkDataObject> queue = nm.getQueuedMessages();

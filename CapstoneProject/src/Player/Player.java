@@ -181,11 +181,13 @@ public class Player extends Sprite {
 			cloakTime = System.currentTimeMillis();
 			NormalMapScreen.deleteCloak();
 			NormalMapFreezeTagScreen.deleteCloak();
+			NormalMapCopsNRobbers.deleteCloak();
+
 			WaterMapScreen.deleteCloak();
 			WaterMapFreezeTagScreen.deleteCloak();
 			CopsNRobbersWaterMap.deleteCloak();
-			NormalMapCopsNRobbers.deleteCloak();
-			WaterMapScreen.deleteCloak();
+			
+			ForestMapScreen.deleteCloak();
 			ForestMapFreezeTag.deleteCloak();
 			ForestMapCopsNRobbers.deleteCloak();
 
@@ -196,11 +198,13 @@ public class Player extends Sprite {
 			diveTime = System.currentTimeMillis();
 			NormalMapScreen.deleteDive();
 			NormalMapFreezeTagScreen.deleteDive();
+			NormalMapCopsNRobbers.deleteDive();
+
 			WaterMapScreen.deleteDive();
 			WaterMapFreezeTagScreen.deleteDive();
 			CopsNRobbersWaterMap.deleteDive();
-			NormalMapCopsNRobbers.deleteDive();
-			WaterMapScreen.deleteDive();
+			
+			ForestMapScreen.deleteDive();
 			ForestMapFreezeTag.deleteDive();
 			ForestMapCopsNRobbers.deleteDive();
 
