@@ -26,6 +26,8 @@ public interface ScreenSwitcher {
 	public static final int COPSNROBBERS = 17;
 	public static final int FREEZETAGWATERMAPSCREEN = 18;
 	public static final int COPSNROBBERSWATERMAPSCREEN = 19;
+	public static final int FORESTMAPFREEZETAG = 20;
+	public static final int FORESTMAPCOPSNROBBERS = 21;
 	/**
 	 * switches the screens
 	 * @param i the screen to switch to

@@ -135,6 +135,68 @@ public class RoundOverScreen extends Screens{
 				surface.textSize(13);
 				surface.text("Play Again", playAgain.x+playAgain.width/2-surface.textWidth("Play Again")/2, playAgain.y + playAgain.height/2 + 4);
 			}
+			else if(surface.getGameMode() == 1 && surface.getMap() == 2) { // forest map and normal mode
+				String s = ForestMapScreen.currentRunner;
+				surface.fill(0,0,0);
+				surface.textSize(50);
+				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+				
+				surface.fill(0,0,0);
+				surface.rect(mainMenu.x, mainMenu.y, mainMenu.width, mainMenu.height);
+				surface.fill(255,255,255);
+				surface.textSize(13);
+				surface.text("Main Menu", mainMenu.x+mainMenu.width/2-surface.textWidth("Main Menu")/2, mainMenu.y + mainMenu.height/2 + 4);
+				
+				surface.fill(0,0,0);
+				surface.rect(playAgain.x, playAgain.y, playAgain.width, playAgain.height);
+				surface.fill(255,255,255);
+				surface.textSize(13);
+				surface.text("Play Again", playAgain.x+playAgain.width/2-surface.textWidth("Play Again")/2, playAgain.y + playAgain.height/2 + 4);
+			}
+			else if(surface.getGameMode() == 2 && surface.getMap() == 2) { // freeze tag and forest map
+				String s = "";
+				if(ForestMapFreezeTag.roundWinner) {
+					for(String t : ForestMapFreezeTag.currentTagger) {
+						s = s + t +" ";
+					}
+				}
+				else {
+					for(String r : ForestMapFreezeTag.currentRunner) {
+						s = s + r +" ";
+					}
+				}
+				surface.fill(0,0,0);
+				surface.textSize(50);
+				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+				surface.fill(0,0,0);
+				surface.rect(mainMenu.x, mainMenu.y, mainMenu.width, mainMenu.height);
+				surface.fill(255,255,255);
+				surface.textSize(13);
+				surface.text("Main Menu", mainMenu.x+mainMenu.width/2-surface.textWidth("Main Menu")/2, mainMenu.y + mainMenu.height/2 + 4);
+				
+				surface.fill(0,0,0);
+				surface.rect(playAgain.x, playAgain.y, playAgain.width, playAgain.height);
+				surface.fill(255,255,255);
+				surface.textSize(13);
+				surface.text("Play Again", playAgain.x+playAgain.width/2-surface.textWidth("Play Again")/2, playAgain.y + playAgain.height/2 + 4);
+			} else if(surface.getGameMode() == 3 && surface.getMap() == 2) { // CopsNRobbers and forest map
+				String s = ForestMapCopsNRobbers.currentRunner[0] + " and " + ForestMapCopsNRobbers.currentRunner[1];
+				surface.fill(0,0,0);
+				surface.textSize(50);
+				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+				
+				surface.fill(0,0,0);
+				surface.rect(mainMenu.x, mainMenu.y, mainMenu.width, mainMenu.height);
+				surface.fill(255,255,255);
+				surface.textSize(13);
+				surface.text("Main Menu", mainMenu.x+mainMenu.width/2-surface.textWidth("Main Menu")/2, mainMenu.y + mainMenu.height/2 + 4);
+				
+				surface.fill(0,0,0);
+				surface.rect(playAgain.x, playAgain.y, playAgain.width, playAgain.height);
+				surface.fill(255,255,255);
+				surface.textSize(13);
+				surface.text("Play Again", playAgain.x+playAgain.width/2-surface.textWidth("Play Again")/2, playAgain.y + playAgain.height/2 + 4);
+			}
 	}
 		else {
 			if(surface.getGameMode() == 1) {
@@ -229,6 +291,19 @@ public class RoundOverScreen extends Screens{
 					surface.refresh1v1();
 					surface.switchScreen(ScreenSwitcher.COPSNROBBERSWATERMAPSCREEN);
 				}
+				if(surface.getGameMode() == 1 && surface.getMap() == 2) {
+					surface.refresh1v1();
+					surface.switchScreen(ScreenSwitcher.FORESTMAP);
+				}
+				if(surface.getGameMode() == 2 && surface.getMap() == 2) {
+					surface.refresh1v1();
+					surface.switchScreen(ScreenSwitcher.FORESTMAPFREEZETAG);
+				}
+				if(surface.getGameMode() == 3 && surface.getMap() == 2) {
+					surface.refresh1v1();
+					surface.switchScreen(ScreenSwitcher.FORESTMAPCOPSNROBBERS);
+				}
+				
 			}
 		}
 	}

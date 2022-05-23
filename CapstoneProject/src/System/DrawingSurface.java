@@ -94,6 +94,12 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		CopsNRobbersWaterMap copsNRobbersWaterMap = new CopsNRobbersWaterMap(this);
 		screens.add(copsNRobbersWaterMap);
 		
+		ForestMapFreezeTag forestMapFreezeTag = new ForestMapFreezeTag(this);
+		screens.add(forestMapFreezeTag);
+		
+		ForestMapCopsNRobbers forestMapCopsNRobbers = new ForestMapCopsNRobbers(this);
+		screens.add(forestMapCopsNRobbers);
+		
 		activeScreen = screens.get(0);
 		
 	}
@@ -309,12 +315,21 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		WaterMapFreezeTagScreen waterMapFreeze = new WaterMapFreezeTagScreen(this);
 		
 		CopsNRobbersWaterMap waterMapCopsNRobbers = new CopsNRobbersWaterMap(this);
+		
+		ForestMapScreen forestMapReset = new ForestMapScreen(this);
+		
+		ForestMapFreezeTag forestMapFreezeTagReset = new ForestMapFreezeTag(this);
+		
+		ForestMapCopsNRobbers forestMapCopsNRobbersReset = new ForestMapCopsNRobbers(this);
 		screens.set(17, copsNRobbers);
 		screens.set(4, normalMap);
 		screens.set(5, roundOver);
+		screens.set(12, forestMapReset);
 		screens.set(15, freezeMode);
 		screens.set(18, waterMapFreeze);
 		screens.set(19, waterMapCopsNRobbers);
+		screens.set(20, forestMapFreezeTagReset);
+		screens.set(21, forestMapCopsNRobbersReset);
 	}
 
 }
