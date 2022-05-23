@@ -1,5 +1,6 @@
 package Screens;
 import java.awt.event.KeyEvent;
+
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.Queue;
@@ -64,6 +65,10 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 
 	int firstRun;
 	int check;
+	/**
+	 * Draws the Normal map screen
+	 * @param surface - DrawingSurface PApplet
+	 */
 
 	public NormalMapScreen(DrawingSurface surface) {
 		super(1080, 720);
