@@ -197,7 +197,8 @@ public class RoundOverScreen extends Screens{
 				surface.fill(255,255,255);
 				surface.textSize(13);
 				surface.text("Play Again", playAgain.x+playAgain.width/2-surface.textWidth("Play Again")/2, playAgain.y + playAgain.height/2 + 4);
-			} else if(surface.getGameMode() == 3 && surface.getMap() == 2) { // CopsNRobbers and forest map
+			} 
+			else if(surface.getGameMode() == 3 && surface.getMap() == 2) { // CopsNRobbers and forest map
 				String s = ForestMapCopsNRobbers.currentRunner[0] + " and " + ForestMapCopsNRobbers.currentRunner[1];
 				surface.fill(0,0,0);
 				surface.textSize(50);
@@ -215,9 +216,16 @@ public class RoundOverScreen extends Screens{
 				surface.textSize(13);
 				surface.text("Play Again", playAgain.x+playAgain.width/2-surface.textWidth("Play Again")/2, playAgain.y + playAgain.height/2 + 4);
 			}
-	}
+		}
+		
+		
+		
+		
+		
+		
+		
 		else {
-			if(surface.getGameMode() == 1) {
+			if(surface.getGameMode() == 1 && surface.getMap()  == 0) {//normal tag and normal map
 				String s = "";
 				if(!surface.getRoundWinner()) {//runners win
 					s = "RUNNERS";
@@ -244,6 +252,33 @@ public class RoundOverScreen extends Screens{
 				surface.textSize(50);
 				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
 			}
+			else if(surface.getGameMode() == 3 && surface.getMap() == 0) {//if cops n robbers tag and normal map
+				String s = "";
+				if(NormalMapCopsNRobbers.roundWinner) {
+					for(String t : NormalMapCopsNRobbers.currentTagger) {
+						s = s + t +" ";
+					}
+				}
+				else {
+					for(String r : NormalMapCopsNRobbers.currentRunner) {
+						s = s + r +" ";
+					}
+				}
+				surface.fill(0,0,0);
+				surface.textSize(50);
+				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+			}
+			else if(surface.getGameMode() == 1 && surface.getMap()  == 1) {//normal tag and water map
+				String s = "";
+				if(!WaterMapScreen.roundWinner) {
+					s = "RUNNERS";
+				}
+				else
+					s = "TAGGERS";
+				surface.fill(0,0,0);
+				surface.textSize(50);
+				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+			}
 			else if(surface.getGameMode() == 2 && surface.getMap() == 1) {// if freeze tag and water map
 				String s = "";
 				if(WaterMapFreezeTagScreen.roundWinner) {
@@ -260,16 +295,61 @@ public class RoundOverScreen extends Screens{
 				surface.textSize(50);
 				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
 			}
-			else if(surface.getGameMode() == 3) {
+			else if(surface.getGameMode() == 3 && surface.getMap() == 1) {
 				String s = "";
-				if(NormalMapCopsNRobbers.roundWinner) {
-					for(String t: NormalMapCopsNRobbers.currentTagger) {
+				if(CopsNRobbersWaterMap.roundWinner) {
+					for(String t: CopsNRobbersWaterMap.currentTagger) {
 						s = s + t + " ";
 	
 					}
 				}
 				else {
-					for(String r: NormalMapCopsNRobbers.currentRunner) {
+					for(String r: CopsNRobbersWaterMap.currentRunner) {
+						s = s + r + " ";
+					}	
+				}
+				surface.fill(0,0,0);
+				surface.textSize(50);
+				surface.text(s + "WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+			}
+			else if(surface.getGameMode() == 1 && surface.getMap()  == 2) {
+				String s = "";
+				if(!ForestMapScreen.roundWinner) {
+					s = "RUNNERS";
+				}
+				else
+					s = "TAGGERS";
+				surface.fill(0,0,0);
+				surface.textSize(50);
+				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+			}
+			else if(surface.getGameMode() == 2 && surface.getMap() == 2) {
+				String s = "";
+				if(ForestMapFreezeTag.roundWinner) {
+					for(String t: ForestMapFreezeTag.currentTagger) {
+						s = s + t + " ";
+	
+					}
+				}
+				else {
+					for(String r: ForestMapFreezeTag.currentRunner) {
+						s = s + r + " ";
+					}	
+				}
+				surface.fill(0,0,0);
+				surface.textSize(50);
+				surface.text(s + "WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+			}
+			else if(surface.getGameMode() == 3 && surface.getMap() == 2) {
+				String s = "";
+				if(ForestMapCopsNRobbers.roundWinner) {
+					for(String t: ForestMapCopsNRobbers.currentTagger) {
+						s = s + t + " ";
+	
+					}
+				}
+				else {
+					for(String r: ForestMapCopsNRobbers.currentRunner) {
 						s = s + r + " ";
 					}	
 				}
