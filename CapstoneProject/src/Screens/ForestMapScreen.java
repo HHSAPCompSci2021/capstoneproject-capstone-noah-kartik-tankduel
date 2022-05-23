@@ -97,7 +97,6 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 		this.surface = surface;
 		p =new Player(50,50);
 		players = new ArrayList<Player>();
-		p.host = "me!";
 		players.add(p);
 		// X:1080 by Y:720 range lines, make sure that x1 < x2
 		l0 = new Line2D.Double (450,450,500,400);
@@ -462,8 +461,10 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 			surface.popStyle();
 		}
 	
-		if(MultiplayerOrNetwork.network) 
+		if(MultiplayerOrNetwork.network) {
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
+			processNetworkMessages();
+		}
 		if(!MultiplayerOrNetwork.network) {
 			if(t.intersects(r) && !(first || second)) {
 				if(System.currentTimeMillis()-taggedTime>3000) {
@@ -536,6 +537,7 @@ public void processNetworkMessages() {
 						if (c.host.equals(host))
 							return;
 					}
+
 					Player c = new Player(50,50);
 					c.x = (double) ndo.message[1];
 					c.y = (double) ndo.message[2];
