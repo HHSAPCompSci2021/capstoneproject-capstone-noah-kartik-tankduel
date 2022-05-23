@@ -497,7 +497,7 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 				if(timer == 0) {
 					second = false;
 					third = true;
-					timer = 1;
+					timer = 180;
 					abilityUseable = true;
 				}
 			}
