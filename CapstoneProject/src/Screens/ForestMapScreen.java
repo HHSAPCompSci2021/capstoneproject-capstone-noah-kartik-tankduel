@@ -560,7 +560,6 @@ public void processNetworkMessages() {
 						}
 					}
 					players.remove(s);
-					System.out.println("removed");
 				}
 				
 				else if (ndo.message[0].equals(messageTypeSetTagger)) {
