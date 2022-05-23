@@ -268,35 +268,23 @@ public class CopsNRobbersWaterMap extends Screens implements NetworkListener{
 		}
 		if(!MultiplayerOrNetwork.network) {
 			surface.textSize(15);
-			if(f1.getInvisible())
-				surface.fill(0,119,190);
-			else
-				surface.fill(0,0,0);
-			surface.text(Start1v1Game.player1, (float)f1.x - surface.textWidth(Start1v1Game.player1)/2 + (float)f1.getWidth()/2, (float)(f1.y -3.0));
-			if(f2.getInvisible())
-				surface.fill(0,119,190);
-			else
-				surface.fill(0,0,0);
-			surface.text(Start1v1Game.player2, (float)f2.x - surface.textWidth(Start1v1Game.player2)/2 + (float)f2.getWidth()/2, (float)(f2.y - 3.0));
-			if(r1.getInvisible())
-				surface.fill(0,119,190);
-			else
-				surface.fill(0,0,0);
-			surface.text(Start1v1Game.player3, (float)r1.x - surface.textWidth(Start1v1Game.player1)/2 + (float)r1.getWidth()/2, (float)(r1.y -3.0));
-			if(r2.getInvisible())
-				surface.fill(0,119,190);
-			else
-				surface.fill(0,0,0);
-			surface.text(Start1v1Game.player4, (float)r2.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r2.getWidth()/2, (float)(r2.y - 3.0));
+			surface.fill(0,0,0);
+			if(!f1.getInvisible())
+				surface.text(Start1v1Game.player1, (float)f1.x - surface.textWidth(Start1v1Game.player1)/2 + (float)f1.getWidth()/2, (float)(f1.y -3.0));
+			if(!f2.getInvisible())
+				surface.text(Start1v1Game.player2, (float)f2.x - surface.textWidth(Start1v1Game.player2)/2 + (float)f2.getWidth()/2, (float)(f2.y - 3.0));
+			if(!r1.getInvisible())
+				surface.text(Start1v1Game.player3, (float)r1.x - surface.textWidth(Start1v1Game.player1)/2 + (float)r1.getWidth()/2, (float)(r1.y -3.0));
+			if(!r2.getInvisible())
+				surface.text(Start1v1Game.player4, (float)r2.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r2.getWidth()/2, (float)(r2.y - 3.0));
 		}
 	
 		if(MultiplayerOrNetwork.network){
 			surface.textSize(15);
 			for(Player a: players) {
 				surface.fill(0,0,0);
-				if(a.getInvisible())
-					surface.fill(255,255,255);
-				surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
+				if(!a.getInvisible())
+					surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
 
 			}
 		}

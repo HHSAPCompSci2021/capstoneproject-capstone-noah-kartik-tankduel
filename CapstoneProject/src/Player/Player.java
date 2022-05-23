@@ -177,6 +177,7 @@ public class Player extends Sprite {
 
 		if(invisible && countInvis == 0) {
 			countInvis = 1;
+			invisible = true;
 			cloakTime = System.currentTimeMillis();
 			NormalMapScreen.deleteCloak();
 			NormalMapFreezeTagScreen.deleteCloak();
@@ -188,6 +189,7 @@ public class Player extends Sprite {
 		}
 		if(dive && countDive == 0) {
 			countDive = 1;
+			dive = true;
 			diveTime = System.currentTimeMillis();
 			NormalMapScreen.deleteDive();
 			NormalMapFreezeTagScreen.deleteDive();
