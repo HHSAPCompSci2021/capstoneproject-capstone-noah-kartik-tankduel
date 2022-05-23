@@ -715,6 +715,7 @@ public class NormalMapFreezeTagScreen extends Screens implements NetworkListener
 						}
 					}
 					if(players.get(i).intersects(p) && players.get(i).getPlayerType() == p.getPlayerType() && System.currentTimeMillis() - p.getFrozenTime() > 1000) {
+						System.out.println("unfrozen runnig");
 						p.unFrozen();
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeUnfrozen, p);
 					}
