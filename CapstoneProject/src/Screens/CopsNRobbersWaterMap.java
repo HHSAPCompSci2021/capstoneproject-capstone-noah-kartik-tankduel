@@ -505,6 +505,10 @@ public class CopsNRobbersWaterMap extends Screens implements NetworkListener{
 		else if(third) {
 			if(System.currentTimeMillis()-curTime >1000) {
 				timer -= 1;
+				if(timer == 178) {
+					platforms[36] = new Line2D.Double(50,150,150,150);
+
+				}
 				curTime = System.currentTimeMillis();
 				if(timer == 0) {
 					third = false;

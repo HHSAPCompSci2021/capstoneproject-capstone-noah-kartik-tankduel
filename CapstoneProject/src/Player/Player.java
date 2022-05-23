@@ -184,6 +184,7 @@ public class Player extends Sprite {
 			WaterMapFreezeTagScreen.deleteCloak();
 			CopsNRobbersWaterMap.deleteCloak();
 			NormalMapCopsNRobbers.deleteCloak();
+			WaterMapScreen.deleteCloak();
 		}
 		if(dive && countDive == 0) {
 			countDive = 1;
@@ -194,6 +195,7 @@ public class Player extends Sprite {
 			WaterMapFreezeTagScreen.deleteDive();
 			CopsNRobbersWaterMap.deleteDive();
 			NormalMapCopsNRobbers.deleteDive();
+			WaterMapScreen.deleteDive();
 		}
 		
 		for(Line2D s: obstacles) {
@@ -268,7 +270,7 @@ public class Player extends Sprite {
 		if(NormalMapFreezeTagScreen.abilityUseable || NormalMapScreen.abilityUseable
 				|| WaterMapFreezeTagScreen.abilityUseable || WaterMapScreen.abilityUseable 
 				|| CopsNRobbersWaterMap.abilityUseable || NormalMapCopsNRobbers.abilityUseable
-				) {
+				|| ForestMapScreen.abilityUseable) {
 			for(SpecialAbilities a: abilities) {
 				if(a.intersects(this)) {
 					if(a instanceof SpeedBoost) {
@@ -280,6 +282,7 @@ public class Player extends Sprite {
 						WaterMapFreezeTagScreen.deleteSpeed();
 						CopsNRobbersWaterMap.deleteSpeed();
 						NormalMapCopsNRobbers.deleteSpeed();
+						ForestMapScreen.deleteSpeed();
 					}
 					if(a instanceof HighJump) {
 						jump = true;
@@ -290,6 +293,7 @@ public class Player extends Sprite {
 						WaterMapFreezeTagScreen.deleteJump();
 						CopsNRobbersWaterMap.deleteJump();
 						NormalMapCopsNRobbers.deleteJump();
+						ForestMapScreen.deleteJump();
 					}
 					if(a instanceof SneakyCloak && !playerType) {
 						invisible = true;
@@ -299,7 +303,8 @@ public class Player extends Sprite {
 						WaterMapScreen.deleteCloak();
 						WaterMapFreezeTagScreen.deleteCloak();
 						CopsNRobbersWaterMap.deleteCloak();
-						NormalMapCopsNRobbers.deleteSpeed();
+						NormalMapCopsNRobbers.deleteCloak();
+						ForestMapScreen.deleteCloak();
 					}
 					if(a instanceof DiveTag && playerType) {
 						dive = true;
@@ -310,6 +315,7 @@ public class Player extends Sprite {
 						WaterMapFreezeTagScreen.deleteDive();
 						CopsNRobbersWaterMap.deleteDive();
 						NormalMapCopsNRobbers.deleteDive();
+						ForestMapScreen.deleteDive();
 					}
 					
 				}

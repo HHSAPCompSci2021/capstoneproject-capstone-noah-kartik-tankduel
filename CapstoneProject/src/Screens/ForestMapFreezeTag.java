@@ -1,78 +1,69 @@
-//package Screens;
-//
-//import System.DrawingSurface;
-//import processing.core.PImage;
-//
-//public class ForestMapScreen extends Screens{
-//
-//	private DrawingSurface surface;
-//	private PImage forest;
-//	public ForestMapScreen(DrawingSurface surface) {
-//		super(1080, 720);
-//		this.surface = surface;
-//		// TODO Auto-generated constructor stub
-//	}
-//	public void setup() {
-//		forest = surface.loadImage("img/forest.jpg");
-//	}
-//	public void draw() {
-//		surface.clear();
-//		surface.pushStyle();
-//		surface.image(forest, 0, 0, 1080, 720);
-//		surface.popStyle();
-//	}
-//
-//}
 package Screens;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.Queue;
+
 import Player.Player;
-import SpecialAbilities.*;
+import SpecialAbilities.DiveTag;
+import SpecialAbilities.HighJump;
+import SpecialAbilities.SneakyCloak;
+import SpecialAbilities.SpecialAbilities;
+import SpecialAbilities.SpeedBoost;
 import System.DrawingSurface;
 import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
 import networking.frontend.NetworkManagementPanel;
 import networking.frontend.NetworkMessenger;
-import processing.core.PImage;
 
-public class ForestMapScreen extends Screens implements NetworkListener{
+public class ForestMapFreezeTag extends Screens implements NetworkListener{
 	private DrawingSurface surface;
 	private Line2D l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35;
 	private Player p;
 	private ArrayList<Player> players;
+	private ArrayList<Player> playersMulti;
+
 	private static DiveTag diveTag;
 	private static HighJump highJump;
 	private static SneakyCloak sneakyCloak;
 	private static SpeedBoost speedBoost;
 	private static SpecialAbilities[] abilities;
-	private Player r;
-	private Player t;
-	private long taggedTime;
-	private boolean roundWinner;
-	public static String currentRunner;
+	private Rectangle ground;
+	private Rectangle forests;
+	private Rectangle tree1;
+	private Rectangle tree2;
+	private Rectangle tree3;
+	private Rectangle tree4;
+	private Player f1;
+	private Player f2;
+	private Player r1;
+	private Player r2;
+	public static boolean roundWinner;
+	public static String[] currentRunner;
+	public static String[] currentTagger;
+
 	private int repeatName;
 	private NetworkMessenger nm;
-	private boolean hostIsDead;
 	public static boolean abilityUseable;
-	private PImage forest;
+	
 	private static final String messageTypeCurrentLocation = "CURRENT_LOCATION";
 	private static final String messageTypeInit = "CREATE_PLAYER";
-	private static final String messageTypeRemovePlayer = "REMOVE_PLAYER";
+	private static final String messageTypeIsFrozen = "IS_FROZEN";
+	private static final String messageTypeUnfrozen = "UNFROZEN";
+
 	private static final String messageTypeSetTagger = "SET_TAGGER";
 	private static final String messageTypeGameOver = "GAME_OVER";
 	private static final String messageTypeInvisible = "INVISIBLE";
 	private static final String messageTypeInvisibleOff = "INVISIBLE_OFF";
 	private static final String messageTypeDiveTag = "DIVETAG";
 	private static final String messageTypeDiveOff = "DIVE_OFF";
-	private Rectangle ground;
-	private Rectangle forests;
-	private Rectangle tree1;
-	private Rectangle tree2;
-	private Rectangle tree3;
-	private Rectangle tree4;	
+
+
+
+
+
+	
 	/* The area created by spawnX and spawnY will be the spawn area.
 	 * When the 10 second count down to START the game reaches 0,
 	 * the spawnY line will disappear and only the 
@@ -88,17 +79,19 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 	boolean first;
 	boolean second;
 	boolean third;
-
+		
 	int firstRun;
 	int check;
-
-	public ForestMapScreen(DrawingSurface surface) {
+	
+	public ForestMapFreezeTag(DrawingSurface surface) {
 		super(1080, 720);
 		this.surface = surface;
 		p =new Player(50,50);
 		players = new ArrayList<Player>();
 		p.host = "me!";
 		players.add(p);
+		playersMulti = new ArrayList<Player>();
+
 		// X:1080 by Y:720 range lines, make sure that x1 < x2
 		l0 = new Line2D.Double (450,450,500,400);
 		l1 = new Line2D.Double (300,500,400,600);
@@ -143,13 +136,42 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 		tree2 = new Rectangle(400,320,20,200);
 		tree3 = new Rectangle(680,320,20,200);
 		tree4 = new Rectangle(960,320,20,200);
-		t = new Player(0,0);
-		r = new Player(50,50);
-		if(Math.random() < 0.5) 
-			t.setPlayerType(true);
-		else 
-			r.setPlayerType(true);
-		
+		spawnX = new Line2D.Double(0,150,150,150);
+		spawnY = new Line2D.Double(150,0,150,150);
+		f1 = new Player(0,0);
+		f2 = new Player(45,0);
+		r1 = new Player(90,0);
+		r2 = new Player(135,0);
+		playersMulti.add(f1);
+		playersMulti.add(f2);
+		playersMulti.add(r1);
+		playersMulti.add(r2);
+
+		double r = Math.random();
+	
+		if(r < 1.00/6) {
+			f1.setPlayerType(true);
+			f2.setPlayerType(true);
+		}else if(r < 2.00/6) {
+			f1.setPlayerType(true);
+			r1.setPlayerType(true);
+		}
+		else if(r < 3.00/6){
+			f1.setPlayerType(true);
+			r2.setPlayerType(true);
+		}
+		else if(r<4.00/6) {
+			f2.setPlayerType(true);
+			r2.setPlayerType(true);
+		}
+		else if(r < 5.00/6) {
+			f2.setPlayerType(true);
+			r1.setPlayerType(true);
+		}
+		else {
+			r1.setPlayerType(true);
+			r2.setPlayerType(true);
+		}
 		
 		border1 = new Line2D.Double (0, 0, 1080, 0);
 		border2 = new Line2D.Double (0, 0, 0, 720);
@@ -175,6 +197,10 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 		firstRun = 0;
 		check = 0;
 		repeatName = 1;
+		
+		currentRunner = new String[2];
+		currentTagger = new String[0];
+		
 	}
 	/**
 	 * Standard drawing in processing
@@ -212,7 +238,7 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 		surface.stroke(2);
 		if(MultiplayerOrNetwork.network) {
 			p.name = MultiplayerOrNetwork.playerName;
-			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,MultiplayerOrNetwork.playerName);
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y, MultiplayerOrNetwork.playerName);
 			processNetworkMessages();
 		}
 		firstRun=1;
@@ -222,37 +248,66 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 					check =1;
 					if(StartNetworkGame.numberOfPlayers == 1)
 						;
-					else if(StartNetworkGame.numberOfPlayers<=4) {
-						int a = (int)(Math.random()*players.size());
-						players.get(a).setPlayerType(true);
-						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(a));
-						processNetworkMessages();
+					else {
+						int taggerCount = StartNetworkGame.numberOfPlayers/2;
+						ArrayList<Integer> guessed = new ArrayList<>();
+						for(int i = 0; i<taggerCount;i++) {
+							int a = (int)(Math.random()*players.size());
+							while(guessed.contains(a)) {
+								a = (int)(Math.random()*players.size());
+							}
+							guessed.add(a);
+							players.get(a).setPlayerType(true);
+							nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(a),StartNetworkGame.numberOfPlayers);
+						}
+					}
+					processNetworkMessages();
+				}
+			}
+			
+			if(check == 10 || (NetworkManagementPanel.isHost && check == 1)) {
+				check = 2;
+				currentTagger = new String[players.size()/2];
+				currentRunner = new String[players.size() - players.size()/2];
+				int r = 0;
+				int t = 0;
+				for(Player p: players) {
+					if(p.getPlayerType()) {
+						currentTagger[t] = p.name;
+						t++;
 					}
 					else {
-						int a = (int)(Math.random()*players.size());
-						players.get(a).setPlayerType(true);
-						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger,players.get(a));
-						int b = (int)(Math.random()*players.size());
-						while (a== b)
-							b = (int)(Math.random()*players.size());
-						players.get(b).setPlayerType(true);
-						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeSetTagger, players.get(b));
-						processNetworkMessages();
+						currentRunner[r] = p.name;
+						r++;
 					}
 				}
 			}
+			
 		}
 		if(!MultiplayerOrNetwork.network) {
 			surface.textSize(15);
-			surface.fill(0,0,0);
-			if(!t.invisible) {
-				surface.text(Start1v1Game.player1, (float)t.x - surface.textWidth(Start1v1Game.player1)/2 + (float)t.getWidth()/2, (float)(t.y -3.0));
-			}
-			if(!r.invisible){
-				surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
-
-			}
+			if(f1.getInvisible())
+				surface.fill(255,255,255);
+			else
+				surface.fill(0,0,0);
+			surface.text(Start1v1Game.player1, (float)f1.x - surface.textWidth(Start1v1Game.player1)/2 + (float)f1.getWidth()/2, (float)(f1.y -3.0));
+			if(f2.getInvisible())
+				surface.fill(255,255,255);
+			else
+				surface.fill(0,0,0);
+			surface.text(Start1v1Game.player2, (float)f2.x - surface.textWidth(Start1v1Game.player2)/2 + (float)f2.getWidth()/2, (float)(f2.y - 3.0));
+			if(r1.getInvisible())
+				surface.fill(255,255,255);
+			else
+				surface.fill(0,0,0);
+			surface.text(Start1v1Game.player3, (float)r1.x - surface.textWidth(Start1v1Game.player1)/2 + (float)r1.getWidth()/2, (float)(r1.y -3.0));
+			if(r2.getInvisible())
+				surface.fill(255,255,255);
+			else
+				surface.fill(0,0,0);
+			surface.text(Start1v1Game.player4, (float)r2.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r2.getWidth()/2, (float)(r2.y - 3.0));
 		}
+	
 		if(MultiplayerOrNetwork.network){
 			surface.textSize(15);
 			for(Player a: players) {
@@ -266,7 +321,7 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 
 		boolean k = true;
 		for(Player p: players) {
-			if(p.getPlayerType() == false)
+			if(p.getPlayerType() == false && p.frozeOrUnfroze() == false)
 				k = false;
 			if(p.invisible && !p.invisUsed) {
 				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInvisible, p.name);
@@ -316,8 +371,12 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 			}
 		}
 		if(!MultiplayerOrNetwork.network) {
-			t.draw(surface);
-			r.draw(surface);
+			//t.draw(surface);
+			//r.draw(surface);
+			f1.draw(surface);
+			f2.draw(surface);
+			r1.draw(surface);
+			r2.draw(surface);
 //			surface.textSize(5);
 //			surface.fill(0,0,0);
 //			if(t.getPlayerType())
@@ -346,7 +405,6 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 			p.walk(0);
 			if(surface.getInputMethod()) {
 				if(!((first || second) && p.getPlayerType())) {
-
 					if (surface.isPressed(KeyEvent.VK_LEFT))
 						p.walk(-1);
 					if (surface.isPressed(KeyEvent.VK_RIGHT))
@@ -368,34 +426,77 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 		}
 		
 		if(!MultiplayerOrNetwork.network) {
-			t.walk(0);
-			r.walk(0);
-			
-				if(!((first || second) && t.getPlayerType())) {
+			//t.walk(0);
+			//r.walk(0);
+			f1.walk(0);
+			f2.walk(0);
+			r1.walk(0);
+			r2.walk(0);
+			if(!surface.getInputMethod()) {
+				if(!((first || second) && f1.getPlayerType())) {
 					if (surface.isPressed(KeyEvent.VK_LEFT))
-						t.walk(-1);
+						f1.walk(-1);
 					if (surface.isPressed(KeyEvent.VK_RIGHT))
-						t.walk(1);
+						f1.walk(1);
 					if (surface.isPressed(KeyEvent.VK_UP))
-						t.jump();
+						f1.jump();
 				}
-				if(!((first || second) && r.getPlayerType())) {
+				if(!((first || second) && r1.getPlayerType())) {
 					if (surface.isPressed(KeyEvent.VK_A)) 
-						r.walk(-1);
+						r1.walk(-1);
 					if (surface.isPressed(KeyEvent.VK_D)) 
-						r.walk(1);
+						r1.walk(1);
 					if (surface.isPressed(KeyEvent.VK_W)) 
-						r.jump();
+						r1.jump();
 				}
+				if(!((first || second) && f2.getPlayerType())) {
+					if (surface.isPressed(KeyEvent.VK_V)) 
+						f2.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_N)) 
+						f2.walk(1);
+					if (surface.isPressed(KeyEvent.VK_G)) 
+						f2.jump();
+				}
+				if(!((first || second) && r2.getPlayerType())) {
+					if (surface.isPressed(KeyEvent.VK_J)) 
+						r2.walk(-1);
+					if (surface.isPressed(KeyEvent.VK_L)) 
+						r2.walk(1);
+					if (surface.isPressed(KeyEvent.VK_I)) 
+						r2.jump();
+				}
+			}
+//			else {
+//				if(!((first || second) && t.getPlayerType())) {
+//					if (surface.isPressed(KeyEvent.VK_A))
+//						t.walk(-1);
+//					if (surface.isPressed(KeyEvent.VK_D))
+//						t.walk(1);
+//					if (surface.isPressed(KeyEvent.VK_W))
+//						t.jump();
+//				}
+//				if(!((first || second) && r.getPlayerType())) {
+//					if (surface.isPressed(KeyEvent.VK_LEFT))
+//						r.walk(-1);
+//					if (surface.isPressed(KeyEvent.VK_RIGHT))
+//						r.walk(1);
+//					if (surface.isPressed(KeyEvent.VK_UP))
+//						r.jump();
+//				}
+//			}
 		}
 		
-		if(MultiplayerOrNetwork.network && !hostIsDead) {
+		if(MultiplayerOrNetwork.network) {
 			p.act(platforms,abilities);
 		}
 		
 		if(!MultiplayerOrNetwork.network) {
-			t.act(platforms, abilities);
-			r.act(platforms, abilities);
+			//t.act(platforms, abilities);
+			//r.act(platforms, abilities);
+			f1.act(platforms, abilities);
+			f2.act(platforms, abilities);
+			r1.act(platforms, abilities);
+			r2.act(platforms, abilities);
 		}		
 		
 		surface.pushStyle();
@@ -436,10 +537,24 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 				curTime = System.currentTimeMillis();
 				if(timer == 0) {
 					third = false;
-					if(!t.getPlayerType())
-						currentRunner = Start1v1Game.player1;
-					else
-						currentRunner = Start1v1Game.player2;
+					int i = 0;
+					if(!MultiplayerOrNetwork.network) {
+						if(!f1.getPlayerType()) {
+							currentRunner[i] = Start1v1Game.player1;
+							i++;
+						}
+						if(!f2.getPlayerType()) {
+							currentRunner[i] = Start1v1Game.player2;
+							i++;
+						}
+						if(!r1.getPlayerType()) {
+							currentRunner[i] = Start1v1Game.player3;
+							i++;
+						}
+						if(!r2.getPlayerType()) {
+							currentRunner[i] = Start1v1Game.player4;
+						}
+					}
 					roundWinner = false;
 					if(MultiplayerOrNetwork.network) {
 						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, false);
@@ -453,6 +568,58 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 			surface.text(timer, 500, 50);
 			surface.popStyle();
 		}
+		if(!MultiplayerOrNetwork.network) {
+			boolean b = true;
+			for(Player p: playersMulti) {
+				if(!p.frozeOrUnfroze() && !p.getPlayerType()) {
+					b = false;
+				}
+				if(p.getTaggedTime() == 3) {
+					b = true;
+					break;
+				}
+					
+			}
+			if(b) {
+				int i = 0;
+				if(f1.getPlayerType()) {
+					currentRunner[i] = Start1v1Game.player1;
+					i++;
+				}
+				if(f2.getPlayerType()) {
+					currentRunner[i] = Start1v1Game.player2;
+					i++;
+				}
+				if(r1.getPlayerType()) {
+					currentRunner[i] = Start1v1Game.player3;
+					i++;
+				}
+				if(r2.getPlayerType()) {
+					currentRunner[i] = Start1v1Game.player4;
+				}
+				surface.switchScreen(ScreenSwitcher.ROUND_OVER);
+	
+			}
+		}
+		if(MultiplayerOrNetwork.network) {
+			boolean b = true;
+			for(Player p: players) {
+				if(!p.frozeOrUnfroze() && !p.getPlayerType()) {
+					b = false;
+				}
+				if(p.getTaggedTime() == 3) {
+					b = true;
+					break;
+				}
+					
+			}		
+			if(b) {
+				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeGameOver, true);
+				processNetworkMessages();
+				roundWinner = true;
+				surface.switchScreen(ScreenSwitcher.ROUND_OVER);
+			}
+		}
 		if(third) {
 			surface.pushStyle();
 			surface.strokeWeight(1);
@@ -465,39 +632,128 @@ public class ForestMapScreen extends Screens implements NetworkListener{
 	
 		if(MultiplayerOrNetwork.network) 
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeCurrentLocation, p.x,p.y);
-		if(!MultiplayerOrNetwork.network) {
-			if(t.intersects(r) && !(first || second)) {
-				if(System.currentTimeMillis()-taggedTime>3000) {
-					taggedTime = System.currentTimeMillis();
-					r.setPlayerType(!r.getPlayerType());
-					t.setPlayerType(!t.getPlayerType());
+		if(!MultiplayerOrNetwork.network) {//need to add 3 second grace period and maybe has to be frozen for at least 1 second before becoming unfrozen
+			if(f1.intersects(r1) && !(first || second)) {
+				if(f1.getPlayerType() == r1.getPlayerType()) {
+					if(f1.frozeOrUnfroze() && System.currentTimeMillis() - f1.getFrozenTime() > 1000) {
+						f1.unFrozen();
+					} else if(r1.frozeOrUnfroze() && System.currentTimeMillis() - r1.getFrozenTime() > 1000) {
+						r1.unFrozen();
+					}
+				}
+				else if(f1.getPlayerType() && !r1.frozeOrUnfroze() && System.currentTimeMillis() - r1.getunfrozenTime() > 3000) {
+					r1.isFrozen();
+					r1.gotTagged();
+				}
+				else if(r1.getPlayerType() && !f1.frozeOrUnfroze() && System.currentTimeMillis() - f1.getunfrozenTime() > 3000){
+					f1.isFrozen();
+					f1.gotTagged();
 				}
 			}
-		}
-		boolean remove = false;
-		if(MultiplayerOrNetwork.network) {
-			if(NetworkManagementPanel.isHost && !(first||second)) {
-				for(int i = 0; i<players.size();i++) {
-					for(int j = 1; j<players.size();j++) {
-						if(players.get(i).intersects(players.get(j)) && players.get(i).getPlayerType()!=players.get(j).getPlayerType()) {
-							if(!players.get(i).getPlayerType()) {
-								if(players.get(i).equals(p))
-									hostIsDead = true;
-								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(i));
-								remove = true;
-							}
-							else {
-								if(players.get(j).equals(p))
-									hostIsDead = true;
-								nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeRemovePlayer, players.remove(j));
-								remove = true;
-							}
-						}
-						if(remove)
-							break;
+			
+			if(f1.intersects(r2) && !(first || second)) {
+				if(f1.getPlayerType() == r2.getPlayerType()) {
+					if(f1.frozeOrUnfroze() && System.currentTimeMillis() - f1.getFrozenTime() > 1000) {
+						f1.unFrozen();
+					} else if(r2.frozeOrUnfroze() && System.currentTimeMillis() - r2.getFrozenTime() > 1000){
+						r2.unFrozen();
 					}
-					if(remove)
-						break;
+				}
+				else if(f1.getPlayerType() && !r2.frozeOrUnfroze() && System.currentTimeMillis() - r2.getunfrozenTime() > 3000) {
+					r2.isFrozen();
+					r2.gotTagged();
+				}
+				else if(r2.getPlayerType() && !f1.frozeOrUnfroze() && System.currentTimeMillis() - f1.getunfrozenTime() > 3000){
+					f1.isFrozen();
+					f1.gotTagged();
+				}
+			}
+			if(f2.intersects(r1) && !(first || second)) {
+				if(f2.getPlayerType() == r1.getPlayerType()) {
+					if(f2.frozeOrUnfroze() && System.currentTimeMillis() - f2.getFrozenTime() > 1000) {
+						f2.unFrozen();
+					} else if(r1.frozeOrUnfroze() && System.currentTimeMillis() - r1.getFrozenTime() > 1000){
+						r1.unFrozen();
+					}				}
+				else if(f2.getPlayerType() && !r1.frozeOrUnfroze() && System.currentTimeMillis() - r1.getunfrozenTime() > 3000) {
+					r1.isFrozen();
+					r1.gotTagged();
+				}
+				else if(r1.getPlayerType() && !f2.frozeOrUnfroze() && System.currentTimeMillis() - f2.getunfrozenTime() > 3000){
+					f2.isFrozen();
+					f2.gotTagged();
+				}
+			}
+			if(f2.intersects(r2) && !(first || second)) {
+				if(f2.getPlayerType() == r2.getPlayerType()) {
+					if(f2.frozeOrUnfroze() && System.currentTimeMillis() - f2.getFrozenTime() > 1000) {
+						f2.unFrozen();
+					} else if(r2.frozeOrUnfroze() && System.currentTimeMillis() - r2.getFrozenTime() > 1000){
+						r2.unFrozen();
+					}
+				}
+				else if(f2.getPlayerType() && !r2.frozeOrUnfroze() && System.currentTimeMillis() - r2.getunfrozenTime() > 3000) {
+					r2.isFrozen();
+					r2.gotTagged();
+				}
+				else if(r2.getPlayerType() && !f2.frozeOrUnfroze() && System.currentTimeMillis() - f2.getunfrozenTime() > 3000){
+					f2.isFrozen();
+					f2.gotTagged();
+				}
+
+			}
+			if(f2.intersects(f1) && !(first || second)) {
+				if(f2.getPlayerType() == f1.getPlayerType()) {
+					if(f2.frozeOrUnfroze() && System.currentTimeMillis() - f2.getFrozenTime() > 1000) {
+						f2.unFrozen();
+					} else if(f1.frozeOrUnfroze() && System.currentTimeMillis() - f1.getFrozenTime() > 1000){
+						f1.unFrozen();
+					}
+				}
+				else if(f2.getPlayerType() && !f1.frozeOrUnfroze() && System.currentTimeMillis() - f1.getunfrozenTime() > 3000) {
+					f1.isFrozen();
+					f1.gotTagged();
+				}
+				else if(f1.getPlayerType() && !f2.frozeOrUnfroze() && System.currentTimeMillis() - f2.getunfrozenTime() > 3000){
+					f2.isFrozen();
+					f2.gotTagged();
+				}
+			}
+			if(r2.intersects(r1) && !(first || second)) {
+				if(r2.getPlayerType() == r1.getPlayerType()) {
+					if(r2.frozeOrUnfroze() && System.currentTimeMillis() - r2.getFrozenTime() > 1000) {
+						r2.unFrozen();
+					} else if(r1.frozeOrUnfroze() && System.currentTimeMillis() - r1.getFrozenTime() > 1000){
+						r1.unFrozen();
+					}
+				}
+				else if(r2.getPlayerType() && !r1.frozeOrUnfroze() && System.currentTimeMillis() - r1.getunfrozenTime() > 3000) {
+					r1.isFrozen();
+					r1.gotTagged();
+				}
+				else if(r1.getPlayerType() && !r2.frozeOrUnfroze() && System.currentTimeMillis() - r2.getunfrozenTime() > 3000){
+					r2.isFrozen();
+					r2.gotTagged();
+				}
+
+			}
+		}
+		if(MultiplayerOrNetwork.network) {
+			if(!(first||second)) {
+				for(int i = 0; i<players.size();i++) {
+					if(players.get(i).intersects(p) && players.get(i).getPlayerType()!=p.getPlayerType()) {
+						if(!p.getPlayerType() && !p.frozeOrUnfroze() && System.currentTimeMillis() - p.getunfrozenTime() > 3000 && !players.get(i).equals(p)) {
+							p.isFrozen();
+							nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeIsFrozen, p);
+							processNetworkMessages();
+							p.gotTagged();
+						}
+					}
+					if(players.get(i).intersects(p) && players.get(i).getPlayerType() == p.getPlayerType() && System.currentTimeMillis() - p.getFrozenTime() > 1000 && !players.get(i).equals(p)) {
+						p.unFrozen();
+						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeUnfrozen, p);
+						processNetworkMessages();
+					}
 				}
 			}
 		}
@@ -521,7 +777,7 @@ public void processNetworkMessages() {
 			String host = ndo.getSourceIP();
 
 			if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
-				if (ndo.message[0].equals(messageTypeCurrentLocation)) {
+				if (ndo.message[0].equals(messageTypeCurrentLocation)) {//works
 					
 						for (Player c : players) {
 							if (c.host.equals(host)) {
@@ -530,7 +786,7 @@ public void processNetworkMessages() {
 							}
 						}
 				}
-				else if (ndo.message[0].equals(messageTypeInit)) {
+				else if (ndo.message[0].equals(messageTypeInit)) {//works
 					
 					for (Player c : players) {
 						if (c.host.equals(host))
@@ -551,16 +807,14 @@ public void processNetworkMessages() {
 				
 				}
 				
-				else if (ndo.message[0].equals(messageTypeRemovePlayer)) {
+				else if (ndo.message[0].equals(messageTypeIsFrozen)) {
 					Player s = (Player)ndo.message[1];
-					for(Player a :players) {
-						if(a.equals(s)) {
-							s = a;
-							break;
+					for(int i = 0; i<players.size();i++) {
+						if(s.name.equals(players.get(i).name)) {
+							players.get(i).isFrozen();
+							players.get(i).gotTagged();
 						}
-					}
-					players.remove(s);
-						
+					}						
 				}
 				
 				else if (ndo.message[0].equals(messageTypeSetTagger)) {
@@ -570,9 +824,11 @@ public void processNetworkMessages() {
 							players.get(i).setPlayerType(true);
 						}
 					}
+					StartNetworkGame.numberOfPlayers = (int)ndo.message[2];
+					check = 10;
 				}
 				
-				else if (ndo.message[0].equals(messageTypeGameOver)) {
+				else if (ndo.message[0].equals(messageTypeGameOver)) {//works
 					third = false;
 					roundWinner = (boolean)ndo.message[1];
 					surface.switchScreen(ScreenSwitcher.ROUND_OVER);
@@ -610,6 +866,14 @@ public void processNetworkMessages() {
 						if(players.get(i).name.equals((String)ndo.message[1])) {
 							players.get(i).dive = false;
 							players.get(i).turnDiveOff = false;
+						}
+					}				
+				}
+				
+				else if (ndo.message[0].equals(messageTypeUnfrozen)) {
+					for(int i = 0; i<players.size();i++) {
+						if(players.get(i).name.equals(((Player)ndo.message[1]).name)) {
+							players.get(i).unFrozen();
 						}
 					}				
 				}
@@ -674,3 +938,4 @@ public void processNetworkMessages() {
 		
 	}
 }
+

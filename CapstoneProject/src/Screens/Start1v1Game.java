@@ -105,8 +105,14 @@ public class Start1v1Game extends Screens{
 				surface.switchScreen(ScreenSwitcher.FREEZETAGWATERMAPSCREEN);
 			if(surface.getMap()  == 1 && surface.getGameMode() == 3)
 				surface.switchScreen(ScreenSwitcher.COPSNROBBERSWATERMAPSCREEN);
-			if(surface.getMap() == 2)
+			if(surface.getMap() == 2 && surface.getGameMode() == 1)
 				surface.switchScreen(ScreenSwitcher.FORESTMAP);	
+			if(surface.getMap() == 2 && surface.getGameMode() == 2){
+				surface.switchScreen(ScreenSwitcher.FORESTMAPFREEZETAG);
+			}
+			if(surface.getMap() == 2 && surface.getGameMode() == 3) {
+				surface.switchScreen(ScreenSwitcher.FORESTMAPCOPSNROBBERS);
+			}
 		}
 	}
 }
