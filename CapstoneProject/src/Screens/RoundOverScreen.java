@@ -71,8 +71,27 @@ public class RoundOverScreen extends Screens{
 				surface.text("Play Again", playAgain.x+playAgain.width/2-surface.textWidth("Play Again")/2, playAgain.y + playAgain.height/2 + 4);
 			}
 		
-			else if(surface.getGameMode() == 3) {
+			else if(surface.getGameMode() == 3 && surface.getMap() == 0) {
 				String s = NormalMapCopsNRobbers.currentRunner[0] + " and " + NormalMapCopsNRobbers.currentRunner[1];
+				surface.fill(0,0,0);
+				surface.textSize(50);
+				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+				
+				surface.fill(0,0,0);
+				surface.rect(mainMenu.x, mainMenu.y, mainMenu.width, mainMenu.height);
+				surface.fill(255,255,255);
+				surface.textSize(13);
+				surface.text("Main Menu", mainMenu.x+mainMenu.width/2-surface.textWidth("Main Menu")/2, mainMenu.y + mainMenu.height/2 + 4);
+				
+				surface.fill(0,0,0);
+				surface.rect(playAgain.x, playAgain.y, playAgain.width, playAgain.height);
+				surface.fill(255,255,255);
+				surface.textSize(13);
+				surface.text("Play Again", playAgain.x+playAgain.width/2-surface.textWidth("Play Again")/2, playAgain.y + playAgain.height/2 + 4);
+			}
+			
+			else if(surface.getGameMode() == 3 && surface.getMap() == 1) { // cops n robbers and water map
+				String s = CopsNRobbersWaterMap.currentRunner[0] + " and " + CopsNRobbersWaterMap.currentRunner[1];
 				surface.fill(0,0,0);
 				surface.textSize(50);
 				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
@@ -104,6 +123,17 @@ public class RoundOverScreen extends Screens{
 				surface.fill(0,0,0);
 				surface.textSize(50);
 				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+				surface.fill(0,0,0);
+				surface.rect(mainMenu.x, mainMenu.y, mainMenu.width, mainMenu.height);
+				surface.fill(255,255,255);
+				surface.textSize(13);
+				surface.text("Main Menu", mainMenu.x+mainMenu.width/2-surface.textWidth("Main Menu")/2, mainMenu.y + mainMenu.height/2 + 4);
+				
+				surface.fill(0,0,0);
+				surface.rect(playAgain.x, playAgain.y, playAgain.width, playAgain.height);
+				surface.fill(255,255,255);
+				surface.textSize(13);
+				surface.text("Play Again", playAgain.x+playAgain.width/2-surface.textWidth("Play Again")/2, playAgain.y + playAgain.height/2 + 4);
 			}
 	}
 		else {
@@ -187,13 +217,17 @@ public class RoundOverScreen extends Screens{
 					surface.refresh1v1();
 					surface.switchScreen(ScreenSwitcher.FREEZETAGNORMALMAPSCREEN);
 				}
-				if(surface.getGameMode() == 3) {
+				if(surface.getGameMode() == 3 && surface.getMap() == 0) {
 					surface.refresh1v1();
 					surface.switchScreen(ScreenSwitcher.COPSNROBBERS);
 				}
 				if(surface.getGameMode() == 2 && surface.getMap() == 1) {
 					surface.refresh1v1();
 					surface.switchScreen(ScreenSwitcher.FREEZETAGWATERMAPSCREEN);
+				}
+				if(surface.getGameMode() == 3 && surface.getMap() == 1) {
+					surface.refresh1v1();
+					surface.switchScreen(ScreenSwitcher.COPSNROBBERSWATERMAPSCREEN);
 				}
 			}
 		}
