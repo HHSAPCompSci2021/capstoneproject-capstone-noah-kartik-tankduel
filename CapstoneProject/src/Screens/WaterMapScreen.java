@@ -223,9 +223,8 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 			surface.textSize(15);
 			for(Player a: players) {
 				surface.fill(0,0,0);
-				if(a.getInvisible())
-					surface.fill(0,119,190);
-				surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
+				if(!a.getInvisible())
+					surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
 
 			}
 		}
