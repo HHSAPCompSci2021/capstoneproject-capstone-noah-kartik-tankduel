@@ -171,6 +171,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 		if(MultiplayerOrNetwork.network&& firstRun == 0) {
 			p.name = MultiplayerOrNetwork.playerName;
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, p.x, p.y,MultiplayerOrNetwork.playerName);
+			System.out.println("sends player");
 		}
 		firstRun=1;
 		if(MultiplayerOrNetwork.network) {//sets up who is tagger for networking
@@ -484,7 +485,7 @@ public class NormalMapScreen extends Screens implements NetworkListener{
 						}
 				}
 				else if (ndo.message[0].equals(messageTypeInit)) {
-					
+					System.out.println("receives message");
 					for (Player c : players) {
 						if (c.host.equals(host))
 							return;
