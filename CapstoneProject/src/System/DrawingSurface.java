@@ -91,6 +91,9 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		WaterMapFreezeTagScreen waterMapFreezeTag = new WaterMapFreezeTagScreen(this);//18
 		screens.add(waterMapFreezeTag);
 		
+		CopsNRobbersWaterMap copsNRobbersWaterMap = new CopsNRobbersWaterMap(this);
+		screens.add(copsNRobbersWaterMap);
+		
 		activeScreen = screens.get(0);
 		
 	}
@@ -304,11 +307,14 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		NormalMapCopsNRobbers copsNRobbers = new NormalMapCopsNRobbers(this);
 		
 		WaterMapFreezeTagScreen waterMapFreeze = new WaterMapFreezeTagScreen(this);
+		
+		CopsNRobbersWaterMap waterMapCopsNRobbers = new CopsNRobbersWaterMap(this);
 		screens.set(17, copsNRobbers);
 		screens.set(4, normalMap);
 		screens.set(5, roundOver);
 		screens.set(15, freezeMode);
 		screens.set(18, waterMapFreeze);
+		screens.set(19, waterMapCopsNRobbers);
 	}
 
 }

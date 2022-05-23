@@ -180,6 +180,8 @@ public class Player extends Sprite {
 			NormalMapFreezeTagScreen.deleteCloak();
 			WaterMapScreen.deleteCloak();
 			WaterMapFreezeTagScreen.deleteCloak();
+			CopsNRobbersWaterMap.deleteCloak();
+			NormalMapCopsNRobbers.deleteCloak();
 		}
 		if(dive && countDive == 0) {
 			countDive = 1;
@@ -188,6 +190,8 @@ public class Player extends Sprite {
 			NormalMapFreezeTagScreen.deleteDive();
 			WaterMapScreen.deleteDive();
 			WaterMapFreezeTagScreen.deleteDive();
+			CopsNRobbersWaterMap.deleteDive();
+			NormalMapCopsNRobbers.deleteDive();
 		}
 		
 		for(Line2D s: obstacles) {
@@ -260,7 +264,9 @@ public class Player extends Sprite {
 				y = 718;
 		}
 		if(NormalMapFreezeTagScreen.abilityUseable || NormalMapScreen.abilityUseable
-				|| WaterMapFreezeTagScreen.abilityUseable || WaterMapScreen.abilityUseable) {
+				|| WaterMapFreezeTagScreen.abilityUseable || WaterMapScreen.abilityUseable 
+				|| CopsNRobbersWaterMap.abilityUseable || NormalMapCopsNRobbers.abilityUseable
+				) {
 			for(SpecialAbilities a: abilities) {
 				if(a.intersects(this)) {
 					if(a instanceof SpeedBoost) {
@@ -270,6 +276,8 @@ public class Player extends Sprite {
 						NormalMapFreezeTagScreen.deleteSpeed();
 						WaterMapScreen.deleteSpeed();
 						WaterMapFreezeTagScreen.deleteSpeed();
+						CopsNRobbersWaterMap.deleteSpeed();
+						NormalMapCopsNRobbers.deleteSpeed();
 					}
 					if(a instanceof HighJump) {
 						jump = true;
@@ -278,6 +286,8 @@ public class Player extends Sprite {
 						NormalMapFreezeTagScreen.deleteJump();
 						WaterMapScreen.deleteJump();
 						WaterMapFreezeTagScreen.deleteJump();
+						CopsNRobbersWaterMap.deleteJump();
+						NormalMapCopsNRobbers.deleteJump();
 					}
 					if(a instanceof SneakyCloak && !playerType) {
 						invisible = true;
@@ -286,6 +296,8 @@ public class Player extends Sprite {
 						NormalMapFreezeTagScreen.deleteCloak();
 						WaterMapScreen.deleteCloak();
 						WaterMapFreezeTagScreen.deleteCloak();
+						CopsNRobbersWaterMap.deleteCloak();
+						NormalMapCopsNRobbers.deleteSpeed();
 					}
 					if(a instanceof DiveTag && playerType) {
 						dive = true;
@@ -294,6 +306,8 @@ public class Player extends Sprite {
 						NormalMapFreezeTagScreen.deleteDive();
 						WaterMapScreen.deleteDive();
 						WaterMapFreezeTagScreen.deleteDive();
+						CopsNRobbersWaterMap.deleteDive();
+						NormalMapCopsNRobbers.deleteDive();
 					}
 					
 				}
