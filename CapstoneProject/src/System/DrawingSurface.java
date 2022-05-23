@@ -253,17 +253,17 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		
 		if(map == 1 && gameMode == 1)//water map/normal mode
 			return 11;
-		if(map == 0 && gameMode == 2)//water map/freeze mode
+		if(map == 1 && gameMode == 2)//water map/freeze mode
 			return 18;
-		if(map == 0 && gameMode == 3)//water map/cops n robbers mode
-			return 17;
+		if(map == 1 && gameMode == 3)//water map/cops n robbers mode
+			return 19;
 		
 		
-		if(map == 0 && gameMode == 1)//forest map/normal mode
+		if(map == 2 && gameMode == 1)//forest map/normal mode
 			return 4;
-		if(map == 0 && gameMode == 2)//forest map/freeze mode
+		if(map == 2 && gameMode == 2)//forest map/freeze mode
 			return 15;
-		if(map == 0 && gameMode == 3)//forest map/cops n robbers mode
+		if(map == 2 && gameMode == 3)//forest map/cops n robbers mode
 			return 17;
 		return 17;
 	}

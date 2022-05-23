@@ -19,7 +19,6 @@ public class StartNetworkGame extends Screens{
 	private Rectangle start;
 	private static final String messageTypeStartGame = "START_GAME";
 	public static int numberOfPlayers;
-	private int check  = 1;	
 	
 	public StartNetworkGame(DrawingSurface surface) {
 		super(1080,720);
@@ -43,6 +42,7 @@ public class StartNetworkGame extends Screens{
 		surface.textSize(50);
 		surface.text("START", start.x+start.width/2-surface.textWidth("START")/2, start.y +70);
 		if(!NetworkManagementPanel.isHost) {
+			
 			if(surface.getMapScreen() == 4)
 				if (((NormalMapScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
 					return;
@@ -59,7 +59,9 @@ public class StartNetworkGame extends Screens{
 			else if(surface.getMapScreen() == 18)
 				if (((WaterMapFreezeTagScreen) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
 					return;
-			
+			else if(surface.getMapScreen() == 19)
+				if (((CopsNRobbersWaterMap) surface.getScreen(surface.getMapScreen())).getNetworkMessenger() == null)
+					return;
 			
 			
 			Queue<NetworkDataObject> queue = null;
@@ -74,6 +76,9 @@ public class StartNetworkGame extends Screens{
 				queue = ((WaterMapScreen) surface.getScreen(ScreenSwitcher.WATERMAP)).getNetworkMessenger().getQueuedMessages();
 			else if(surface.getMapScreen() == 18)
 				queue = ((WaterMapFreezeTagScreen) surface.getScreen(ScreenSwitcher.FREEZETAGWATERMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
+			else if(surface.getMapScreen() == 19)
+				queue = ((CopsNRobbersWaterMap) surface.getScreen(ScreenSwitcher.COPSNROBBERSWATERMAPSCREEN)).getNetworkMessenger().getQueuedMessages();
+			
 			
 			if(queue == null)
 				return;
@@ -93,7 +98,13 @@ public class StartNetworkGame extends Screens{
 								surface.switchScreen(ScreenSwitcher.WATERMAP);
 							if((int)ndo.message[2] == 1 && (int)ndo.message[3] == 2)
 								surface.switchScreen(ScreenSwitcher.FREEZETAGWATERMAPSCREEN);
-							if((int)ndo.message[2] == 2)
+							if((int)ndo.message[2] == 1 && (int)ndo.message[3] == 3)
+								surface.switchScreen(ScreenSwitcher.COPSNROBBERSWATERMAPSCREEN);
+							if((int)ndo.message[2] == 2 && (int)ndo.message[3] == 1)
+								surface.switchScreen(ScreenSwitcher.FORESTMAP);
+							if((int)ndo.message[2] == 2 && (int)ndo.message[3] == 2)
+								surface.switchScreen(ScreenSwitcher.FORESTMAP);
+							if((int)ndo.message[2] == 2 && (int)ndo.message[3] == 3)
 								surface.switchScreen(ScreenSwitcher.FORESTMAP);
 						}
 					}
@@ -131,10 +142,14 @@ public class StartNetworkGame extends Screens{
 				surface.switchScreen(ScreenSwitcher.FREEZETAGWATERMAPSCREEN);
 				((WaterMapFreezeTagScreen) surface.getScreen(ScreenSwitcher.FREEZETAGWATERMAPSCREEN)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true, 1,2);
 			}
-//			if(surface.getMap() == 2) {
-//				surface.switchScreen(ScreenSwitcher.FORESTMAP);
-//				((ForestMapScreen) surface.getScreen(ScreenSwitcher.FORESTMAP)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true);
-//			}
+			if(surface.getMap() == 1 && surface.getGameMode() == 3) {
+				surface.switchScreen(ScreenSwitcher.COPSNROBBERSWATERMAPSCREEN);
+				((CopsNRobbersWaterMap) surface.getScreen(ScreenSwitcher.COPSNROBBERSWATERMAPSCREEN)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true, 1,2);
+			}
+			if(surface.getMap() == 2 && surface.getGameMode() == 1) {
+				surface.switchScreen(ScreenSwitcher.FORESTMAP);
+				((ForestMapScreen) surface.getScreen(ScreenSwitcher.FORESTMAP)).getNetworkMessenger().sendMessage(NetworkDataObject.MESSAGE, messageTypeStartGame, true);
+			}
 			numberOfPlayers = PlayScreen1.nmp.numberOfPeople();
 		}
 	}
