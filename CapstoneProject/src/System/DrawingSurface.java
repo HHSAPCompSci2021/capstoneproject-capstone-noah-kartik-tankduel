@@ -100,6 +100,8 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		ForestMapCopsNRobbers forestMapCopsNRobbers = new ForestMapCopsNRobbers(this);
 		screens.add(forestMapCopsNRobbers);
 		
+		ServerNetworkHelp serverHelp = new ServerNetworkHelp(this);
+		screens.add(serverHelp);
 		activeScreen = screens.get(0);
 		
 	}
