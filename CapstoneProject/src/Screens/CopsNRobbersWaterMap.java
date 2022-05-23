@@ -285,7 +285,6 @@ public class CopsNRobbersWaterMap extends Screens implements NetworkListener{
 				surface.fill(0,0,0);
 				if(!a.getInvisible())
 					surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
-
 			}
 		}
 
