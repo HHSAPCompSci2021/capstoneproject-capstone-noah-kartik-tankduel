@@ -158,6 +158,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 	}
 	public void draw() {
 		surface.clear();
+		surface.background(0,0,0);
 		surface.fill(255,255,255);
 		surface.textSize(10);
 		surface.pushStyle();

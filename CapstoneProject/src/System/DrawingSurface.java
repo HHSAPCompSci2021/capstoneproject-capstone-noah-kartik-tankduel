@@ -287,10 +287,12 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		
 		NormalMapCopsNRobbers copsNRobbers = new NormalMapCopsNRobbers(this);
 		
+		WaterMapFreezeTagScreen waterMapFreeze = new WaterMapFreezeTagScreen(this);
 		screens.set(17, copsNRobbers);
 		screens.set(4, normalMap);
 		screens.set(5, roundOver);
 		screens.set(15, freezeMode);
+		screens.set(18, waterMapFreeze);
 	}
 
 }

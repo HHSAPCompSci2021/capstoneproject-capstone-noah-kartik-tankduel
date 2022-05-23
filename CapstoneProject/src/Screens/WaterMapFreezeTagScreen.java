@@ -2,6 +2,7 @@
  * Author - Kartik Joshi
  */
 package Screens;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
@@ -70,6 +71,7 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 	double curTime;
 	boolean first;
 	boolean second;
+	private Rectangle beach;
 	boolean third;
 		
 	int firstRun;
@@ -83,44 +85,46 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 		p.host = "me!";
 		players.add(p);
 		playersMulti = new ArrayList<Player>();
+		beach = new Rectangle(0,520,1080,400);
 
 		// X:1080 by Y:720 range lines, make sure that x1 < x2
-		l0 = new Line2D.Double (450,450,500,400);
-		l1 = new Line2D.Double (300,500,400,600);
-		l2 = new Line2D.Double (700,300,800,200);
-		l3 = new Line2D.Double (668,2,668,2.5);
-		l4 = new Line2D.Double (500,500,600,500);
-		l5 = new Line2D.Double (300,70,500,70);
-		l6 = new Line2D.Double (780,70,1010,70);
-		l7 = new Line2D.Double (400,270,650,150);
-		l8 = new Line2D.Double (50,300,200,425);
-		l9 = new Line2D.Double (829,375,1050,300);
-		l10 = new Line2D.Double (50,550,230,550);
-		l11 = new Line2D.Double (849,550,1050,550);
-		l12 = new Line2D.Double (400,500,630,500);
-		l13 = new Line2D.Double (480,360,700,360);
-		l14 = new Line2D.Double (600,620,800,450);
-		l15 = new Line2D.Double (250,250,350,350);
-		l16 = new Line2D.Double (200,500,500,300);
-		l17 = new Line2D.Double (650,2,700,50);
-		l18 = new Line2D.Double (320,690,480,640);
-		l19 = new Line2D.Double (500,590,600,690);
-		l20 = new Line2D.Double (100,250,280,140);
-		l21 = new Line2D.Double (200,50,250,100);
-		l22 = new Line2D.Double (300,200,450,175);
-		l23 = new Line2D.Double (670,100,770,150);
-		l24 = new Line2D.Double (595,275,625,255);
-		l25 = new Line2D.Double (0,400,70,450);
-		l26 = new Line2D.Double (40,600,100,660);
-		l27 = new Line2D.Double (850,170,950,270);
-		l28 = new Line2D.Double (1020,240,1080,180);
-		l29 = new Line2D.Double (790,570,880,680);
-		l30 = new Line2D.Double (1000,680,1080,600);
-		l31 = new Line2D.Double (980,450,1080,340);
-		l32 = new Line2D.Double (840,425,970,505);
-		l33 = new Line2D.Double (500,150,550,100);
-		l34 = new Line2D.Double (200,680,280,550);
-		l35 = new Line2D.Double (730,400,780,400);
+		l0 = new Line2D.Double (200,50,250,50);
+		l1 = new Line2D.Double (600,50,650,50);
+		l2 = new Line2D.Double (900,50,1000,50);
+		l3 = new Line2D.Double (1000,50,1000,100);
+		l4 = new Line2D.Double (900,100,1000,100);
+		l5 = new Line2D.Double (1050,75,1100,75); // edge piece just in case it glitches 
+		l6 = new Line2D.Double (400,100,600,150); 
+		l7 = new Line2D.Double (250,150,300,100);
+		l8 = new Line2D.Double (300,150,450,225);
+		l9 = new Line2D.Double (625,250,725,175);
+		l10 = new Line2D.Double (950,175,1020,125);
+		l11 = new Line2D.Double (1035,150,1075,200);
+		l12 = new Line2D.Double (850,300,1000,300);
+		l13 = new Line2D.Double (975,275,1050,275);
+		l14 = new Line2D.Double (1050,275,1050,350);
+		l15 = new Line2D.Double (975,350,1050,350);
+		l16 = new Line2D.Double (200,150,900,500);
+		l17 = new Line2D.Double (950,500,1025,400);
+		l18 = new Line2D.Double (50,200,175,200);
+		l19 = new Line2D.Double (25,250,100,250);
+		l20 = new Line2D.Double (25,250,25,325);
+		l21 = new Line2D.Double (25,325,100,325);
+		l22 = new Line2D.Double (150,290,200,290);	
+		l23 = new Line2D.Double (150,290,150,350);
+		l24 = new Line2D.Double (150,350,200,350);
+		l25 = new Line2D.Double (225,320,300,400);
+		l26 = new Line2D.Double (550,370,600,400);
+		l27 = new Line2D.Double (250,500,350,450);
+		l28 = new Line2D.Double (75,680,150,600);
+		l29 = new Line2D.Double (300,650,375,520);
+		l30 = new Line2D.Double (510,520,510,650);
+		l31 = new Line2D.Double (510,650,600,650);
+		l32 = new Line2D.Double (400,680,550,100);
+		l32 = new Line2D.Double (450,680,550,680);
+		l33 = new Line2D.Double (575,520,850,540);
+		l34 = new Line2D.Double(750,680,1000,550);
+		l35 = new Line2D.Double(900,650,1020,650);
 
 		spawnX = new Line2D.Double(0,150,150,150);
 		spawnY = new Line2D.Double(150,0,150,150);
@@ -196,9 +200,13 @@ public class WaterMapFreezeTagScreen extends Screens implements NetworkListener{
 		surface.background(0,0,0);
 		surface.fill(255,255,255);
 		surface.textSize(10);
-
 		surface.pushStyle();
-		surface.background(255,255,255);
+		surface.background(0,119,190);
+		surface.fill(249,215,28);
+		surface.noStroke();
+		surface.circle(960, 80, 100);
+		surface.fill(194,178,128);
+		surface.rect(beach.x, beach.y, beach.width, beach.height);
 		surface.fill(0,0,0);
 		surface.stroke(2);
 		if(MultiplayerOrNetwork.network) {

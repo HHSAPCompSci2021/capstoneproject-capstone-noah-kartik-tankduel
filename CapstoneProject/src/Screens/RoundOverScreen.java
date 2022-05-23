@@ -117,16 +117,32 @@ public class RoundOverScreen extends Screens{
 				surface.textSize(50);
 				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
 			}
+			else if(surface.getGameMode() == 2 && surface.getMap() == 1) {
+				String s = "";
+				if(WaterMapFreezeTagScreen.roundWinner) {
+					for(String t : WaterMapFreezeTagScreen.currentTagger) {
+						s = s + t +" ";
+					}
+				}
+				else {
+					for(String r : WaterMapFreezeTagScreen.currentRunner) {
+						s = s + r +" ";
+					}
+				}
+				surface.fill(0,0,0);
+				surface.textSize(50);
+				surface.text(s + " WON THE ROUND!", DRAWING_WIDTH/2 - surface.textWidth(s + " WON THE ROUND!")/2, DRAWING_HEIGHT/2);
+			}
 			else if(surface.getGameMode() == 3) {
 				String s = "";
-				if(NormalMapCopsNRobbers.roundWinner) {
-					for(String t: NormalMapCopsNRobbers.currentTagger) {
+				if(WaterMapFreezeTagScreen.roundWinner) {
+					for(String t: WaterMapFreezeTagScreen.currentTagger) {
 						s = s + t + " ";
 	
 					}
 				}
 				else {
-					for(String r: NormalMapCopsNRobbers.currentRunner) {
+					for(String r: WaterMapFreezeTagScreen.currentRunner) {
 						s = s + r + " ";
 					}	
 				}
@@ -157,6 +173,10 @@ public class RoundOverScreen extends Screens{
 				if(surface.getGameMode() == 3) {
 					surface.refresh1v1();
 					surface.switchScreen(ScreenSwitcher.COPSNROBBERS);
+				}
+				if(surface.getGameMode() == 2 && surface.getMap() == 1) {
+					surface.refresh1v1();
+					surface.switchScreen(ScreenSwitcher.FREEZETAGWATERMAPSCREEN);
 				}
 			}
 		}
