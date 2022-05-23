@@ -236,12 +236,12 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 				surface.fill(255,255,255);
 			else
 				surface.fill(0,0,0);
-		//	surface.text(Start1v1Game.player1, (float)t.x - surface.textWidth(Start1v1Game.player1)/2 + (float)t.getWidth()/2, (float)(t.y -3.0));
+			surface.text(Start1v1Game.player1, (float)t.x - surface.textWidth(Start1v1Game.player1)/2 + (float)t.getWidth()/2, (float)(t.y -3.0));
 			if(r.getInvisible())
 				surface.fill(255,255,255);
 			else
 				surface.fill(0,0,0);
-			//surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
+			surface.text(Start1v1Game.player2, (float)r.x - surface.textWidth(Start1v1Game.player2)/2 + (float)r.getWidth()/2, (float)(r.y - 3.0));
 		}
 		if(MultiplayerOrNetwork.network){
 			surface.textSize(15);
@@ -249,7 +249,7 @@ public class WaterMapScreen extends Screens implements NetworkListener{
 				surface.fill(0,0,0);
 				if(a.getInvisible())
 					surface.fill(255,255,255);
-			//	surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
+				surface.text(a.name, (float)a.x - surface.textWidth(a.name)/2 + (float)a.getWidth()/2, (float)(a.y -3.0));
 
 			}
 		}
