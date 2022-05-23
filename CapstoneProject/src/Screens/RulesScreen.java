@@ -53,7 +53,7 @@ public class RulesScreen extends Screens{
 		surface.textSize(25);
 		surface.text("1. Randomly splits half the group into cops and robbers",  540-surface.textWidth("1. Randomly splits half the group into cops and robbers")/2, 382.5f);
 		surface.text("2. The goal of the runners is to run away from the cops until the time runs out",  540-surface.textWidth("2. The goal of the runners is to run away from the cops until the time runs out")/2, 407.5f);
-		surface.text("3. The cop's goal is to stop the robbers from winning by tagging all the robbers and putting them in jail",  540-surface.textWidth("3. The cop's goal is to stop the robbers from winning by tagging all the robbers and putting them in jail")/2, 432.5f);
+		surface.text("3. The cop's goal is to stop the robbers from winning by tagging and putting robbers in jail",  540-surface.textWidth("3. The cop's goal is to stop the robbers from winning by tagging and putting robbers in jail")/2, 432.5f);
 		surface.text("4. A robber in jail can be saved if they are tagged by another robber",  540-surface.textWidth("4. A robber in jail can be saved if they are tagged by another robber")/2, 457.5f);
 
 
