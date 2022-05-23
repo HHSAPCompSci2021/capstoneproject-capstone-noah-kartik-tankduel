@@ -11,7 +11,7 @@ import networking.frontend.NetworkManagementPanel;
 
 /**
  * Lets you choose if you want to play 1v1 on your computer or if you want to play network
- * @author npien
+ * @author Noah Pien and Kartik Joshi
  *
  */
 public class MultiplayerOrNetwork extends Screens{
@@ -24,8 +24,11 @@ public class MultiplayerOrNetwork extends Screens{
 	private Rectangle back;
 	private Rectangle next;
 	private int method = 0;
-//	public static NetworkManagementPanel nmp;
 	
+	/**
+	 * sets up the multiplayer or network screen
+	 * @param surface
+	 */
 	public MultiplayerOrNetwork(DrawingSurface surface) {
 		super(1080,720);
 		this.surface = surface;

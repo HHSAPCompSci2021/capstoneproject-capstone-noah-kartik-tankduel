@@ -1,7 +1,10 @@
 package Screens;
 
 import System.DrawingSurface;
-
+/**
+ * The game over screen
+ * @author Noah Pien and Kartik Joshi
+ */
 public class GameOverScreen extends Screens{
 	private DrawingSurface surface;
 

@@ -5,10 +5,9 @@ import processing.core.PApplet;
 
 /**
  * Credit to John Shelby for code
- * @author npien
+ * @author Noah Pien
  *
  */
- 
 public class Sprite extends Rectangle2D.Double {
 	// CONSTRUCTORS
 

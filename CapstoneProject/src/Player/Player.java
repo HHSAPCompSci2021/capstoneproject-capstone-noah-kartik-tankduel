@@ -12,10 +12,7 @@ import processing.core.PApplet;
  * the player in the game
  * @author Noah Pien and Kartik Joshi
  * Credit to John Shelby for code
- * @author npien
- *
  */
-
 public class Player extends Sprite {
 
 	
@@ -23,8 +20,15 @@ public class Player extends Sprite {
 	public static final int PLAYER_WIDTH = 17;
 	public static final int PLAYER_HEIGHT = 20;
 	public String host;
-	private boolean onASurface;
 	public String name;
+	public boolean invisible;
+	public boolean dive;
+	public boolean invisUsed;
+	public boolean diveUsed;
+	public boolean turnInvisOff;
+	public boolean turnDiveOff;
+	
+	private boolean onASurface;
 	private long diveTime;
 	private long speedTime;
 	private long cloakTime;
@@ -32,18 +36,14 @@ public class Player extends Sprite {
 	private DrawingSurface surface;
 	private boolean speed;
 	private boolean jump;
-	public boolean invisible;
-	public boolean dive;
+
 	private boolean frozen;
 	
 	private boolean playerType; // false for runner true for tagger
 	private double xVel, yVel;
 	private int countInvis = 0;
 	private int countDive = 0;
-	public boolean invisUsed;
-	public boolean diveUsed;
-	public boolean turnInvisOff;
-	public boolean turnDiveOff;
+
 	private int taggedTime;
 	private long unfrozenTime;
 	private long frozenTime;
@@ -73,46 +73,82 @@ public class Player extends Sprite {
 		}
 		
 	}
+	
+	/**
+	 * gets whether it is tagger or runner
+	 * @return tagger or runner boolean
+	 */
 	public boolean getPlayerType() {
 		return playerType;
 	}
+	
+	/**
+	 * sets the player type
+	 * @param x the player type
+	 */
 	public void setPlayerType(boolean x) {
 		playerType = x;
 	}
 
 	
+
 	/**
-	 * Makes the character move left and right
-	 * @param dir - direction you want the character to go 
+	 * makes the character frozen
 	 */
-	
 	public void isFrozen() {
 		if(!frozen) {
 			frozen = true;
 			frozenTime = System.currentTimeMillis();
 		}
 	}
+	/**
+	 * makes the character unfrozen
+	 */
 	public void unFrozen() {
 		if(frozen) {
 			frozen = false;
 			unfrozenTime = System.currentTimeMillis();
 		}
 	}
+	/**
+	 * gets how long the character was unfrozen
+	 * @return the time the character was unfrozen
+	 */
 	public long getunfrozenTime() {
 		return unfrozenTime;
 	}
+	/**
+	 * gets how long the character was frozen
+	 * @return the time the character was frozen
+	 */
 	public long getFrozenTime() {
 		return frozenTime;
 	}
+	/**
+	 * whether the character was frozen or not frozen
+	 * @return true if frozen, false if not
+	 */
 	public boolean frozeOrUnfroze() {
 		return frozen;
 	}
+	/**
+	 * increases the amount of times tagged
+	 */
 	public void gotTagged() {
 		taggedTime++;
 	}
+	/**
+	 * returns the amount of time tagged
+	 * @return the amount of time tagged
+	 */
 	public int getTaggedTime() {
 		return taggedTime;
 	}
+	
+	/**
+	 * Makes the character move left and right
+	 * @param dir - direction you want the character to go 
+	 */
 	public void walk(int dir) {
 		if(!frozen) {
 			xVel = dir * 3;
@@ -142,6 +178,10 @@ public class Player extends Sprite {
 			yVel = 0;
 		}
 	}
+	/**
+	 * whether the character is invisible or not
+	 * @return true if invisible, false if not
+	 */
 	public boolean getInvisible() {
 		return invisible;
 	}

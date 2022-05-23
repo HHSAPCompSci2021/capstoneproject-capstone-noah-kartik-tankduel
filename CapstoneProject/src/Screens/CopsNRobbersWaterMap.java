@@ -13,6 +13,10 @@ import networking.frontend.NetworkListener;
 import networking.frontend.NetworkManagementPanel;
 import networking.frontend.NetworkMessenger;
 
+/**
+ * The cops and robbers game mode for the water map
+ * @author Noah Pien and Kartik Joshi
+ */
 public class CopsNRobbersWaterMap extends Screens implements NetworkListener{
 	private DrawingSurface surface;
 	private Line2D l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32,l33,l34,l35;
@@ -30,6 +34,7 @@ public class CopsNRobbersWaterMap extends Screens implements NetworkListener{
 	private Player f2;
 	private Player r1;
 	private Player r2;
+	
 	public static boolean roundWinner;
 	public static String[] currentRunner;
 	public static String[] currentTagger;
@@ -760,7 +765,10 @@ public class CopsNRobbersWaterMap extends Screens implements NetworkListener{
 		}
 	}
 	
-public void processNetworkMessages() {
+	/**
+	 * receives the messages from other computers
+	 */
+	public void processNetworkMessages() {
 		
 		if (nm == null)
 			return;
@@ -923,13 +931,24 @@ public void processNetworkMessages() {
 		diveTag.x = -100;
 	}
 	@Override
+	/**
+	 * connects to the messenger
+	 */
 	public void connectedToServer(NetworkMessenger nm) {
 		this.nm = nm;
 	}
+	
+	/**
+	 * gets the messenger
+	 * @return the messenger
+	 */
 	public NetworkMessenger getNetworkMessenger() {
 		return nm;
 	}
 	@Override
+	/**
+	 * the message received
+	 */
 	public void networkMessageReceived(NetworkDataObject ndo) {
 		
 	}

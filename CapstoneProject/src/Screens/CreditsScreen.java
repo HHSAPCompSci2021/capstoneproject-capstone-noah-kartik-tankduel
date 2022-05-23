@@ -2,7 +2,11 @@ package Screens;
 
 import System.DrawingSurface;
 import processing.event.MouseEvent;
-
+/**
+ * the credits screen
+ * @author Kartik Joshi
+ *
+ */
 public class CreditsScreen extends Screens{
 	private DrawingSurface surface;
 	public CreditsScreen(DrawingSurface surface) {
